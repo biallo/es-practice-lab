@@ -299,6 +299,84 @@ function render() {
   renderLesson();
 }
 
+function saveCurrentDraft() {
+  drafts[selectedLessonId] = codeEditorEl.value;
+  saveState();
+}
+
+function updateCodeEditorValue(value, selectionStart, selectionEnd) {
+  codeEditorEl.value = value;
+  codeEditorEl.selectionStart = selectionStart;
+  codeEditorEl.selectionEnd = selectionEnd;
+  saveCurrentDraft();
+}
+
+function indentCodeSelection(event) {
+  if (event.key !== 'Tab') {
+    return;
+  }
+
+  event.preventDefault();
+
+  const indent = '  ';
+  const value = codeEditorEl.value;
+  const start = codeEditorEl.selectionStart;
+  const end = codeEditorEl.selectionEnd;
+  const selectedText = value.slice(start, end);
+
+  if (!selectedText.includes('\n')) {
+    if (event.shiftKey) {
+      const beforeCursor = value.slice(Math.max(0, start - indent.length), start);
+      if (beforeCursor === indent) {
+        updateCodeEditorValue(
+          value.slice(0, start - indent.length) + value.slice(start),
+          start - indent.length,
+          end - indent.length
+        );
+      }
+      return;
+    }
+
+    updateCodeEditorValue(
+      value.slice(0, start) + indent + value.slice(end),
+      start + indent.length,
+      start + indent.length
+    );
+    return;
+  }
+
+  const lineStart = value.lastIndexOf('\n', start - 1) + 1;
+  const selection = value.slice(lineStart, end);
+
+  if (event.shiftKey) {
+    let removedFromFirstLine = 0;
+    const outdentedSelection = selection.replace(/^( {1,2})/gm, (matchedSpaces, spaces, offset) => {
+      const removed = spaces.length;
+      if (offset === 0) {
+        removedFromFirstLine = removed;
+      }
+      return '';
+    });
+    const removedTotal = selection.length - outdentedSelection.length;
+
+    updateCodeEditorValue(
+      value.slice(0, lineStart) + outdentedSelection + value.slice(end),
+      Math.max(lineStart, start - removedFromFirstLine),
+      end - removedTotal
+    );
+    return;
+  }
+
+  const indentedSelection = selection.replace(/^/gm, indent);
+  const lineCount = selection.split('\n').length;
+
+  updateCodeEditorValue(
+    value.slice(0, lineStart) + indentedSelection + value.slice(end),
+    start + indent.length,
+    end + indent.length * lineCount
+  );
+}
+
 runCodeBtn.addEventListener('click', () => {
   const code = codeEditorEl.value;
   const lesson = lessons.find((item) => item.id === selectedLessonId);
@@ -335,6 +413,7 @@ codeEditorEl.addEventListener('input', (event) => {
   drafts[selectedLessonId] = event.target.value;
   saveState();
 });
+codeEditorEl.addEventListener('keydown', indentCodeSelection);
 
 markCompletedBtn.addEventListener('click', () => {
   if (!completedLessons.includes(selectedLessonId)) {
