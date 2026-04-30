@@ -1,7 +1,7 @@
 import { lessons } from './lessons.js';
 
-const stateKey = 'es-practice-state-v2';
-const selectedLessonKey = 'es-practice-selected-lesson-v2';
+const stateKey = 'es-practice-state-v1';
+const selectedLessonKey = 'es-practice-selected-lesson';
 
 const lessonListEl = document.getElementById('lessonList');
 const mobileLessonSelectEl = document.getElementById('mobileLessonSelect');
