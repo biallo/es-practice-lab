@@ -385,23 +385,33 @@ function indentCodeSelection(event, saveDraft) {
   );
 }
 
-function runCode(code, outputEl) {
-  try {
-    const sandbox = document.createElement('iframe');
-    sandbox.style.display = 'none';
-    document.body.appendChild(sandbox);
+function waitForAsyncWork(ms = 0) {
+  return new Promise((resolve) => {
+    window.setTimeout(resolve, ms);
+  });
+}
 
+async function runCode(code, outputEl) {
+  outputEl.textContent = '运行中...';
+  const sandbox = document.createElement('iframe');
+  sandbox.style.display = 'none';
+  document.body.appendChild(sandbox);
+
+  try {
     const sandboxWindow = sandbox.contentWindow;
     let output = '';
     sandboxWindow.console.log = (...args) => {
       output += args.map((arg) => String(arg)).join(' ') + '\n';
     };
 
-    sandboxWindow.eval(code);
+    const result = sandboxWindow.eval(code);
+    await Promise.race([Promise.resolve(result), waitForAsyncWork(1000)]);
+    await waitForAsyncWork();
     outputEl.textContent = output || '代码执行完成（无输出）';
-    document.body.removeChild(sandbox);
   } catch (error) {
     outputEl.textContent = `错误：${error.message}`;
+  } finally {
+    document.body.removeChild(sandbox);
   }
 }
 
