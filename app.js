@@ -185,6 +185,7 @@ const stateKey = 'es-practice-state-v1';
 const selectedLessonKey = 'es-practice-selected-lesson';
 
 const lessonListEl = document.getElementById('lessonList');
+const mainContentEl = document.querySelector('.main-content');
 const progressTextEl = document.getElementById('progressText');
 const lessonTitleEl = document.getElementById('lessonTitle');
 const lessonExerciseEl = document.getElementById('lessonExercise');
@@ -226,6 +227,11 @@ function saveSelectedLesson() {
   localStorage.setItem(selectedLessonKey, selectedLessonId);
 }
 
+function scrollLessonContentToTop() {
+  mainContentEl.scrollTo({ top: 0, behavior: 'smooth' });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
 function renderLessonList() {
   lessonListEl.innerHTML = '';
   lessons.forEach((lesson) => {
@@ -234,16 +240,23 @@ function renderLessonList() {
     if (lesson.id === selectedLessonId) {
       item.classList.add('active');
     }
+    const isCompleted = completedLessons.includes(lesson.id);
+    if (isCompleted) {
+      item.classList.add('completed');
+    }
     item.innerHTML = `
       <div class="lesson-label">
         <div class="lesson-title">${lesson.id}. ${lesson.title}</div>
-        <div class="lesson-meta">${lesson.version}</div>
-        <div class="lesson-status">${completedLessons.includes(lesson.id) ? '已完成' : '未完成'}</div>
+        <div class="lesson-details">
+          <div class="lesson-meta">${lesson.version}</div>
+          <div class="lesson-status">${isCompleted ? '已完成' : '未完成'}</div>
+        </div>
       </div>`;
     item.addEventListener('click', () => {
       selectedLessonId = lesson.id;
       saveSelectedLesson();
       render();
+      scrollLessonContentToTop();
     });
     lessonListEl.appendChild(item);
   });
