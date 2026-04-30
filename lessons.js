@@ -42,7 +42,31 @@ const lessonCatalog = [
     exercise: "给 greet 的 name 参数添加默认值 Guest。",
     starterCode: "function greet(name) {\n  name = name || 'Guest';\n  console.log('Hello, ' + name);\n}\ngreet();",
     errorCode: "name = name || 'Guest';",
-    correctCode: "function greet(name = 'Guest') {\n  console.log('Hello, ' + name);\n}\ngreet();"
+    correctCode: "function greet(name = 'Guest') {\n  console.log('Hello, ' + name);\n}\ngreet();",
+    practice: {
+      prompt: "为 formatName 添加默认参数，让没有传入 name 时输出 Guest。",
+      starter: "function formatName(name) {\n  return 'Hello, ' + name;\n}\n\nconsole.log(formatName());",
+      answer: "function formatName(name = 'Guest') {\n  return 'Hello, ' + name;\n}\n\nconsole.log(formatName());",
+      explanation: [
+        "默认参数写在参数列表里，调用方没有传入 name 或传入 undefined 时会使用 Guest。",
+        "这种写法比在函数体里先判断再赋值更直接，也能把函数入口的默认规则放在最显眼的位置。"
+      ]
+    },
+    debugCase: {
+      title: "修复 || 兜底导致的有效值丢失",
+      broken: "function createPage(page) {\n  page = page || 1;\n  return 'page=' + page;\n}\n\nconsole.log(createPage(0));",
+      fixed: "function createPage(page = 1) {\n  return 'page=' + page;\n}\n\nconsole.log(createPage(0));",
+      reason: [
+        "|| 会把 0、空字符串、false 这类假值都替换掉，适合性不如默认参数精确。",
+        "默认参数只在参数值为 undefined 时生效，所以 createPage(0) 会保留用户明确传入的 0。"
+      ]
+    },
+    review: [
+      "默认参数只会在参数值为 undefined 时启用。",
+      "null、0、空字符串、false 都会作为真实传入值保留下来。",
+      "能解释默认参数和 value || fallback 的区别。",
+      "能把入口兜底逻辑放进参数列表，而不是散落在函数体里。"
+    ]
   },
   {
     version: "ES6",
@@ -55,7 +79,25 @@ const lessonCatalog = [
     exercise: "请将函数 function add(a, b) { return a + b; } 改写为箭头函数。",
     starterCode: "function add(a, b) {\n  return a + b;\n}",
     errorCode: "function add(a, b) {\n  return a + b;\n}",
-    correctCode: "const add = (a, b) => a + b;"
+    correctCode: "const add = (a, b) => a + b;",
+    practice: {
+      prompt: "使用箭头函数写一个 double 方法，接收一个数字并返回它的 2 倍。",
+      starter: "const double = \n\nconsole.log(double(4));",
+      answer: "const double = (value) => value * 2;\n\nconsole.log(double(4));",
+      explanation: "这个练习适合用表达式体箭头函数：参数 value 进入函数后直接返回 value * 2，不需要额外的 return 代码块。"
+    },
+    debugCase: {
+      title: "修复箭头函数中的 this 误用",
+      broken: "const user = {\n  name: 'Alice',\n  sayHi: () => {\n    console.log(this.name);\n  }\n};\n\nuser.sayHi();",
+      fixed: "const user = {\n  name: 'Alice',\n  sayHi() {\n    console.log(this.name);\n  }\n};\n\nuser.sayHi();",
+      reason: "箭头函数没有自己的 this，作为对象方法时不会自动指向 user。这里应该使用方法简写，让 this 在调用 user.sayHi() 时指向 user。"
+    },
+    review: [
+      "箭头函数适合短小回调和表达式返回。",
+      "箭头函数没有自己的 this、arguments、super 或 new.target。",
+      "对象方法、构造函数等需要动态 this 的场景，不应盲目使用箭头函数。",
+      "能区分表达式体写法和带 return 的代码块写法。"
+    ]
   },
   {
     version: "ES6",
@@ -68,7 +110,25 @@ const lessonCatalog = [
     exercise: "使用模板字符串创建一条问候语：Hello, my name is Alice and I am 30 years old.",
     starterCode: "const name = 'Alice';\nconst age = 30;\nconst message = 'Hello, my name is ' + name + ' and I am ' + age + ' years old.';",
     errorCode: "const message = 'Hello, my name is ' + name + ' and I am ' + age + ' years old.';",
-    correctCode: "const message = `Hello, my name is ${name} and I am ${age} years old.`;"
+    correctCode: "const message = `Hello, my name is ${name} and I am ${age} years old.`;",
+    practice: {
+      prompt: "使用模板字符串输出商品摘要：Book costs 30 dollars.",
+      starter: "const product = 'Book';\nconst price = 30;\nconst summary = \n\nconsole.log(summary);",
+      answer: "const product = 'Book';\nconst price = 30;\nconst summary = `${product} costs ${price} dollars.`;\n\nconsole.log(summary);",
+      explanation: "模板字符串用反引号包裹，通过 ${product} 和 ${price} 直接嵌入表达式，避免多个字符串片段和加号混在一起。"
+    },
+    debugCase: {
+      title: "修复模板字符串插值错误",
+      broken: "const name = 'Alice';\nconst city = 'Shanghai';\nconst message = 'Hello, ${name} from ${city}';\n\nconsole.log(message);",
+      fixed: "const name = 'Alice';\nconst city = 'Shanghai';\nconst message = `Hello, ${name} from ${city}`;\n\nconsole.log(message);",
+      reason: "只有反引号定义的模板字符串才会解析 ${} 插值。普通单引号字符串会把 ${name} 原样当作文本。"
+    },
+    review: [
+      "模板字符串必须使用反引号。",
+      "${} 中可以放变量，也可以放表达式。",
+      "模板字符串适合减少字符串拼接中的加号和空格错误。",
+      "模板字符串不会自动转义用户输入，输出到 HTML 等场景仍要注意安全。"
+    ]
   },
   {
     version: "ES6",
@@ -1148,14 +1208,130 @@ if (lessonsByTitle.size !== lessonCatalog.length) {
   throw new Error('课程标题不能重复。');
 }
 
+function normalizeTextItems(content, fallback) {
+  const source = content == null ? fallback : content;
+  const items = Array.isArray(source) ? source : [source];
+  return items
+    .map((item) => String(item ?? '').trim())
+    .filter(Boolean);
+}
+
+function createPractice(lesson, explanation) {
+  if (lesson.practice) {
+    return {
+      prompt: lesson.practice.prompt,
+      starter: lesson.practice.starter,
+      answer: lesson.practice.answer,
+      explanation: normalizeTextItems(lesson.practice.explanation, explanation),
+    };
+  }
+
+  return {
+    prompt: `独立完成：${lesson.exercise}`,
+    starter: `// 使用 ${lesson.title} 完成本课练习。\n// 目标：${lesson.exercise}\n\n`,
+    answer: lesson.correctCode,
+    explanation: [
+      `这道练习要求你从空白实现开始，主动选择 ${lesson.title} 的写法完成目标。`,
+      "参考答案展示的是本课推荐写法；对照时重点看它解决了旧写法里的哪类重复、歧义或安全问题。",
+    ],
+  };
+}
+
+function createDebugCase(lesson, explanation) {
+  if (lesson.debugCase) {
+    return {
+      title: lesson.debugCase.title,
+      broken: lesson.debugCase.broken,
+      fixed: lesson.debugCase.fixed,
+      reason: normalizeTextItems(lesson.debugCase.reason, explanation),
+    };
+  }
+
+  return {
+    title: `修复 ${lesson.title} 的旧写法或误用`,
+    broken: lesson.starterCode,
+    fixed: lesson.correctCode,
+    reason: [
+      "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
+      `修正版本使用 ${lesson.title} 表达同一意图，注意比较改动前后的语义是否保持一致。`,
+    ],
+  };
+}
+
+function createReviewItems(lesson) {
+  if (lesson.review) {
+    return normalizeTextItems(lesson.review);
+  }
+
+  return [
+    `能说出 ${lesson.title} 主要解决的问题。`,
+    "能独立完成练习，并解释参考答案里的关键变化。",
+    "能定位改错代码中的旧写法或误用，并写出修正理由。",
+    "知道这个特性适合的常见场景，也知道不需要强行使用的场景。",
+  ];
+}
+
+function normalizeComparableCode(code) {
+  return String(code ?? '').replace(/\s+/g, '');
+}
+
+function validateLesson(lesson) {
+  const requiredFields = [
+    ['version', lesson.version],
+    ['title', lesson.title],
+    ['exercise', lesson.exercise],
+    ['starterCode', lesson.starterCode],
+    ['correctCode', lesson.correctCode],
+    ['practice.prompt', lesson.practice.prompt],
+    ['practice.starter', lesson.practice.starter],
+    ['practice.answer', lesson.practice.answer],
+    ['debugCase.title', lesson.debugCase.title],
+    ['debugCase.broken', lesson.debugCase.broken],
+    ['debugCase.fixed', lesson.debugCase.fixed],
+  ];
+
+  requiredFields.forEach(([field, value]) => {
+    if (typeof value !== 'string' || value.trim() === '') {
+      throw new Error(`${lesson.title} 缺少必要字段：${field}`);
+    }
+  });
+
+  if (lesson.explanation.length < 2) {
+    throw new Error(`${lesson.title} 的核心讲解至少需要两条说明。`);
+  }
+
+  if (lesson.review.length < 3) {
+    throw new Error(`${lesson.title} 的复盘清单至少需要三项。`);
+  }
+
+  if (normalizeComparableCode(lesson.practice.starter) === normalizeComparableCode(lesson.debugCase.broken)) {
+    throw new Error(`${lesson.title} 的练习和改错代码不能完全相同。`);
+  }
+}
+
+function normalizeLesson(lesson, index) {
+  const explanation = normalizeTextItems(
+    lesson.explanation ?? lesson.concept,
+    `${lesson.title} 是 ${lesson.version} 中需要掌握的知识点。`
+  );
+  const normalizedLesson = {
+    ...lesson,
+    id: String(index + 1),
+    explanation,
+    practice: createPractice(lesson, explanation),
+    debugCase: createDebugCase(lesson, explanation),
+    review: createReviewItems(lesson),
+  };
+
+  validateLesson(normalizedLesson);
+  return normalizedLesson;
+}
+
 export const lessons = lessonSequence.map((title, index) => {
   const lesson = lessonsByTitle.get(title);
   if (!lesson) {
     throw new Error(`课程排序中找不到课程：${title}`);
   }
 
-  return {
-    ...lesson,
-    id: String(index + 1),
-  };
+  return normalizeLesson(lesson, index);
 });

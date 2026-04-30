@@ -230,6 +230,7 @@ pre {
   background: #111827;
   color: #f8fafc;
   padding: 16px;
+  margin-bottom: 10px;
   overflow-x: auto;
 }
 .code-sample.success {

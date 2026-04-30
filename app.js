@@ -54,8 +54,8 @@ function loadState() {
     try {
       const parsed = JSON.parse(stored);
       completedLessons = Array.isArray(parsed.completed) ? parsed.completed : [];
-      practiceDrafts = parsed.practiceDraftsByLesson || {};
-      debugDrafts = parsed.debugDraftsByLesson || {};
+      practiceDrafts = parsed.practiceDraftsByLessonV2 || {};
+      debugDrafts = parsed.debugDraftsByLessonV2 || {};
     } catch (e) {
       completedLessons = [];
       practiceDrafts = {};
@@ -79,8 +79,8 @@ function saveState() {
     stateKey,
     JSON.stringify({
       completed: completedLessons,
-      practiceDraftsByLesson: practiceDrafts,
-      debugDraftsByLesson: debugDrafts,
+      practiceDraftsByLessonV2: practiceDrafts,
+      debugDraftsByLessonV2: debugDrafts,
     })
   );
 }
@@ -108,10 +108,14 @@ function getDebugDraft(lesson) {
 function getPractice(lesson) {
   return {
     prompt: lesson.practice?.prompt ?? lesson.exercise,
-    starter: lesson.practice?.starter ?? lesson.starterCode,
+    starter: lesson.practice?.starter ?? createPracticeStarter(lesson),
     answer: lesson.practice?.answer ?? lesson.correctCode,
     explanation: lesson.practice?.explanation ?? lesson.explanation,
   };
+}
+
+function createPracticeStarter(lesson) {
+  return `// 练习：${lesson.exercise}\n// 请在下面写出你的实现，再运行或对照参考答案。\n`;
 }
 
 function getDebugCase(lesson) {
@@ -146,12 +150,12 @@ function getExplanationItems(lesson) {
 
 function renderExplanation(lesson) {
   const items = getExplanationItems(lesson);
-  if (items.length === 1) {
-    lessonExplanationEl.innerHTML = `<p>${items[0]}</p>`;
-    return;
-  }
+  renderTextBlock(lessonExplanationEl, items);
+}
 
-  lessonExplanationEl.innerHTML = `<ul class="concept-list">${items.map((item) => `<li>${item}</li>`).join('')}</ul>`;
+function renderTextBlock(element, content) {
+  const items = Array.isArray(content) ? content : [content];
+  element.innerHTML = `<ul class="concept-list">${items.map((item) => `<li>${item}</li>`).join('')}</ul>`;
 }
 
 function scrollLessonContentToTop() {
@@ -252,7 +256,7 @@ function renderLesson() {
   practiceOutputEl.textContent = '运行后结果会显示在这里';
   practiceResultEl.textContent = '';
   answerCodeEl.textContent = practice.answer;
-  answerExplanationEl.textContent = practice.explanation;
+  renderTextBlock(answerExplanationEl, practice.explanation);
   answerPanelEl.hidden = !showAnswer;
   toggleAnswerBtn.textContent = showAnswer ? '隐藏答案' : '查看答案';
 
@@ -260,7 +264,7 @@ function renderLesson() {
   debugOutputEl.textContent = '运行后结果会显示在这里';
   debugResultEl.textContent = '';
   fixCodeEl.textContent = debugCase.fixed;
-  fixExplanationEl.textContent = debugCase.reason;
+  renderTextBlock(fixExplanationEl, debugCase.reason);
   fixPanelEl.hidden = !showFix;
   toggleFixBtn.textContent = showFix ? '隐藏修正' : '显示修正';
 
