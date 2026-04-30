@@ -122,10 +122,6 @@ body {
   font-size: 2rem;
   line-height: 1.15;
 }
-.lesson-exercise {
-  margin: 8px 0 0;
-  color: #4b5563;
-}
 .study-tabs {
   display: flex;
   flex-wrap: wrap;
@@ -359,9 +355,6 @@ pre {
   }
   .content-grid {
     grid-template-columns: 1fr;
-  }
-  .lesson-exercise {
-    font-size: 0.95rem;
   }
   .primary-btn,
   .secondary-btn {

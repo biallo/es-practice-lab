@@ -11,7 +11,6 @@ const mobileLessonSelectEl = document.getElementById('mobileLessonSelect');
 const mainContentEl = document.querySelector('.main-content');
 const progressTextEl = document.getElementById('progressText');
 const lessonTitleEl = document.getElementById('lessonTitle');
-const lessonExerciseEl = document.getElementById('lessonExercise');
 const lessonExplanationEl = document.getElementById('lessonExplanation');
 const explainCodeEl = document.getElementById('explainCode');
 const practicePromptEl = document.getElementById('practicePrompt');
@@ -247,7 +246,6 @@ function renderLesson() {
   const debugCase = getDebugCase(lesson);
   const completed = completedLessons.includes(lesson.id);
   lessonTitleEl.textContent = `${lesson.id}. ${lesson.title} (${lesson.version})`;
-  lessonExerciseEl.textContent = practice.prompt;
   renderExplanation(lesson);
   explainCodeEl.textContent = lesson.exampleCode ?? lesson.correctCode;
 
