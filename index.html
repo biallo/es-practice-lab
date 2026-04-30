@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ECMAScript 学习项目</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">ES Practice Lab</div>
+      <div class="progress-summary">
+        <strong>进度</strong>
+        <div id="progressText"></div>
+      </div>
+      <div class="lesson-list" id="lessonList"></div>
+    </aside>
+    <main class="main-content">
+      <header class="main-header">
+        <div>
+          <h1 id="lessonTitle">请选择一堂课</h1>
+          <p id="lessonExercise" class="lesson-exercise"></p>
+        </div>
+        <button id="markCompletedBtn" class="primary-btn">标记完成</button>
+      </header>
+
+      <section class="panel">
+        <h2>核心讲解</h2>
+        <p id="lessonExplanation"></p>
+      </section>
+
+      <section class="panel editor-panel">
+        <div class="panel-header">
+          <h2>代码练习</h2>
+          <button id="runCodeBtn" class="secondary-btn">运行代码</button>
+        </div>
+        <textarea id="codeEditor" spellcheck="false"></textarea>
+      </section>
+
+      <section class="output-panel panel">
+        <h2>运行结果</h2>
+        <pre id="outputArea">运行后结果会显示在这里</pre>
+      </section>
+
+      <section class="panel examples-panel">
+        <div>
+          <h2>错误示例</h2>
+          <pre id="errorCode" class="code-sample"></pre>
+        </div>
+        <div>
+          <h2>修正示例</h2>
+          <pre id="correctCode" class="code-sample"></pre>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

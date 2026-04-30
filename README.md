@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ECMAScript 本地练习项目
 
-## Getting Started
+一个 ECMAScript 练习界面，适合本地运行和快速打包部署。项目支持：
 
-First, run the development server:
+- 每堂课核心讲解
+- 每堂课练习题
+- 错误代码与修正代码对比
+- 练习完成标记
+- 本地进度与代码草稿持久保存
+
+## 当前课程信息
+
+当前项目内置 18 堂 ECMAScript 课程，覆盖从 ES6 到 ESNext 的常用语法和新特性。
+
+| 序号 | 版本 | 课程主题 |
+| --- | --- | --- |
+| 1 | ES6 | let / const 与块级作用域 |
+| 2 | ES6 | Arrow Functions |
+| 3 | ES6 | Template Literals |
+| 4 | ES6 | Destructuring |
+| 5 | ES6 | Spread / Rest |
+| 6 | ES7 | Array.includes |
+| 7 | ES8 | Async / Await |
+| 8 | ES2016 | 指数运算符 |
+| 9 | ES2018 | 对象展开/剩余属性 |
+| 10 | ES2019 | Object.fromEntries |
+| 11 | ES2020 | Optional Chaining |
+| 12 | ES2020 | BigInt |
+| 13 | ES2021 | Nullish Coalescing 与 逻辑赋值 |
+| 14 | ES2021 | String.replaceAll |
+| 15 | ES2022 | 类字段与私有属性 |
+| 16 | ES2023 | Array.prototype.at |
+| 17 | ES2024 | Array.groupBy |
+| 18 | ESNext | 新特性预览：记录/元组 |
+
+## 快速启动
+
+如果只想快速打开练习界面，可直接用浏览器打开 `index.html`。
+
+### 本地开发
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+打开浏览器访问：
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```text
+http://localhost:5173
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 生产构建
 
-## Learn More
+```bash
+npm run build
+```
 
-To learn more about Next.js, take a look at the following resources:
+### 本地预览构建结果
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run preview
+```
