@@ -126,6 +126,38 @@ body {
   margin: 8px 0 0;
   color: #4b5563;
 }
+.study-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.study-tab {
+  min-width: 84px;
+  min-height: 40px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #4b5563;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+}
+.study-tab.active {
+  border-color: #4338ca;
+  background: #4338ca;
+  color: #ffffff;
+}
+.tab-panel {
+  display: none;
+}
+.tab-panel.active {
+  display: block;
+}
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
 .panel {
   background: #ffffff;
   border-radius: 18px;
@@ -138,6 +170,21 @@ body {
 }
 .panel p {
   margin: 0;
+  color: #4b5563;
+  line-height: 1.65;
+}
+.concept-list {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.concept-list li {
+  border-left: 4px solid #4338ca;
+  padding-left: 12px;
+  color: #374151;
+  line-height: 1.65;
 }
 .editor-panel {
   display: flex;
@@ -148,6 +195,16 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.result-note {
+  min-height: 1.5em;
+  color: #4338ca;
+  font-weight: 700;
 }
 textarea {
   width: 100%;
@@ -175,6 +232,31 @@ pre {
   padding: 16px;
   overflow-x: auto;
 }
+.code-sample.success {
+  background: #064e3b;
+}
+.answer-panel {
+  margin-top: 16px;
+}
+#fixPanel {
+  margin-top: 14px;
+}
+.output-panel {
+  margin-top: 16px;
+}
+.checklist {
+  display: grid;
+  gap: 12px;
+  margin: 0 0 18px;
+  padding: 0;
+  list-style: none;
+}
+.checklist li {
+  border-left: 4px solid #4338ca;
+  padding-left: 12px;
+  color: #374151;
+  line-height: 1.65;
+}
 .examples-panel {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -192,6 +274,17 @@ pre {
 .primary-btn {
   background: #4338ca;
   color: #ffffff;
+}
+.primary-btn.completed {
+  background: #e2e8f0;
+  color: #334155;
+}
+.primary-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.68;
+}
+.primary-btn.completed:disabled {
+  opacity: 1;
 }
 .secondary-btn {
   background: #e5e7eb;
@@ -254,6 +347,18 @@ pre {
   .main-header h1 {
     font-size: 1.45rem;
   }
+  .study-tabs {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 6px;
+  }
+  .study-tab {
+    min-width: 0;
+    padding: 8px 6px;
+  }
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
   .lesson-exercise {
     font-size: 0.95rem;
   }
@@ -273,6 +378,10 @@ pre {
     align-items: stretch;
     flex-direction: column;
     gap: 10px;
+  }
+  .button-row {
+    display: grid;
+    grid-template-columns: 1fr;
   }
   textarea {
     min-height: 220px;

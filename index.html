@@ -26,36 +26,94 @@
           <h1 id="lessonTitle">请选择一堂课</h1>
           <p id="lessonExercise" class="lesson-exercise"></p>
         </div>
-        <button id="markCompletedBtn" class="primary-btn">标记完成</button>
       </header>
 
-      <section class="panel">
-        <h2>核心讲解</h2>
-        <p id="lessonExplanation"></p>
+      <nav class="study-tabs" aria-label="学习步骤">
+        <button class="study-tab active" data-tab="explain" type="button">讲解</button>
+        <button class="study-tab" data-tab="practice" type="button">练习</button>
+        <button class="study-tab" data-tab="debug" type="button">改错</button>
+        <button class="study-tab" data-tab="review" type="button">复盘</button>
+      </nav>
+
+      <section class="tab-panel active" data-panel="explain">
+        <div class="content-grid">
+          <article class="panel">
+            <h2>核心讲解</h2>
+            <p id="lessonExplanation"></p>
+          </article>
+          <article class="panel">
+            <h2>参考示例</h2>
+            <pre id="explainCode" class="code-sample"></pre>
+          </article>
+        </div>
       </section>
 
-      <section class="panel editor-panel">
-        <div class="panel-header">
-          <h2>代码练习</h2>
-          <button id="runCodeBtn" class="secondary-btn">运行代码</button>
-        </div>
-        <textarea id="codeEditor" spellcheck="false"></textarea>
+      <section class="tab-panel" data-panel="practice">
+        <article class="panel editor-panel">
+          <div class="panel-header">
+            <div>
+              <h2>练习题</h2>
+              <p id="practicePrompt"></p>
+            </div>
+          </div>
+          <textarea id="practiceEditor" spellcheck="false"></textarea>
+          <div class="button-row">
+            <button id="runPracticeBtn" class="primary-btn" type="button">运行代码</button>
+            <button id="checkPracticeBtn" class="secondary-btn" type="button">检查答案</button>
+            <button id="toggleAnswerBtn" class="secondary-btn" type="button">查看答案</button>
+            <button id="resetPracticeBtn" class="secondary-btn" type="button">重置</button>
+          </div>
+          <p id="practiceResult" class="result-note"></p>
+        </article>
+
+        <article id="answerPanel" class="panel answer-panel" hidden>
+          <h2>参考答案</h2>
+          <pre id="answerCode" class="code-sample success"></pre>
+          <p id="answerExplanation"></p>
+        </article>
+
+        <article class="output-panel panel">
+          <h2>运行结果</h2>
+          <pre id="practiceOutput">运行后结果会显示在这里</pre>
+        </article>
       </section>
 
-      <section class="output-panel panel">
-        <h2>运行结果</h2>
-        <pre id="outputArea">运行后结果会显示在这里</pre>
+      <section class="tab-panel" data-panel="debug">
+        <div class="content-grid">
+          <article class="panel editor-panel">
+            <h2>改错练习</h2>
+            <p>直接修改下面的代码，试着把它改成更正确、更符合本课知识点的写法。</p>
+            <textarea id="debugEditor" spellcheck="false"></textarea>
+            <div class="button-row">
+              <button id="runDebugBtn" class="primary-btn" type="button">运行代码</button>
+              <button id="checkDebugBtn" class="secondary-btn" type="button">检查修正</button>
+              <button id="resetDebugBtn" class="secondary-btn" type="button">重置</button>
+            </div>
+            <p id="debugResult" class="result-note"></p>
+          </article>
+
+          <article class="panel">
+            <h2>修正版本</h2>
+            <button id="toggleFixBtn" class="secondary-btn" type="button">显示修正</button>
+            <div id="fixPanel" hidden>
+              <pre id="fixCode" class="code-sample success"></pre>
+              <p id="fixExplanation"></p>
+            </div>
+          </article>
+        </div>
+
+        <article class="output-panel panel">
+          <h2>运行结果</h2>
+          <pre id="debugOutput">运行后结果会显示在这里</pre>
+        </article>
       </section>
 
-      <section class="panel examples-panel">
-        <div>
-          <h2>错误示例</h2>
-          <pre id="errorCode" class="code-sample"></pre>
-        </div>
-        <div>
-          <h2>修正示例</h2>
-          <pre id="correctCode" class="code-sample"></pre>
-        </div>
+      <section class="tab-panel" data-panel="review">
+        <article class="panel">
+          <h2>本课复盘</h2>
+          <ul id="reviewChecklist" class="checklist"></ul>
+          <button id="markCompletedBtn" class="primary-btn" type="button">标记完成</button>
+        </article>
       </section>
     </main>
   </div>
