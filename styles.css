@@ -21,6 +21,11 @@ body {
   background: #111827;
   color: #f9fafb;
   padding: 24px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -42,7 +47,26 @@ body {
 .lesson-list {
   display: flex;
   flex-direction: column;
+  flex: 1;
   gap: 8px;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-right: 4px;
+  scrollbar-gutter: stable;
+}
+.lesson-list::-webkit-scrollbar {
+  width: 8px;
+}
+.lesson-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+.lesson-list::-webkit-scrollbar-thumb {
+  background: #374151;
+  border-radius: 999px;
+}
+.lesson-list:hover::-webkit-scrollbar-thumb {
+  background: #4b5563;
 }
 .lesson-item {
   padding: 12px;
@@ -289,6 +313,8 @@ pre {
   }
   .sidebar {
     padding: 18px 16px 14px;
+    position: static;
+    height: auto;
     gap: 12px;
     overflow: hidden;
   }

@@ -166,6 +166,22 @@ function scrollLessonContentToTop() {
   window.scrollTo({ top: 0, behavior: options.behavior });
 }
 
+function scrollActiveLessonIntoListView(activeLessonItem) {
+  if (!activeLessonItem || window.matchMedia('(max-width: 980px)').matches) {
+    return;
+  }
+
+  requestAnimationFrame(() => {
+    const listHeight = lessonListEl.clientHeight;
+    if (!listHeight) {
+      return;
+    }
+
+    const targetTop = activeLessonItem.offsetTop - (listHeight - activeLessonItem.offsetHeight) / 2;
+    lessonListEl.scrollTo({ top: Math.max(0, targetTop), behavior: 'auto' });
+  });
+}
+
 function switchTab(tab) {
   activeTab = tab;
   saveActiveTab();
@@ -187,6 +203,7 @@ function renderTabs() {
 function renderLessonList() {
   lessonListEl.innerHTML = '';
   mobileLessonSelectEl.innerHTML = '';
+  let activeLessonItem = null;
   lessons.forEach((lesson) => {
     const isCompleted = completedLessons.includes(lesson.id);
     const option = document.createElement('option');
@@ -199,6 +216,7 @@ function renderLessonList() {
     item.className = 'lesson-item';
     if (lesson.id === selectedLessonId) {
       item.classList.add('active');
+      activeLessonItem = item;
     }
     if (isCompleted) {
       item.classList.add('completed');
@@ -223,6 +241,8 @@ function renderLessonList() {
     });
     lessonListEl.appendChild(item);
   });
+
+  scrollActiveLessonIntoListView(activeLessonItem);
 }
 
 function updateProgress() {
