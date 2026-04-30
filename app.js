@@ -185,6 +185,7 @@ const stateKey = 'es-practice-state-v1';
 const selectedLessonKey = 'es-practice-selected-lesson';
 
 const lessonListEl = document.getElementById('lessonList');
+const mobileLessonSelectEl = document.getElementById('mobileLessonSelect');
 const mainContentEl = document.querySelector('.main-content');
 const progressTextEl = document.getElementById('progressText');
 const lessonTitleEl = document.getElementById('lessonTitle');
@@ -228,19 +229,30 @@ function saveSelectedLesson() {
 }
 
 function scrollLessonContentToTop() {
+  if (window.matchMedia('(max-width: 980px)').matches) {
+    mainContentEl.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    return;
+  }
   mainContentEl.scrollTo({ top: 0, behavior: 'smooth' });
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function renderLessonList() {
   lessonListEl.innerHTML = '';
+  mobileLessonSelectEl.innerHTML = '';
   lessons.forEach((lesson) => {
+    const isCompleted = completedLessons.includes(lesson.id);
+    const option = document.createElement('option');
+    option.value = lesson.id;
+    option.textContent = `${lesson.id}. ${lesson.title} (${lesson.version})${isCompleted ? ' - 已完成' : ''}`;
+    option.selected = lesson.id === selectedLessonId;
+    mobileLessonSelectEl.appendChild(option);
+
     const item = document.createElement('div');
     item.className = 'lesson-item';
     if (lesson.id === selectedLessonId) {
       item.classList.add('active');
     }
-    const isCompleted = completedLessons.includes(lesson.id);
     if (isCompleted) {
       item.classList.add('completed');
     }
@@ -330,6 +342,13 @@ markCompletedBtn.addEventListener('click', () => {
     saveState();
     render();
   }
+});
+
+mobileLessonSelectEl.addEventListener('change', (event) => {
+  selectedLessonId = event.target.value;
+  saveSelectedLesson();
+  render();
+  scrollLessonContentToTop();
 });
 
 loadState();
