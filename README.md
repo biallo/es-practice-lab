@@ -2,6 +2,8 @@
 
 一个 ECMAScript 练习界面，适合本地运行和快速打包部署。项目支持：
 
+[在线预览](https://biallo.github.io/es-practice-lab/)
+
 - 每堂课核心讲解
 - 每堂课练习题
 - 错误代码与修正代码对比
