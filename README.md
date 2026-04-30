@@ -14,7 +14,7 @@
 
 ## 当前课程信息
 
-当前项目内置 62 堂 ECMAScript 课程，覆盖从 ES6 到 ES2025/ESNext 的常用语法和新特性。
+当前项目内置 80 堂 ECMAScript 课程，覆盖从 ES6 到 ESNext 的常用、重要语法和新特性。
 
 | 序号 | 版本 | 课程主题 |
 | --- | --- | --- |
@@ -52,34 +52,52 @@
 | 32 | ES2018 | Async Iteration |
 | 33 | ES2018 | Promise.finally |
 | 34 | ES2018 | RegExp 命名捕获组 |
-| 35 | ES2019 | Object.fromEntries |
-| 36 | ES2019 | Array.flat / flatMap |
-| 37 | ES2019 | Optional catch binding |
-| 38 | ES2019 | Symbol.description |
-| 39 | ES2020 | Optional Chaining |
-| 40 | ES2020 | BigInt |
-| 41 | ES2020 | globalThis |
-| 42 | ES2020 | Promise.allSettled |
-| 43 | ES2020 | Dynamic import / import.meta |
-| 44 | ES2020 | String.matchAll |
-| 45 | ES2021 | Nullish Coalescing 与 逻辑赋值 |
-| 46 | ES2021 | String.replaceAll |
-| 47 | ES2021 | Promise.any |
-| 48 | ES2021 | Numeric separators |
-| 49 | ES2022 | 类字段与私有属性 |
-| 50 | ES2022 | Object.hasOwn |
-| 51 | ES2022 | Top-level await |
-| 52 | ES2022 | Error cause |
-| 53 | ES2023 | Array.prototype.at |
-| 54 | ES2023 | Change Array by Copy |
-| 55 | ES2023 | Array.findLast / findLastIndex |
-| 56 | ES2024 | Object.groupBy / Map.groupBy |
-| 57 | ES2024 | Promise.withResolvers |
-| 58 | ES2025 | Set methods |
-| 59 | ES2025 | Iterator helpers |
-| 60 | ES2025 | RegExp.escape |
-| 61 | ES2025 | Promise.try |
-| 62 | ESNext | 新特性预览：记录/元组 |
+| 35 | ES2018 | RegExp 增强：dotAll / lookbehind / Unicode properties |
+| 36 | ES2019 | Object.fromEntries |
+| 37 | ES2019 | Array.flat / flatMap |
+| 38 | ES2019 | Optional catch binding |
+| 39 | ES2019 | Symbol.description |
+| 40 | ES2020 | Optional Chaining |
+| 41 | ES2020 | BigInt |
+| 42 | ES2020 | globalThis |
+| 43 | ES2020 | Promise.allSettled |
+| 44 | ES2020 | Dynamic import / import.meta |
+| 45 | ES2020 | String.matchAll |
+| 46 | ES2021 | Nullish Coalescing 与 逻辑赋值 |
+| 47 | ES2021 | String.replaceAll |
+| 48 | ES2021 | Promise.any |
+| 49 | ES2021 | Numeric separators |
+| 50 | ES2021 | WeakRef / FinalizationRegistry |
+| 51 | ES2022 | 类字段与私有属性 |
+| 52 | ES2022 | Array.prototype.at |
+| 53 | ES2022 | Class static block |
+| 54 | ES2022 | Private brand checks |
+| 55 | ES2022 | RegExp match indices |
+| 56 | ES2022 | Object.hasOwn |
+| 57 | ES2022 | Top-level await |
+| 58 | ES2022 | Error cause |
+| 59 | ES2023 | Change Array by Copy |
+| 60 | ES2023 | Array.findLast / findLastIndex |
+| 61 | ES2023 | Symbols as WeakMap keys |
+| 62 | ES2024 | Object.groupBy / Map.groupBy |
+| 63 | ES2024 | Promise.withResolvers |
+| 64 | ES2024 | ArrayBuffer transfer |
+| 65 | ES2024 | Resizable ArrayBuffer |
+| 66 | ES2024 | RegExp v flag |
+| 67 | ES2024 | String isWellFormed / toWellFormed |
+| 68 | ES2025 | Set methods |
+| 69 | ES2025 | Iterator helpers |
+| 70 | ES2025 | RegExp.escape |
+| 71 | ES2025 | Promise.try |
+| 72 | ES2025 | Import Attributes / JSON Modules |
+| 73 | ES2025 | RegExp modifiers |
+| 74 | ESNext | Array.fromAsync |
+| 75 | ESNext | Error.isError |
+| 76 | ESNext | Uint8Array Base64 / Hex |
+| 77 | ESNext | Map upsert |
+| 78 | ESNext | JSON.parse source text access |
+| 79 | ESNext | Math.sumPrecise |
+| 80 | ESNext | Temporal |
 
 ### 本地开发
 
