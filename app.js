@@ -16,24 +16,20 @@ const explainCodeEl = document.getElementById('explainCode');
 const practicePromptEl = document.getElementById('practicePrompt');
 const practiceEditorEl = document.getElementById('practiceEditor');
 const practiceOutputEl = document.getElementById('practiceOutput');
-const practiceResultEl = document.getElementById('practiceResult');
 const answerPanelEl = document.getElementById('answerPanel');
 const answerCodeEl = document.getElementById('answerCode');
 const answerExplanationEl = document.getElementById('answerExplanation');
 const debugEditorEl = document.getElementById('debugEditor');
 const debugOutputEl = document.getElementById('debugOutput');
-const debugResultEl = document.getElementById('debugResult');
 const fixPanelEl = document.getElementById('fixPanel');
 const fixCodeEl = document.getElementById('fixCode');
 const fixExplanationEl = document.getElementById('fixExplanation');
 const reviewChecklistEl = document.getElementById('reviewChecklist');
 const markCompletedBtn = document.getElementById('markCompletedBtn');
 const runPracticeBtn = document.getElementById('runPracticeBtn');
-const checkPracticeBtn = document.getElementById('checkPracticeBtn');
 const toggleAnswerBtn = document.getElementById('toggleAnswerBtn');
 const resetPracticeBtn = document.getElementById('resetPracticeBtn');
 const runDebugBtn = document.getElementById('runDebugBtn');
-const checkDebugBtn = document.getElementById('checkDebugBtn');
 const resetDebugBtn = document.getElementById('resetDebugBtn');
 const toggleFixBtn = document.getElementById('toggleFixBtn');
 const tabButtons = Array.from(document.querySelectorAll('.study-tab'));
@@ -252,7 +248,6 @@ function renderLesson() {
   practicePromptEl.textContent = practice.prompt;
   practiceEditorEl.value = getPracticeDraft(lesson);
   practiceOutputEl.textContent = '运行后结果会显示在这里';
-  practiceResultEl.textContent = '';
   answerCodeEl.textContent = practice.answer;
   renderTextBlock(answerExplanationEl, practice.explanation);
   answerPanelEl.hidden = !showAnswer;
@@ -260,7 +255,6 @@ function renderLesson() {
 
   debugEditorEl.value = getDebugDraft(lesson);
   debugOutputEl.textContent = '运行后结果会显示在这里';
-  debugResultEl.textContent = '';
   fixCodeEl.textContent = debugCase.fixed;
   renderTextBlock(fixExplanationEl, debugCase.reason);
   fixPanelEl.hidden = !showFix;
@@ -277,10 +271,6 @@ function render() {
   updateProgress();
   renderTabs();
   renderLesson();
-}
-
-function normalizeCode(code) {
-  return code.replace(/\s+/g, '');
 }
 
 function savePracticeDraft() {
@@ -395,22 +385,6 @@ function runCode(code, outputEl) {
   }
 }
 
-function checkPractice() {
-  const lesson = getSelectedLesson();
-  const matched = normalizeCode(practiceEditorEl.value) === normalizeCode(getPractice(lesson).answer);
-  practiceResultEl.textContent = matched
-    ? '看起来和参考答案一致。'
-    : '还不完全一样。可以先运行看看结果，再决定是否查看答案。';
-}
-
-function checkDebug() {
-  const lesson = getSelectedLesson();
-  const matched = normalizeCode(debugEditorEl.value) === normalizeCode(getDebugCase(lesson).fixed);
-  debugResultEl.textContent = matched
-    ? '修正结果和参考版本一致。'
-    : '还没完全修好。重点对照本课知识点和修正版本。';
-}
-
 tabButtons.forEach((button) => {
   button.addEventListener('click', () => switchTab(button.dataset.tab));
 });
@@ -419,8 +393,6 @@ runPracticeBtn.addEventListener('click', () => {
   savePracticeDraft();
   runCode(practiceEditorEl.value, practiceOutputEl);
 });
-
-checkPracticeBtn.addEventListener('click', checkPractice);
 
 toggleAnswerBtn.addEventListener('click', () => {
   showAnswer = !showAnswer;
@@ -431,7 +403,6 @@ resetPracticeBtn.addEventListener('click', () => {
   const lesson = getSelectedLesson();
   const practice = getPractice(lesson);
   practiceEditorEl.value = practice.starter;
-  practiceResultEl.textContent = '';
   practiceDrafts[lesson.id] = practice.starter;
   saveState();
 });
@@ -441,13 +412,10 @@ runDebugBtn.addEventListener('click', () => {
   runCode(debugEditorEl.value, debugOutputEl);
 });
 
-checkDebugBtn.addEventListener('click', checkDebug);
-
 resetDebugBtn.addEventListener('click', () => {
   const lesson = getSelectedLesson();
   const debugCase = getDebugCase(lesson);
   debugEditorEl.value = debugCase.broken;
-  debugResultEl.textContent = '';
   debugDrafts[lesson.id] = debugCase.broken;
   saveState();
 });
@@ -459,13 +427,11 @@ toggleFixBtn.addEventListener('click', () => {
 
 practiceEditorEl.addEventListener('input', () => {
   savePracticeDraft();
-  practiceResultEl.textContent = '';
 });
 practiceEditorEl.addEventListener('keydown', (event) => indentCodeSelection(event, savePracticeDraft));
 
 debugEditorEl.addEventListener('input', () => {
   saveDebugDraft();
-  debugResultEl.textContent = '';
 });
 debugEditorEl.addEventListener('keydown', (event) => indentCodeSelection(event, saveDebugDraft));
 
