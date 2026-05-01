@@ -160,31 +160,34 @@ export const es2018Lessons = [
     title: "RegExp 增强：dotAll / lookbehind / Unicode properties",
     explanation: [
       "ES2018 为正则表达式加入 dotAll、lookbehind 和 Unicode property escapes，让跨行、后行断言和 Unicode 分类匹配更强。",
-      "典型使用场景：使用 lookbehind 提取价格中的数字。",
+      "典型使用场景：用 dotAll 跨行匹配文本，用 lookbehind 提取价格数字，用 Unicode properties 匹配中文字符。",
       "解决的旧写法问题：过去跨行匹配、前后文限定和 Unicode 分类常要写复杂替代模式。",
       "适合使用：需要跨行点号匹配、基于前文/后文提取，或按 Unicode 属性匹配字符。",
       "继续用传统写法：规则很简单时不要过度使用高级正则；可读性差时拆成字符串处理更好维护。"
     ],
-    exercise: "使用 lookbehind 提取价格中的数字。",
-    starterCode: "const text = '$42';\nconst match = text.match(/\\d+/);\nconsole.log(match[0]);",
-    errorCode: "text.match(/\\d+/);",
-    correctCode: "const text = '$42';\nconst match = text.match(/(?<=\\$)\\d+/);\nconsole.log(match[0]);",
+    exercise: "分别使用 dotAll、lookbehind 和 Unicode properties 改写三个正则。",
+    starterCode: "const block = 'title:\\nHello';\nconsole.log(/title:[\\s\\S]+/.test(block));\n\nconst price = '$42';\nconsole.log(price.match(/\\$(\\d+)/)[1]);\n\nconst name = 'Alice 张三';\nconsole.log(name.match(/[\\u4e00-\\u9fa5]+/)[0]);",
+    errorCode: "/title:[\\s\\S]+/;\n/\\$(\\d+)/;\n/[\\u4e00-\\u9fa5]+/;",
+    correctCode: "const block = 'title:\\nHello';\nconsole.log(/title:.+/s.test(block));\n\nconst price = '$42';\nconsole.log(price.match(/(?<=\\$)\\d+/)[0]);\n\nconst name = 'Alice 张三';\nconsole.log(name.match(/\\p{Script=Han}+/u)[0]);",
     practice: {
-      prompt: "独立完成：使用 lookbehind 提取价格中的数字。",
-      starter: "// 使用 RegExp 增强：dotAll / lookbehind / Unicode properties 完成本课练习。\n// 目标：使用 lookbehind 提取价格中的数字。\n\n",
-      answer: "const text = '$42';\nconst match = text.match(/(?<=\\$)\\d+/);\nconsole.log(match[0]);",
+      prompt: "独立完成：分别使用 dotAll、lookbehind 和 Unicode properties 改写三个正则。",
+      starter: "// 使用 RegExp 增强：dotAll / lookbehind / Unicode properties 完成本课练习。\n// 目标：分别使用 dotAll、lookbehind 和 Unicode properties 改写三个正则。\n\n",
+      answer: "const block = 'title:\\nHello';\nconsole.log(/title:.+/s.test(block));\n\nconst price = '$42';\nconsole.log(price.match(/(?<=\\$)\\d+/)[0]);\n\nconst name = 'Alice 张三';\nconsole.log(name.match(/\\p{Script=Han}+/u)[0]);",
       explanation: [
         "这道练习要求你从空白实现开始，主动选择 RegExp 增强：dotAll / lookbehind / Unicode properties 的写法完成目标。",
+        "/title:.+/s 中的 s 是 dotAll，让 . 可以匹配换行符。",
+        "/(?<=\\$)\\d+/ 中的 (?<=\\$) 是 lookbehind，表示数字前面必须是 $，但 $ 不进入匹配结果。",
+        "/\\p{Script=Han}+/u 中的 \\p{Script=Han} 是 Unicode property escape，u 标志让 Unicode 属性匹配生效。",
         "参考答案展示的是本课推荐写法；对照时重点看它解决了旧写法里的哪类重复、歧义或安全问题。"
       ]
     },
     debugCase: {
       title: "修复 RegExp 增强：dotAll / lookbehind / Unicode properties 的旧写法或误用",
-      broken: "const text = '$42';\nconst match = text.match(/\\d+/);\nconsole.log(match[0]);",
-      fixed: "const text = '$42';\nconst match = text.match(/(?<=\\$)\\d+/);\nconsole.log(match[0]);",
+      broken: "const block = 'title:\\nHello';\nconsole.log(/title:[\\s\\S]+/.test(block));\n\nconst price = '$42';\nconsole.log(price.match(/\\$(\\d+)/)[1]);\n\nconst name = 'Alice 张三';\nconsole.log(name.match(/[\\u4e00-\\u9fa5]+/)[0]);",
+      fixed: "const block = 'title:\\nHello';\nconsole.log(/title:.+/s.test(block));\n\nconst price = '$42';\nconsole.log(price.match(/(?<=\\$)\\d+/)[0]);\n\nconst name = 'Alice 张三';\nconsole.log(name.match(/\\p{Script=Han}+/u)[0]);",
       reason: [
         "解决的旧写法问题：过去跨行匹配、前后文限定和 Unicode 分类常要写复杂替代模式。",
-        "这道改错要重点替换这段旧写法：text.match(/\\d+/);"
+        "这道改错要重点替换三处：用 /s 替代 [\\s\\S] 跨行匹配，用 (?<=\\$) 替代捕获 $ 后再取分组，用 \\p{Script=Han} 配合 /u 替代中文 Unicode 区间。"
       ]
     },
     review: [

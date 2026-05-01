@@ -43,31 +43,33 @@ export const es2019Lessons = [
     title: "Array.flat / flatMap",
     explanation: [
       "flat 用于展开嵌套数组，flatMap 则把 map 和一层 flat 合并成一步。",
-      "典型使用场景：使用 flat 将二维数组展平成一维数组。",
+      "典型使用场景：使用 flat 将二维数组展平成一维数组，使用 flatMap 将映射和展开合并成一步。",
       "解决的旧写法问题：展开嵌套数组常要 concat(...list) 或 reduce，map 后再 flat 也会分成两步。",
       "适合使用：需要展开固定深度数组，或对每项映射后展开一层。",
       "继续用传统写法：嵌套结构代表真实层级关系，或需要自定义递归规则时，不要盲目拍平。"
     ],
-    exercise: "使用 flat 将二维数组展平成一维数组。",
-    starterCode: "const list = [[1, 2], [3, 4]];\nconst result = [].concat(...list);\nconsole.log(result);",
-    errorCode: "[].concat(...list);",
-    correctCode: "const list = [[1, 2], [3, 4]];\nconst result = list.flat();\nconsole.log(result);",
+    exercise: "使用 flat 展平二维数组，并使用 flatMap 提取所有标签。",
+    starterCode: "const list = [[1, 2], [3, 4]];\nconst result = [].concat(...list);\nconsole.log(result);\n\nconst posts = [{ tags: ['js', 'es2019'] }, { tags: ['array'] }];\nconst tags = posts.map((post) => post.tags).flat();\nconsole.log(tags);",
+    errorCode: "[].concat(...list);\nposts.map((post) => post.tags).flat();",
+    correctCode: "const list = [[1, 2], [3, 4]];\nconst result = list.flat();\nconsole.log(result);\n\nconst posts = [{ tags: ['js', 'es2019'] }, { tags: ['array'] }];\nconst tags = posts.flatMap((post) => post.tags);\nconsole.log(tags);",
     practice: {
-      prompt: "独立完成：使用 flat 将二维数组展平成一维数组。",
-      starter: "// 使用 Array.flat / flatMap 完成本课练习。\n// 目标：使用 flat 将二维数组展平成一维数组。\n\n",
-      answer: "const list = [[1, 2], [3, 4]];\nconst result = list.flat();\nconsole.log(result);",
+      prompt: "独立完成：使用 flat 展平二维数组，并使用 flatMap 提取所有标签。",
+      starter: "// 使用 Array.flat / flatMap 完成本课练习。\n// 目标：使用 flat 展平二维数组，并使用 flatMap 提取所有标签。\n\n",
+      answer: "const list = [[1, 2], [3, 4]];\nconst result = list.flat();\nconsole.log(result);\n\nconst posts = [{ tags: ['js', 'es2019'] }, { tags: ['array'] }];\nconst tags = posts.flatMap((post) => post.tags);\nconsole.log(tags);",
       explanation: [
         "这道练习要求你从空白实现开始，主动选择 Array.flat / flatMap 的写法完成目标。",
+        "list.flat() 对应 flat：把二维数组展开一层。",
+        "posts.flatMap((post) => post.tags) 对应 flatMap：先把每篇文章映射成 tags 数组，再自动展开一层。",
         "参考答案展示的是本课推荐写法；对照时重点看它解决了旧写法里的哪类重复、歧义或安全问题。"
       ]
     },
     debugCase: {
       title: "修复 Array.flat / flatMap 的旧写法或误用",
-      broken: "const list = [[1, 2], [3, 4]];\nconst result = [].concat(...list);\nconsole.log(result);",
-      fixed: "const list = [[1, 2], [3, 4]];\nconst result = list.flat();\nconsole.log(result);",
+      broken: "const list = [[1, 2], [3, 4]];\nconst result = [].concat(...list);\nconsole.log(result);\n\nconst posts = [{ tags: ['js', 'es2019'] }, { tags: ['array'] }];\nconst tags = posts.map((post) => post.tags).flat();\nconsole.log(tags);",
+      fixed: "const list = [[1, 2], [3, 4]];\nconst result = list.flat();\nconsole.log(result);\n\nconst posts = [{ tags: ['js', 'es2019'] }, { tags: ['array'] }];\nconst tags = posts.flatMap((post) => post.tags);\nconsole.log(tags);",
       reason: [
         "解决的旧写法问题：展开嵌套数组常要 concat(...list) 或 reduce，map 后再 flat 也会分成两步。",
-        "这道改错要重点替换这段旧写法：[].concat(...list);"
+        "这道改错要重点替换两处：用 list.flat() 替代 [].concat(...list)，用 posts.flatMap(...) 替代 posts.map(...).flat()。"
       ]
     },
     review: [
