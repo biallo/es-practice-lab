@@ -399,13 +399,56 @@ async function runCode(code, outputEl) {
 
   try {
     const sandboxWindow = sandbox.contentWindow;
+    const sandboxDocument = sandbox.contentDocument;
     let output = '';
     sandboxWindow.console.log = (...args) => {
       output += args.map((arg) => String(arg)).join(' ') + '\n';
     };
 
-    const result = sandboxWindow.eval(code);
-    await Promise.race([Promise.resolve(result), waitForAsyncWork(1000)]);
+    const execution = new Promise((resolve, reject) => {
+      let settled = false;
+
+      function cleanup() {
+        sandboxWindow.removeEventListener('error', handleError);
+        sandboxWindow.removeEventListener('unhandledrejection', handleRejection);
+      }
+
+      function finish() {
+        if (settled) return;
+        settled = true;
+        cleanup();
+        resolve();
+      }
+
+      function fail(error) {
+        if (settled) return;
+        settled = true;
+        cleanup();
+        reject(error);
+      }
+
+      function handleError(event) {
+        event.preventDefault();
+        fail(event.error || new Error(event.message || '代码执行失败'));
+      }
+
+      function handleRejection(event) {
+        event.preventDefault();
+        fail(event.reason instanceof Error ? event.reason : new Error(String(event.reason)));
+      }
+
+      sandboxWindow.addEventListener('error', handleError);
+      sandboxWindow.addEventListener('unhandledrejection', handleRejection);
+
+      const script = sandboxDocument.createElement('script');
+      script.type = 'module';
+      script.textContent = code;
+      script.addEventListener('load', finish);
+      script.addEventListener('error', () => fail(new Error('模块加载失败')));
+      sandboxDocument.body.appendChild(script);
+    });
+
+    await Promise.race([execution, waitForAsyncWork(1000)]);
     await waitForAsyncWork();
     outputEl.textContent = output || '代码执行完成（无输出）';
   } catch (error) {
