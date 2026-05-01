@@ -4,31 +4,36 @@ export const es2021Lessons = [
     title: "Nullish Coalescing 与 逻辑赋值",
     explanation: [
       "ES2021 引入 nullish coalescing 和逻辑赋值，让默认值和条件赋值更简洁。",
-      "典型使用场景：将条件赋值改写为 ||= 或 ??=。",
+      "||= 会在左侧是假值时赋默认值，假值包括空字符串、0、false、null、undefined。",
+      "??= 只会在左侧是 null 或 undefined 时赋默认值，会保留空字符串、0、false 这类有效值。",
+      "典型使用场景：用 ||= 处理空字符串也无效的标题，用 ??= 处理 0 也是有效值的配置。",
       "解决的旧写法问题：用 || 设置默认值会把 0、空字符串、false 当成缺失值误替换。",
-      "适合使用：只有 null 或 undefined 才代表缺失，或需要简洁地按条件赋值。",
-      "继续用传统写法：确实要把所有假值都视为无效时，|| 仍然表达得更准确。"
+      "适合使用：确实要把所有假值都视为无效时用 ||=；只有 null 或 undefined 才代表缺失时用 ??=。",
+      "继续用传统写法：条件比较复杂，或团队读起来更清楚时，保留显式 if 判断。"
     ],
-    exercise: "将条件赋值改写为 ||= 或 ??=。",
-    starterCode: "let name = '';\nlet age;\nif (!name) name = 'Alice';\nif (age === undefined || age === null) age = 30;",
-    errorCode: "if (!name) name = 'Alice';\nif (age === undefined || age === null) age = 30;",
-    correctCode: "let name = '';\nlet age;\nname ||= 'Alice';\nage ??= 30;",
+    exercise: "分别使用 ||= 和 ??= 改写两种默认值判断。",
+    starterCode: "let title = '';\nlet retryCount = 0;\nif (!title) title = 'Untitled';\nif (retryCount === undefined || retryCount === null) retryCount = 3;",
+    errorCode: "if (!title) title = 'Untitled';\nif (retryCount === undefined || retryCount === null) retryCount = 3;",
+    correctCode: "let title = '';\nlet retryCount = 0;\ntitle ||= 'Untitled';\nretryCount ??= 3;",
     practice: {
-      prompt: "独立完成：将条件赋值改写为 ||= 或 ??=。",
-      starter: "// 使用 Nullish Coalescing 与 逻辑赋值 完成本课练习。\n// 目标：将条件赋值改写为 ||= 或 ??=。\n\n",
-      answer: "let name = '';\nlet age;\nname ||= 'Alice';\nage ??= 30;",
+      prompt: "独立完成：分别使用 ||= 和 ??= 改写两种默认值判断。",
+      starter: "// 使用 Nullish Coalescing 与 逻辑赋值 完成本课练习。\n// 目标：分别使用 ||= 和 ??= 改写两种默认值判断。\n\n",
+      answer: "let title = '';\nlet retryCount = 0;\ntitle ||= 'Untitled';\nretryCount ??= 3;",
       explanation: [
         "这道练习要求你从空白实现开始，主动选择 Nullish Coalescing 与 逻辑赋值 的写法完成目标。",
+        "title ||= 'Untitled' 对应 ||=：title 是空字符串，按这道题的语义空标题无效，所以会替换成默认标题。",
+        "retryCount ??= 3 对应 ??=：retryCount 是 0，0 是有效配置，所以不会被替换成 3。",
+        "如果把 retryCount 写成 retryCount ||= 3，0 会被当成假值并错误替换。",
         "参考答案展示的是本课推荐写法；对照时重点看它解决了旧写法里的哪类重复、歧义或安全问题。"
       ]
     },
     debugCase: {
       title: "修复 Nullish Coalescing 与 逻辑赋值 的旧写法或误用",
-      broken: "let name = '';\nlet age;\nif (!name) name = 'Alice';\nif (age === undefined || age === null) age = 30;",
-      fixed: "let name = '';\nlet age;\nname ||= 'Alice';\nage ??= 30;",
+      broken: "let title = '';\nlet retryCount = 0;\nif (!title) title = 'Untitled';\nif (retryCount === undefined || retryCount === null) retryCount = 3;",
+      fixed: "let title = '';\nlet retryCount = 0;\ntitle ||= 'Untitled';\nretryCount ??= 3;",
       reason: [
         "解决的旧写法问题：用 || 设置默认值会把 0、空字符串、false 当成缺失值误替换。",
-        "这道改错要重点替换这段旧写法：if (!name) name = 'Alice'; if (age === undefined || age === null) age = 30;"
+        "这道改错要区分两种语义：title 允许把空字符串视为无效，因此用 ||=；retryCount 的 0 是有效值，因此用 ??=。"
       ]
     },
     review: [

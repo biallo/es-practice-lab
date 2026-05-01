@@ -160,21 +160,23 @@ export const es2020Lessons = [
     title: "Dynamic import / import.meta",
     explanation: [
       "动态 import 可以按需加载模块，import.meta 则暴露当前模块的元信息。",
-      "典型使用场景：将静态导入改成按需动态导入。",
+      "典型使用场景：将静态导入改成按需动态导入，并读取当前模块的 URL。",
       "解决的旧写法问题：静态 import 会把模块提前纳入依赖，按需加载和读取当前模块元信息不方便。",
       "适合使用：需要路由级拆包、条件加载重模块，或读取 import.meta.url 等模块上下文。",
       "继续用传统写法：核心依赖和首屏必需代码应使用静态 import，便于静态分析和提前加载。"
     ],
-    exercise: "将静态导入改成按需动态导入。",
+    exercise: "将静态导入改成按需动态导入，并使用 import.meta.url 读取当前模块 URL。",
     starterCode: "import { format } from './format.js';\nconsole.log(format('hello'));",
     errorCode: "import { format } from './format.js';",
     correctCode: "const { format } = await import('./format.js');\nconsole.log(format('hello'));\nconsole.log(import.meta.url);",
     practice: {
-      prompt: "独立完成：将静态导入改成按需动态导入。",
-      starter: "// 使用 Dynamic import / import.meta 完成本课练习。\n// 目标：将静态导入改成按需动态导入。\n\n",
+      prompt: "独立完成：将静态导入改成按需动态导入，并使用 import.meta.url 读取当前模块 URL。",
+      starter: "// 使用 Dynamic import / import.meta 完成本课练习。\n// 目标：将静态导入改成按需动态导入，并使用 import.meta.url 读取当前模块 URL。\n\n",
       answer: "const { format } = await import('./format.js');\nconsole.log(format('hello'));\nconsole.log(import.meta.url);",
       explanation: [
         "这道练习要求你从空白实现开始，主动选择 Dynamic import / import.meta 的写法完成目标。",
+        "await import('./format.js') 对应 Dynamic import：模块会在运行到这里时按需加载。",
+        "import.meta.url 对应 import.meta：它读取当前 ES module 的 URL 元信息。",
         "参考答案展示的是本课推荐写法；对照时重点看它解决了旧写法里的哪类重复、歧义或安全问题。"
       ]
     },
@@ -184,7 +186,7 @@ export const es2020Lessons = [
       fixed: "const { format } = await import('./format.js');\nconsole.log(format('hello'));\nconsole.log(import.meta.url);",
       reason: [
         "解决的旧写法问题：静态 import 会把模块提前纳入依赖，按需加载和读取当前模块元信息不方便。",
-        "这道改错要重点替换这段旧写法：import { format } from './format.js';"
+        "这道改错要重点看两处：用 await import('./format.js') 替换静态 import，并用 import.meta.url 读取当前模块 URL。"
       ]
     },
     review: [
