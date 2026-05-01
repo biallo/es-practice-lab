@@ -10,8 +10,8 @@ export const es2018Lessons = [
       "继续用传统写法：需要深拷贝、保留原型/描述符，或对象很大且性能敏感时，应选择更明确的方案。"
     ],
     exercise: "从 user 中提取 name，并使用剩余属性获取其他字段。",
-    starterCode: "const user = { name: 'Alice', age: 30, city: 'Shanghai' };\nconst name = user.name;\nconst age = user.age;\nconst city = user.city;\nconst rest = {};",
-    errorCode: "const name = user.name;\nconst age = user.age;\nconst city = user.city;\nconst rest = {};",
+    starterCode: "const user = { name: 'Alice', age: 30, city: 'Shanghai' };\nconst name = user.name;\nconst rest = {\n  age: user.age,\n  city: user.city\n};",
+    errorCode: "const name = user.name;\nconst rest = {\n  age: user.age,\n  city: user.city\n};",
     correctCode: "const user = { name: 'Alice', age: 30, city: 'Shanghai' };\nconst { name, ...rest } = user;",
     practice: {
       prompt: "独立完成：从 user 中提取 name，并使用剩余属性获取其他字段。",
@@ -24,11 +24,11 @@ export const es2018Lessons = [
     },
     debugCase: {
       title: "修复 对象展开/剩余属性 的旧写法或误用",
-      broken: "const user = { name: 'Alice', age: 30, city: 'Shanghai' };\nconst name = user.name;\nconst age = user.age;\nconst city = user.city;\nconst rest = {};",
+      broken: "const user = { name: 'Alice', age: 30, city: 'Shanghai' };\nconst name = user.name;\nconst rest = {\n  age: user.age,\n  city: user.city\n};",
       fixed: "const user = { name: 'Alice', age: 30, city: 'Shanghai' };\nconst { name, ...rest } = user;",
       reason: [
         "解决的旧写法问题：复制对象、合并字段、排除部分属性时，Object.assign 和手动赋值样板较多。",
-        "这道改错要重点替换这段旧写法：const name = user.name; const age = user.age; const city = user.city; const rest = {};"
+        "这道改错要重点替换这段旧写法：const name = user.name; const rest = { age: user.age, city: user.city };"
       ]
     },
     review: [
