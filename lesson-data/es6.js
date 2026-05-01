@@ -799,38 +799,38 @@ export const es6Lessons = [
     title: "WeakMap / WeakSet",
     explanation: [
       "WeakMap 和 WeakSet 使用弱引用保存对象，适合存储私有数据或与对象生命周期绑定的元信息。",
-      "典型使用场景：使用 WeakMap 为对象保存私有积分。",
+      "典型使用场景：使用 WeakMap 为对象保存外部代码不需要直接访问的私有状态。",
       "解决的旧写法问题：Map 持有对象 key 的强引用，缓存和私有元数据容易阻止对象被垃圾回收。",
       "适合使用：需要把元信息绑定到对象生命周期上，例如 DOM 节点状态、实例私有数据、对象缓存。",
       "继续用传统写法：key 不是对象、需要遍历集合内容，或需要知道 size 时，应使用 Map/Set。"
     ],
-    exercise: "使用 WeakMap 为对象保存私有积分。",
-    starterCode: "const scores = new Map();\nconst user = { name: 'Alice' };\nscores.set(user, 10);\nconsole.log(scores.get(user));",
-    errorCode: "const scores = new Map();",
-    correctCode: "const scores = new WeakMap();\nconst user = { name: 'Alice' };\nscores.set(user, 10);\nconsole.log(scores.get(user));",
+    exercise: "使用 WeakMap 为对象保存私有状态。",
+    starterCode: "const privateState = new Map();\nconst user = { name: 'Alice' };\nprivateState.set(user, { loggedIn: true });\nconsole.log(privateState.get(user).loggedIn);",
+    errorCode: "const privateState = new Map();",
+    correctCode: "const privateState = new WeakMap();\nconst user = { name: 'Alice' };\nprivateState.set(user, { loggedIn: true });\nconsole.log(privateState.get(user).loggedIn);",
     practice: {
-      prompt: "独立完成：使用 WeakMap 为对象保存私有积分。",
-      starter: "// 使用 WeakMap / WeakSet 完成本课练习。\n// 目标：使用 WeakMap 为对象保存私有积分。\n\n",
-      answer: "const scores = new WeakMap();\nconst user = { name: 'Alice' };\nscores.set(user, 10);\nconsole.log(scores.get(user));",
+      prompt: "使用 WeakMap 为 user 对象保存私有状态 { loggedIn: true }。",
+      starter: "const privateState = \nconst user = { name: 'Alice' };\n\nprivateState.set(user, { loggedIn: true });\nconsole.log(privateState.get(user).loggedIn);",
+      answer: "const privateState = new WeakMap();\nconst user = { name: 'Alice' };\n\nprivateState.set(user, { loggedIn: true });\nconsole.log(privateState.get(user).loggedIn);",
       explanation: [
-        "这道练习要求你从空白实现开始，主动选择 WeakMap / WeakSet 的写法完成目标。",
-        "参考答案展示的是本课推荐写法；对照时重点看它解决了旧写法里的哪类重复、歧义或安全问题。"
+        "WeakMap 的 key 必须是对象，这里把 user 对象和它对应的私有状态关联起来。",
+        "当外部不再持有 user 时，WeakMap 不会因为这个 key 额外阻止对象被垃圾回收。"
       ]
     },
     debugCase: {
-      title: "修复 WeakMap / WeakSet 的旧写法或误用",
-      broken: "const scores = new Map();\nconst user = { name: 'Alice' };\nscores.set(user, 10);\nconsole.log(scores.get(user));",
-      fixed: "const scores = new WeakMap();\nconst user = { name: 'Alice' };\nscores.set(user, 10);\nconsole.log(scores.get(user));",
+      title: "修复私有状态的强引用存储",
+      broken: "const privateState = new Map();\nconst user = { name: 'Alice' };\nprivateState.set(user, { loggedIn: true });\nconsole.log(privateState.get(user).loggedIn);",
+      fixed: "const privateState = new WeakMap();\nconst user = { name: 'Alice' };\nprivateState.set(user, { loggedIn: true });\nconsole.log(privateState.get(user).loggedIn);",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 WeakMap / WeakSet 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "Map 会强引用对象 key，更像普通集合；如果只是给对象挂生命周期绑定的元信息，WeakMap 更合适。",
+        "WeakMap 不可遍历、没有 size，因此它适合保存不需要枚举的私有状态，而不是普通列表数据。"
       ]
     },
     review: [
-      "能说出 WeakMap / WeakSet 主要解决的问题。",
-      "能独立完成练习，并解释参考答案里的关键变化。",
-      "能定位改错代码中的旧写法或误用，并写出修正理由。",
-      "知道这个特性适合的常见场景，也知道不需要强行使用的场景。"
+      "WeakMap 的 key 必须是对象，WeakSet 的成员也必须是对象。",
+      "WeakMap 适合保存和对象生命周期绑定的私有状态或元信息。",
+      "WeakMap / WeakSet 不可遍历，也不能读取 size。",
+      "需要遍历、统计数量或使用非对象 key 时，应继续使用 Map / Set。"
     ]
   },
   {
