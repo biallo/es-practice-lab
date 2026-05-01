@@ -4,31 +4,39 @@ export const es2023Lessons = [
     title: "Change Array by Copy",
     explanation: [
       "toSorted、toReversed、toSpliced 和 with 返回新数组，避免直接修改原数组。",
-      "典型使用场景：使用 toSorted 排序，并保留原数组不变。",
+      "toSorted 对应 sort 的非变异版本，返回排序后的新数组。",
+      "toReversed 对应 reverse 的非变异版本，返回反转后的新数组。",
+      "toSpliced 对应 splice 的非变异版本，返回插入、删除或替换后的新数组。",
+      "with 用于替换指定索引的元素，返回替换后的新数组。",
+      "典型使用场景：排序、反转、替换元素或局部更新数组，并保留原数组不变。",
       "解决的旧写法问题：sort、reverse、splice 会原地修改数组，容易在状态管理和 UI 更新里产生副作用。",
       "适合使用：需要排序、反转、替换元素但保留原数组不变，尤其是不可变状态更新。",
       "继续用传统写法：明确需要原地修改以节省内存或性能敏感时，传统变异方法更直接。"
     ],
-    exercise: "使用 toSorted 排序，并保留原数组不变。",
-    starterCode: "const numbers = [3, 1, 2];\nconst sorted = numbers.sort();\nconsole.log(numbers, sorted);",
-    errorCode: "numbers.sort();",
-    correctCode: "const numbers = [3, 1, 2];\nconst sorted = numbers.toSorted();\nconsole.log(numbers, sorted);",
+    exercise: "分别使用 toSorted、toReversed、toSpliced 和 with 创建新数组。",
+    starterCode: "const numbers = [3, 1, 2];\nconst sorted = [...numbers].sort((a, b) => a - b);\nconsole.log(numbers, sorted);\n\nconst letters = ['a', 'b', 'c'];\nconst reversed = [...letters].reverse();\nconsole.log(letters, reversed);\n\nconst items = ['a', 'b', 'c'];\nconst spliced = [...items];\nspliced.splice(1, 1, 'x');\nconsole.log(items, spliced);\n\nconst scores = [10, 20, 30];\nconst updated = scores.map((score, index) => index === 1 ? 99 : score);\nconsole.log(scores, updated);",
+    errorCode: "[...numbers].sort((a, b) => a - b);\n[...letters].reverse();\nspliced.splice(1, 1, 'x');\nscores.map((score, index) => index === 1 ? 99 : score);",
+    correctCode: "const numbers = [3, 1, 2];\nconst sorted = numbers.toSorted((a, b) => a - b);\nconsole.log(numbers, sorted);\n\nconst letters = ['a', 'b', 'c'];\nconst reversed = letters.toReversed();\nconsole.log(letters, reversed);\n\nconst items = ['a', 'b', 'c'];\nconst spliced = items.toSpliced(1, 1, 'x');\nconsole.log(items, spliced);\n\nconst scores = [10, 20, 30];\nconst updated = scores.with(1, 99);\nconsole.log(scores, updated);",
     practice: {
-      prompt: "独立完成：使用 toSorted 排序，并保留原数组不变。",
-      starter: "// 使用 Change Array by Copy 完成本课练习。\n// 目标：使用 toSorted 排序，并保留原数组不变。\n\n",
-      answer: "const numbers = [3, 1, 2];\nconst sorted = numbers.toSorted();\nconsole.log(numbers, sorted);",
+      prompt: "独立完成：分别使用 toSorted、toReversed、toSpliced 和 with 创建新数组。",
+      starter: "// 使用 Change Array by Copy 完成本课练习。\n// 目标：分别使用 toSorted、toReversed、toSpliced 和 with 创建新数组。\n\n",
+      answer: "const numbers = [3, 1, 2];\nconst sorted = numbers.toSorted((a, b) => a - b);\nconsole.log(numbers, sorted);\n\nconst letters = ['a', 'b', 'c'];\nconst reversed = letters.toReversed();\nconsole.log(letters, reversed);\n\nconst items = ['a', 'b', 'c'];\nconst spliced = items.toSpliced(1, 1, 'x');\nconsole.log(items, spliced);\n\nconst scores = [10, 20, 30];\nconst updated = scores.with(1, 99);\nconsole.log(scores, updated);",
       explanation: [
         "这道练习要求你从空白实现开始，主动选择 Change Array by Copy 的写法完成目标。",
+        "numbers.toSorted(...) 对应 toSorted：排序后返回新数组。",
+        "letters.toReversed() 对应 toReversed：反转后返回新数组。",
+        "items.toSpliced(1, 1, 'x') 对应 toSpliced：从索引 1 删除 1 项并插入 'x'，返回新数组。",
+        "scores.with(1, 99) 对应 with：把索引 1 的元素替换成 99，返回新数组。",
         "参考答案展示的是本课推荐写法；对照时重点看它解决了旧写法里的哪类重复、歧义或安全问题。"
       ]
     },
     debugCase: {
       title: "修复 Change Array by Copy 的旧写法或误用",
-      broken: "const numbers = [3, 1, 2];\nconst sorted = numbers.sort();\nconsole.log(numbers, sorted);",
-      fixed: "const numbers = [3, 1, 2];\nconst sorted = numbers.toSorted();\nconsole.log(numbers, sorted);",
+      broken: "const numbers = [3, 1, 2];\nconst sorted = [...numbers].sort((a, b) => a - b);\nconsole.log(numbers, sorted);\n\nconst letters = ['a', 'b', 'c'];\nconst reversed = [...letters].reverse();\nconsole.log(letters, reversed);\n\nconst items = ['a', 'b', 'c'];\nconst spliced = [...items];\nspliced.splice(1, 1, 'x');\nconsole.log(items, spliced);\n\nconst scores = [10, 20, 30];\nconst updated = scores.map((score, index) => index === 1 ? 99 : score);\nconsole.log(scores, updated);",
+      fixed: "const numbers = [3, 1, 2];\nconst sorted = numbers.toSorted((a, b) => a - b);\nconsole.log(numbers, sorted);\n\nconst letters = ['a', 'b', 'c'];\nconst reversed = letters.toReversed();\nconsole.log(letters, reversed);\n\nconst items = ['a', 'b', 'c'];\nconst spliced = items.toSpliced(1, 1, 'x');\nconsole.log(items, spliced);\n\nconst scores = [10, 20, 30];\nconst updated = scores.with(1, 99);\nconsole.log(scores, updated);",
       reason: [
         "解决的旧写法问题：sort、reverse、splice 会原地修改数组，容易在状态管理和 UI 更新里产生副作用。",
-        "这道改错要重点替换这段旧写法：numbers.sort();"
+        "这道改错要重点替换四处：用 toSorted 替代复制后 sort，用 toReversed 替代复制后 reverse，用 toSpliced 替代复制后 splice，用 with 替代按索引 map 替换。"
       ]
     },
     review: [
