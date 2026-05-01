@@ -12,30 +12,30 @@ export const es2017Lessons = [
     exercise: "将 Promise.then 语法改写成 async/await。",
     starterCode: "function fetchName() {\n  return Promise.resolve('Alice');\n}\nfetchName().then((name) => {\n  console.log(name);\n});",
     errorCode: "fetchName().then((name) => {\n  console.log(name);\n});",
-    correctCode: "async function showName() {\n  const name = await fetchName();\n  console.log(name);\n}\nshowName();",
+    correctCode: "function fetchName() {\n  return Promise.resolve('Alice');\n}\n\nasync function showName() {\n  const name = await fetchName();\n  console.log(name);\n}\nshowName();",
     practice: {
-      prompt: "独立完成：将 Promise.then 语法改写成 async/await。",
-      starter: "// 使用 Async / Await 完成本课练习。\n// 目标：将 Promise.then 语法改写成 async/await。\n\n",
-      answer: "async function showName() {\n  const name = await fetchName();\n  console.log(name);\n}\nshowName();",
+      prompt: "补全 showName，让它使用 await 读取 fetchName 返回的名字。",
+      starter: "function fetchName() {\n  return Promise.resolve('Alice');\n}\n\nasync function showName() {\n  const name = \n  console.log(name);\n}\nshowName();",
+      answer: "function fetchName() {\n  return Promise.resolve('Alice');\n}\n\nasync function showName() {\n  const name = await fetchName();\n  console.log(name);\n}\nshowName();",
       explanation: [
-        "这道练习要求你从空白实现开始，主动选择 Async / Await 的写法完成目标。",
-        "参考答案展示的是本课推荐写法；对照时重点看它解决了旧写法里的哪类重复、歧义或安全问题。"
+        "await 等待的是 fetchName() 的返回值；这里 fetchName 返回 Promise，所以 name 会得到 Promise resolve 出来的 'Alice'。",
+        "如果函数内部只调用 setTimeout 但没有 return，函数返回值就是 undefined，await 得到的也会是 undefined。"
       ]
     },
     debugCase: {
       title: "修复 Async / Await 的旧写法或误用",
       broken: "function fetchName() {\n  return Promise.resolve('Alice');\n}\nfetchName().then((name) => {\n  console.log(name);\n});",
-      fixed: "async function showName() {\n  const name = await fetchName();\n  console.log(name);\n}\nshowName();",
+      fixed: "function fetchName() {\n  return Promise.resolve('Alice');\n}\n\nasync function showName() {\n  const name = await fetchName();\n  console.log(name);\n}\nshowName();",
       reason: [
         "解决的旧写法问题：多层 then 链会把异步流程拆散，错误处理和顺序逻辑不如同步风格好读。",
-        "这道改错要重点替换这段旧写法：fetchName().then((name) => { console.log(name); });"
+        "这道改错要重点替换 then 链，但 fetchName 仍然需要返回 Promise；await 不会自动等待没有返回值的异步回调。"
       ]
     },
     review: [
-      "能说出 Async / Await 主要解决的问题。",
-      "能独立完成练习，并解释参考答案里的关键变化。",
-      "能定位改错代码中的旧写法或误用，并写出修正理由。",
-      "知道这个特性适合的常见场景，也知道不需要强行使用的场景。"
+      "async 函数总是返回 Promise。",
+      "await 等待的是右侧表达式的返回值；如果不是 Promise，会按普通值处理。",
+      "函数内部使用 setTimeout 不代表函数会返回 Promise，需要手动 return new Promise。",
+      "能把 then 链改成 async/await，并保留正确的 Promise 返回值。"
     ]
   },
   {
