@@ -238,31 +238,40 @@ export const esnextLessons = [
     title: "Temporal",
     explanation: [
       "Temporal 是新的日期时间 API，用于替代 Date 在时区、日历和不可变数据方面的长期痛点。",
-      "典型使用场景：使用 Temporal.PlainDate 表示一个不包含时区的日期。",
+      "PlainDate 表示不带时间和时区的日历日期，例如生日、节假日或账单日。",
+      "PlainTime 和 PlainDateTime 表示不带时区的本地时间或本地日期时间，例如每天 09:30 的会议。",
+      "Instant 表示时间线上的精确时间点，适合记录事件发生的绝对时间。",
+      "ZonedDateTime 把日期时间和时区绑定在一起，适合需要正确处理时区和夏令时的日程。",
+      "Duration 表示一段时间长度，可以和 Temporal 类型配合做加减。",
+      "典型使用场景：根据语义选择 PlainDate、Instant、ZonedDateTime 或 Duration，而不是都塞进 Date。",
       "解决的旧写法问题：Date 同时混合时间点、时区和本地日期，解析和时区行为长期容易出错。",
       "适合使用：需要明确区分日期、时间、时区、持续时间，或构建可靠的日历/时区逻辑。",
       "继续用传统写法：只要记录当前时间戳或和旧 API 交互时，Date 仍然简单且兼容性最好。"
     ],
-    exercise: "使用 Temporal.PlainDate 表示一个不包含时区的日期。",
-    starterCode: "const date = new Date('2026-04-29T00:00:00Z');\nconsole.log(date.toISOString().slice(0, 10));",
-    errorCode: "new Date('2026-04-29T00:00:00Z');",
-    correctCode: "const date = Temporal.PlainDate.from('2026-04-29');\nconsole.log(date.toString());",
+    exercise: "使用 Temporal 表示日期、精确时间点、带时区时间和持续时间。",
+    starterCode: "const birthday = new Date('2026-04-29T00:00:00Z');\nconsole.log(birthday.toISOString().slice(0, 10));\n\nconst savedAt = new Date('2026-04-29T12:30:00Z');\nconsole.log(savedAt.toISOString());\n\nconst meeting = new Date('2026-04-29T09:30:00-04:00');\nconsole.log(meeting.toISOString());\n\nconst tomorrow = new Date(birthday.getTime() + 24 * 60 * 60 * 1000);\nconsole.log(tomorrow.toISOString().slice(0, 10));",
+    errorCode: "new Date('2026-04-29T00:00:00Z');\nnew Date('2026-04-29T12:30:00Z');\nnew Date('2026-04-29T09:30:00-04:00');\nbirthday.getTime() + 24 * 60 * 60 * 1000;",
+    correctCode: "const birthday = Temporal.PlainDate.from('2026-04-29');\nconsole.log(birthday.toString());\n\nconst savedAt = Temporal.Instant.from('2026-04-29T12:30:00Z');\nconsole.log(savedAt.toString());\n\nconst meeting = Temporal.ZonedDateTime.from('2026-04-29T09:30-04:00[America/New_York]');\nconsole.log(meeting.toString());\n\nconst tomorrow = birthday.add(Temporal.Duration.from({ days: 1 }));\nconsole.log(tomorrow.toString());",
     practice: {
-      prompt: "独立完成：使用 Temporal.PlainDate 表示一个不包含时区的日期。",
-      starter: "// 使用 Temporal 完成本课练习。\n// 目标：使用 Temporal.PlainDate 表示一个不包含时区的日期。\n\n",
-      answer: "const date = Temporal.PlainDate.from('2026-04-29');\nconsole.log(date.toString());",
+      prompt: "独立完成：使用 Temporal 表示日期、精确时间点、带时区时间和持续时间。",
+      starter: "// 使用 Temporal 完成本课练习。\n// 目标：使用 Temporal 表示日期、精确时间点、带时区时间和持续时间。\n\n",
+      answer: "const birthday = Temporal.PlainDate.from('2026-04-29');\nconsole.log(birthday.toString());\n\nconst savedAt = Temporal.Instant.from('2026-04-29T12:30:00Z');\nconsole.log(savedAt.toString());\n\nconst meeting = Temporal.ZonedDateTime.from('2026-04-29T09:30-04:00[America/New_York]');\nconsole.log(meeting.toString());\n\nconst tomorrow = birthday.add(Temporal.Duration.from({ days: 1 }));\nconsole.log(tomorrow.toString());",
       explanation: [
         "这道练习要求你从空白实现开始，主动选择 Temporal 的写法完成目标。",
+        "Temporal.PlainDate 对应纯日期，不携带时区或具体时刻。",
+        "Temporal.Instant 对应时间线上的精确时间点，适合日志、创建时间、更新时间。",
+        "Temporal.ZonedDateTime 对应带时区的日程时间，能保留 America/New_York 这样的时区语义。",
+        "Temporal.Duration.from({ days: 1 }) 对应一段时间长度，可以用于 add/subtract。",
         "参考答案展示的是本课推荐写法；对照时重点看它解决了旧写法里的哪类重复、歧义或安全问题。"
       ]
     },
     debugCase: {
       title: "修复 Temporal 的旧写法或误用",
-      broken: "const date = new Date('2026-04-29T00:00:00Z');\nconsole.log(date.toISOString().slice(0, 10));",
-      fixed: "const date = Temporal.PlainDate.from('2026-04-29');\nconsole.log(date.toString());",
+      broken: "const birthday = new Date('2026-04-29T00:00:00Z');\nconsole.log(birthday.toISOString().slice(0, 10));\n\nconst savedAt = new Date('2026-04-29T12:30:00Z');\nconsole.log(savedAt.toISOString());\n\nconst meeting = new Date('2026-04-29T09:30:00-04:00');\nconsole.log(meeting.toISOString());\n\nconst tomorrow = new Date(birthday.getTime() + 24 * 60 * 60 * 1000);\nconsole.log(tomorrow.toISOString().slice(0, 10));",
+      fixed: "const birthday = Temporal.PlainDate.from('2026-04-29');\nconsole.log(birthday.toString());\n\nconst savedAt = Temporal.Instant.from('2026-04-29T12:30:00Z');\nconsole.log(savedAt.toString());\n\nconst meeting = Temporal.ZonedDateTime.from('2026-04-29T09:30-04:00[America/New_York]');\nconsole.log(meeting.toString());\n\nconst tomorrow = birthday.add(Temporal.Duration.from({ days: 1 }));\nconsole.log(tomorrow.toString());",
       reason: [
         "解决的旧写法问题：Date 同时混合时间点、时区和本地日期，解析和时区行为长期容易出错。",
-        "这道改错要重点替换这段旧写法：new Date('2026-04-29T00:00:00Z');"
+        "这道改错要按语义拆开：纯日期用 PlainDate，绝对时间点用 Instant，带时区日程用 ZonedDateTime，日期加减用 Duration。"
       ]
     },
     review: [
