@@ -42,10 +42,10 @@ export const es2018Lessons = [
     version: "ES2018",
     title: "Async Iteration",
     explanation: [
-      "Async Iteration 是 ES2018 中值得掌握的特性。它的核心作用是：异步迭代用 for await...of 消费异步产生的数据，适合流式数据和分页接口。",
+      "Async Iteration 是 ES2018 中值得掌握的特性。它的核心作用是：异步迭代用 for await...of 逐步读取异步产生的数据，适合流式数据和分页接口。",
       "典型使用场景：使用 for await...of 读取异步数字序列。",
       "解决的旧写法问题：异步数据流用普通 for/of 或 forEach 无法正确等待每一项，分页和流式读取会变得零散。",
-      "适合使用：消费异步可迭代对象，例如流、分页接口、异步生成器。",
+      "适合使用：遍历异步可迭代对象，例如流、分页接口、异步生成器。",
       "继续用传统写法：数据已经一次性拿到数组时，用普通 for...of；独立 Promise 并发时用 Promise.all。"
     ],
     exercise: "使用 for await...of 读取异步数字序列。",

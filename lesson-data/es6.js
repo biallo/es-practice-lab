@@ -565,7 +565,7 @@ export const es6Lessons = [
     explanation: [
       "自定义迭代器 是 ES6 中值得掌握的特性。它的核心作用是：通过实现 Symbol.iterator，对象就能接入 for...of、展开语法等统一的迭代协议。",
       "典型使用场景：让 range 对象可以被 for...of 遍历。",
-      "解决的旧写法问题：普通对象默认不能被 for...of、展开语法等统一迭代能力消费，只能写专门的访问方法。",
+      "解决的旧写法问题：普通对象默认不能直接用于 for...of、展开语法等统一迭代写法，只能写专门的访问方法。",
       "适合使用：对象本身代表一个序列或集合，希望它能自然接入 for...of、... 和 Array.from。",
       "继续用传统写法：对象只是普通配置或记录，没有稳定遍历语义时，显式方法或 Object.entries 更清楚。"
     ],
@@ -603,38 +603,39 @@ export const es6Lessons = [
     title: "Array.from / Array.of",
     explanation: [
       "Array.from / Array.of 是 ES6 中值得掌握的特性。它的核心作用是：Array.from 可以把类数组和可迭代对象转为数组，Array.of 则用参数创建数组，避免 Array 构造器的歧义。",
-      "典型使用场景：使用 Array.from 将字符串转成字符数组。",
+      "Array.from 常用于把字符串、Set、NodeList、arguments 等类数组或可迭代对象转成真正数组，也可以在转换时传入 map 函数。",
+      "Array.of 用来按传入参数创建数组，尤其能避免 Array(3) 表示创建长度为 3 的空槽数组，而不是 [3] 的歧义。",
       "解决的旧写法问题：类数组转数组常要借用 slice，Array 构造器在单个数字参数时又容易产生长度歧义。",
       "适合使用：需要把类数组、可迭代对象转成真正数组，或想明确用参数创建数组。",
       "继续用传统写法：已经是数组时不需要再转；简单字面量直接写 [value] 通常更清楚。"
     ],
-    exercise: "使用 Array.from 将字符串转成字符数组。",
-    starterCode: "const chars = 'ES6'.split('');\nconsole.log(chars);",
-    errorCode: "'ES6'.split('');",
-    correctCode: "const chars = Array.from('ES6');\nconsole.log(chars);",
+    exercise: "使用 Array.from 将字符串转成字符数组，并使用 Array.of 创建只包含数字 3 的数组。",
+    starterCode: "const chars = 'ES6'.split('');\nconst numbers = Array(3);\nconsole.log(chars);\nconsole.log(numbers);",
+    errorCode: "const chars = 'ES6'.split('');\nconst numbers = Array(3);",
+    correctCode: "const chars = Array.from('ES6');\nconst numbers = Array.of(3);\nconsole.log(chars);\nconsole.log(numbers);",
     practice: {
-      prompt: "独立完成：使用 Array.from 将字符串转成字符数组。",
-      starter: "// 使用 Array.from / Array.of 完成本课练习。\n// 目标：使用 Array.from 将字符串转成字符数组。\n\n",
-      answer: "const chars = Array.from('ES6');\nconsole.log(chars);",
+      prompt: "把可迭代字符串转成字符数组，并创建一个只包含 3 的数组。",
+      starter: "const chars = \nconst single = \n\nconsole.log(chars);\nconsole.log(single);",
+      answer: "const chars = Array.from('ES6');\nconst single = Array.of(3);\n\nconsole.log(chars);\nconsole.log(single);",
       explanation: [
-        "这道练习要求你从空白实现开始，主动选择 Array.from / Array.of 的写法完成目标。",
-        "参考答案展示的是本课推荐写法；对照时重点看它解决了旧写法里的哪类重复、歧义或安全问题。"
+        "Array.from('ES6') 会把字符串这个可迭代对象转成 ['E', 'S', '6']。",
+        "Array.of(3) 会创建 [3]，不会像 Array(3) 那样创建长度为 3 的空槽数组。"
       ]
     },
     debugCase: {
-      title: "修复 Array.from / Array.of 的旧写法或误用",
-      broken: "const chars = 'ES6'.split('');\nconsole.log(chars);",
-      fixed: "const chars = Array.from('ES6');\nconsole.log(chars);",
+      title: "修复 Array 构造器的单参数歧义",
+      broken: "const chars = 'ES6'.split('');\nconst values = Array(3);\n\nconsole.log(chars);\nconsole.log(values);",
+      fixed: "const chars = Array.from('ES6');\nconst values = Array.of(3);\n\nconsole.log(chars);\nconsole.log(values);",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Array.from / Array.of 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "split('') 可以处理简单字符串，但 Array.from 更通用，也能处理类数组和其他可迭代对象。",
+        "Array(3) 的含义是创建长度为 3 的空数组；如果目标是得到 [3]，应该使用 Array.of(3)。"
       ]
     },
     review: [
-      "能说出 Array.from / Array.of 主要解决的问题。",
-      "能独立完成练习，并解释参考答案里的关键变化。",
-      "能定位改错代码中的旧写法或误用，并写出修正理由。",
-      "知道这个特性适合的常见场景，也知道不需要强行使用的场景。"
+      "Array.from 用于把类数组或可迭代对象转成真正数组。",
+      "Array.from 可以接收第二个参数，在转换时顺便映射每一项。",
+      "Array.of 用于按参数创建数组，避免 Array(number) 的长度歧义。",
+      "简单数组字面量仍然可以直接写 [value]，不需要为了新语法而强行使用 Array.of。"
     ]
   },
   {
