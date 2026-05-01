@@ -207,22 +207,24 @@ export const es2024Lessons = [
       "继续用传统写法：纯内部 ASCII 文本或已经由可靠来源保证合法时，不必每次都检查。"
     ],
     exercise: "使用 toWellFormed 修复不合法字符串。",
-    starterCode: "const text = '�';\nconsole.log(encodeURIComponent(text));",
+    starterCode: "const text = '\\uD800';\nconsole.log(encodeURIComponent(text));",
     errorCode: "encodeURIComponent(text);",
-    correctCode: "const text = '�';\nconsole.log(text.isWellFormed());\nconsole.log(text.toWellFormed());",
+    correctCode: "const text = '\\uD800';\nconsole.log(text.isWellFormed());\nconsole.log(text.toWellFormed());",
     practice: {
       prompt: "独立完成：使用 toWellFormed 修复不合法字符串。",
       starter: "// 使用 String isWellFormed / toWellFormed 完成本课练习。\n// 目标：使用 toWellFormed 修复不合法字符串。\n\n",
-      answer: "const text = '�';\nconsole.log(text.isWellFormed());\nconsole.log(text.toWellFormed());",
+      answer: "const text = '\\uD800';\nconsole.log(text.isWellFormed());\nconsole.log(text.toWellFormed());",
       explanation: [
         "这道练习要求你从空白实现开始，主动选择 String isWellFormed / toWellFormed 的写法完成目标。",
+        "'�' 是合法的替换字符 U+FFFD，所以 isWellFormed() 会返回 true。",
+        "'\\uD800' 是孤立高代理项，才是不合法字符串；toWellFormed() 会把它修复成替换字符。",
         "参考答案展示的是本课推荐写法；对照时重点看它解决了旧写法里的哪类重复、歧义或安全问题。"
       ]
     },
     debugCase: {
       title: "修复 String isWellFormed / toWellFormed 的旧写法或误用",
-      broken: "const text = '�';\nconsole.log(encodeURIComponent(text));",
-      fixed: "const text = '�';\nconsole.log(text.isWellFormed());\nconsole.log(text.toWellFormed());",
+      broken: "const text = '\\uD800';\nconsole.log(encodeURIComponent(text));",
+      fixed: "const text = '\\uD800';\nconsole.log(text.isWellFormed());\nconsole.log(text.toWellFormed());",
       reason: [
         "解决的旧写法问题：字符串中孤立代理项会让 Unicode 处理、编码和传输出现难排查的问题。",
         "这道改错要重点替换这段旧写法：encodeURIComponent(text);"
