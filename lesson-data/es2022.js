@@ -3,7 +3,7 @@ export const es2022Lessons = [
     version: "ES2022",
     title: "类字段与私有属性",
     explanation: [
-      "类字段与私有属性 是 ES2022 中值得掌握的特性。它的核心作用是：ES2022 支持类字段和私有属性，类定义更直观，还能保护内部状态。",
+      "ES2022 支持类字段和私有属性，类定义更直观，还能保护内部状态。",
       "典型使用场景：创建一个带私有字段的类，并返回字段值。",
       "解决的旧写法问题：构造函数里反复声明实例字段，或用下划线约定私有字段，都不够直观或不够严格。",
       "适合使用：需要在 class 中直接声明实例字段、静态字段，或真正限制外部访问的 #private 字段。",
@@ -42,7 +42,7 @@ export const es2022Lessons = [
     version: "ES2022",
     title: "Array.prototype.at",
     explanation: [
-      "Array.prototype.at 是 ES2022 中值得掌握的特性。它的核心作用是：ES2022 引入 Array.prototype.at，支持使用负数索引访问数组末尾元素。",
+      "ES2022 引入 Array.prototype.at，支持使用负数索引访问数组末尾元素。",
       "典型使用场景：使用 .at 获取数组最后一个元素。",
       "解决的旧写法问题：访问倒数元素过去要写 arr[arr.length - 1]，字符串和数组写法也不统一。",
       "适合使用：需要按正向或负向索引读取数组、字符串等可索引对象。",
@@ -81,7 +81,7 @@ export const es2022Lessons = [
     version: "ES2022",
     title: "Class static block",
     explanation: [
-      "Class static block 是 ES2022 中值得掌握的特性。它的核心作用是：静态初始化块允许 class 在定义阶段执行一次初始化逻辑，适合设置静态字段或复杂配置。",
+      "静态初始化块允许 class 在定义阶段执行一次初始化逻辑，适合设置静态字段或复杂配置。",
       "典型使用场景：使用 static block 初始化静态字段。",
       "解决的旧写法问题：类的静态初始化如果需要多步逻辑，以前只能写在类外，容易打散封装。",
       "适合使用：静态字段初始化需要 try/catch、条件判断或读取私有静态字段。",
@@ -120,7 +120,7 @@ export const es2022Lessons = [
     version: "ES2022",
     title: "Private brand checks",
     explanation: [
-      "Private brand checks 是 ES2022 中值得掌握的特性。它的核心作用是：private brand check 使用 #field in object 判断对象是否拥有某个私有字段，比 try/catch 访问更直接。",
+      "private brand check 使用 #field in object 判断对象是否拥有某个私有字段，比 try/catch 访问更直接。",
       "典型使用场景：使用 #value in object 判断实例类型。",
       "解决的旧写法问题：判断对象是否拥有某个私有字段以前没有直接语法，只能间接 try/catch 或暴露标记。",
       "适合使用：类内部需要安全判断一个对象是不是本类私有结构的实例。",
@@ -159,7 +159,7 @@ export const es2022Lessons = [
     version: "ES2022",
     title: "RegExp match indices",
     explanation: [
-      "RegExp match indices 是 ES2022 中值得掌握的特性。它的核心作用是：RegExp d 标志会在匹配结果上提供 indices，方便获取匹配文本和捕获组在原字符串中的位置。",
+      "RegExp d 标志会在匹配结果上提供 indices，方便获取匹配文本和捕获组在原字符串中的位置。",
       "典型使用场景：使用 d 标志读取匹配位置。",
       "解决的旧写法问题：拿到捕获文本后还要手动计算起止位置，尤其多个捕获组时容易出错。",
       "适合使用：语法高亮、解析器、编辑器标注等需要每个匹配和捕获组的位置。",
@@ -198,7 +198,7 @@ export const es2022Lessons = [
     version: "ES2022",
     title: "Object.hasOwn",
     explanation: [
-      "Object.hasOwn 是 ES2022 中值得掌握的特性。它的核心作用是：Object.hasOwn 是更安全的自有属性判断方式，避免直接调用对象上的 hasOwnProperty。",
+      "Object.hasOwn 是更安全的自有属性判断方式，避免直接调用对象上的 hasOwnProperty。",
       "典型使用场景：使用 Object.hasOwn 判断对象是否拥有 name 属性。",
       "解决的旧写法问题：obj.hasOwnProperty 可能被对象自身属性覆盖，Object.prototype.hasOwnProperty.call 又太冗长。",
       "适合使用：判断对象是否有某个自有属性，尤其是处理外部输入对象时。",
@@ -237,7 +237,7 @@ export const es2022Lessons = [
     version: "ES2022",
     title: "Top-level await",
     explanation: [
-      "Top-level await 是 ES2022 中值得掌握的特性。它的核心作用是：Top-level await 允许在模块顶层直接等待异步结果，减少额外的 async 包装函数。",
+      "Top-level await 允许在模块顶层直接等待异步结果，减少额外的 async 包装函数。",
       "典型使用场景：移除不必要的 async main 包装函数。",
       "解决的旧写法问题：模块顶层需要异步初始化时，以前要包一层 async 函数或导出 Promise。",
       "适合使用：模块加载前必须等待配置、资源或依赖初始化完成。",
@@ -276,7 +276,7 @@ export const es2022Lessons = [
     version: "ES2022",
     title: "Error cause",
     explanation: [
-      "Error cause 是 ES2022 中值得掌握的特性。它的核心作用是：Error cause 用于在抛出新错误时保留原始错误，方便调试错误链路。",
+      "Error cause 用于在抛出新错误时保留原始错误，方便调试错误链路。",
       "典型使用场景：创建一个带 cause 的错误。",
       "解决的旧写法问题：包装错误时容易丢失原始错误，只能手动拼接 message 或加自定义字段。",
       "适合使用：捕获底层错误后抛出更高层语义错误，同时保留原始原因。",

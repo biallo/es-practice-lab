@@ -3,7 +3,7 @@ export const es2020Lessons = [
     version: "ES2020",
     title: "Optional Chaining",
     explanation: [
-      "Optional Chaining 是 ES2020 中值得掌握的特性。它的核心作用是：可选链让你安全访问嵌套属性，当某个路径不存在时不会抛出错误。",
+      "可选链让你安全访问嵌套属性，当某个路径不存在时不会抛出错误。",
       "典型使用场景：使用可选链读取 user.profile.name。",
       "解决的旧写法问题：深层属性访问过去要写多层 && 防止 Cannot read properties of undefined。",
       "适合使用：读取可选对象路径、可选方法或接口返回中的可缺失字段。",
@@ -42,7 +42,7 @@ export const es2020Lessons = [
     version: "ES2020",
     title: "BigInt",
     explanation: [
-      "BigInt 是 ES2020 中值得掌握的特性。它的核心作用是：ES2020 引入 BigInt，用于表示比 Number.MAX_SAFE_INTEGER 更大的整数。",
+      "ES2020 引入 BigInt，用于表示比 Number.MAX_SAFE_INTEGER 更大的整数。",
       "典型使用场景：用 BigInt 表示 9007199254740993，并进行加法运算。",
       "解决的旧写法问题：Number 超过 MAX_SAFE_INTEGER 后会丢失整数精度，ID、计数和大整数计算会出错。",
       "适合使用：需要精确表示和运算超大整数，并且能接受 BigInt 不能和 Number 直接混算的规则。",
@@ -81,7 +81,7 @@ export const es2020Lessons = [
     version: "ES2020",
     title: "globalThis",
     explanation: [
-      "globalThis 是 ES2020 中值得掌握的特性。它的核心作用是：globalThis 提供跨环境的全局对象访问方式，浏览器、Node.js 和 Worker 中都能使用。",
+      "globalThis 提供跨环境的全局对象访问方式，浏览器、Node.js 和 Worker 中都能使用。",
       "典型使用场景：使用 globalThis 保存一个全局配置。",
       "解决的旧写法问题：不同环境访问全局对象要写 window、global、self 等分支判断。",
       "适合使用：跨浏览器、Node.js、Worker 的库代码需要统一访问全局对象。",
@@ -120,7 +120,7 @@ export const es2020Lessons = [
     version: "ES2020",
     title: "Promise.allSettled",
     explanation: [
-      "Promise.allSettled 是 ES2020 中值得掌握的特性。它的核心作用是：Promise.allSettled 会等待所有 Promise 完成，并保留每一项的 fulfilled 或 rejected 状态。",
+      "Promise.allSettled 会等待所有 Promise 完成，并保留每一项的 fulfilled 或 rejected 状态。",
       "典型使用场景：使用 allSettled 同时收集成功和失败结果。",
       "解决的旧写法问题：Promise.all 遇到第一个失败就 reject，无法自然收集其他任务的成功/失败结果。",
       "适合使用：批量请求、批量任务中需要知道每一项最终状态，而不是一项失败就整体中断。",
@@ -159,7 +159,7 @@ export const es2020Lessons = [
     version: "ES2020",
     title: "Dynamic import / import.meta",
     explanation: [
-      "Dynamic import / import.meta 是 ES2020 中值得掌握的特性。它的核心作用是：动态 import 可以按需加载模块，import.meta 则暴露当前模块的元信息。",
+      "动态 import 可以按需加载模块，import.meta 则暴露当前模块的元信息。",
       "典型使用场景：将静态导入改成按需动态导入。",
       "解决的旧写法问题：静态 import 会把模块提前纳入依赖，按需加载和读取当前模块元信息不方便。",
       "适合使用：需要路由级拆包、条件加载重模块，或读取 import.meta.url 等模块上下文。",
@@ -198,7 +198,7 @@ export const es2020Lessons = [
     version: "ES2020",
     title: "String.matchAll",
     explanation: [
-      "String.matchAll 是 ES2020 中值得掌握的特性。它的核心作用是：matchAll 返回所有正则匹配结果的迭代器，并保留捕获组信息。",
+      "matchAll 返回所有正则匹配结果的迭代器，并保留捕获组信息。",
       "典型使用场景：使用 matchAll 提取字符串中的所有数字。",
       "解决的旧写法问题：用 RegExp.exec 循环收集多次匹配容易忘记 global 标志，也会混入状态推进细节。",
       "适合使用：需要遍历字符串中的所有正则匹配，并保留捕获组信息。",

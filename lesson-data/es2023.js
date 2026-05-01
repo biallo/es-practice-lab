@@ -3,7 +3,7 @@ export const es2023Lessons = [
     version: "ES2023",
     title: "Change Array by Copy",
     explanation: [
-      "Change Array by Copy 是 ES2023 中值得掌握的特性。它的核心作用是：toSorted、toReversed、toSpliced 和 with 返回新数组，避免直接修改原数组。",
+      "toSorted、toReversed、toSpliced 和 with 返回新数组，避免直接修改原数组。",
       "典型使用场景：使用 toSorted 排序，并保留原数组不变。",
       "解决的旧写法问题：sort、reverse、splice 会原地修改数组，容易在状态管理和 UI 更新里产生副作用。",
       "适合使用：需要排序、反转、替换元素但保留原数组不变，尤其是不可变状态更新。",
@@ -42,7 +42,7 @@ export const es2023Lessons = [
     version: "ES2023",
     title: "Array.findLast / findLastIndex",
     explanation: [
-      "Array.findLast / findLastIndex 是 ES2023 中值得掌握的特性。它的核心作用是：findLast 和 findLastIndex 从数组末尾开始查找，适合寻找最后一次满足条件的元素。",
+      "findLast 和 findLastIndex 从数组末尾开始查找，适合寻找最后一次满足条件的元素。",
       "典型使用场景：找到最后一个大于 10 的数字。",
       "解决的旧写法问题：从后往前找元素过去要先 reverse 或手写反向循环，容易改变数组或写出样板代码。",
       "适合使用：需要找到最后一个满足条件的元素或位置。",
@@ -81,7 +81,7 @@ export const es2023Lessons = [
     version: "ES2023",
     title: "Symbols as WeakMap keys",
     explanation: [
-      "Symbols as WeakMap keys 是 ES2023 中值得掌握的特性。它的核心作用是：ES2023 允许非注册 Symbol 作为 WeakMap 键，适合创建不可枚举、不可猜测的弱关联令牌。",
+      "ES2023 允许非注册 Symbol 作为 WeakMap 键，适合创建不可枚举、不可猜测的弱关联令牌。",
       "典型使用场景：使用 Symbol 作为 WeakMap 的键。",
       "解决的旧写法问题：WeakMap 过去只能用对象做 key，想用唯一 token 关联弱引用元数据时选择有限。",
       "适合使用：需要用不可注册 Symbol 作为不会冲突的弱键来存储元信息。",

@@ -3,7 +3,7 @@ export const es2019Lessons = [
     version: "ES2019",
     title: "Object.fromEntries",
     explanation: [
-      "Object.fromEntries 是 ES2019 中值得掌握的特性。它的核心作用是：ES2019 引入 Object.fromEntries，将键值对数组转换为对象。",
+      "ES2019 引入 Object.fromEntries，将键值对数组转换为对象。",
       "典型使用场景：将 [ [\"name\", \"Alice\"], [\"age\", 30] ] 转成对象。",
       "解决的旧写法问题：把键值对列表转回对象时，以前要手写 reduce 或 for 循环累加。",
       "适合使用：处理 Object.entries、Map、URLSearchParams 等键值对数据后，需要生成普通对象。",
@@ -42,7 +42,7 @@ export const es2019Lessons = [
     version: "ES2019",
     title: "Array.flat / flatMap",
     explanation: [
-      "Array.flat / flatMap 是 ES2019 中值得掌握的特性。它的核心作用是：flat 用于展开嵌套数组，flatMap 则把 map 和一层 flat 合并成一步。",
+      "flat 用于展开嵌套数组，flatMap 则把 map 和一层 flat 合并成一步。",
       "典型使用场景：使用 flat 将二维数组展平成一维数组。",
       "解决的旧写法问题：展开嵌套数组常要 concat(...list) 或 reduce，map 后再 flat 也会分成两步。",
       "适合使用：需要展开固定深度数组，或对每项映射后展开一层。",
@@ -81,7 +81,7 @@ export const es2019Lessons = [
     version: "ES2019",
     title: "Optional catch binding",
     explanation: [
-      "Optional catch binding 是 ES2019 中值得掌握的特性。它的核心作用是：当 catch 块不需要错误对象时，ES2019 允许省略 catch 参数，让代码更简洁。",
+      "当 catch 块不需要错误对象时，ES2019 允许省略 catch 参数，让代码更简洁。",
       "典型使用场景：移除没有使用的 error 参数。",
       "解决的旧写法问题：catch 块不使用错误对象时，仍要写一个 error 参数，容易制造未使用变量噪音。",
       "适合使用：只关心“失败了”这个事实，不需要读取错误详情。",
@@ -120,7 +120,7 @@ export const es2019Lessons = [
     version: "ES2019",
     title: "Symbol.description",
     explanation: [
-      "Symbol.description 是 ES2019 中值得掌握的特性。它的核心作用是：Symbol.description 可以直接读取 Symbol 的描述文本，避免从 toString 结果中手动截取。",
+      "Symbol.description 可以直接读取 Symbol 的描述文本，避免从 toString 结果中手动截取。",
       "典型使用场景：使用 description 读取 Symbol 描述。",
       "解决的旧写法问题：以前要从 symbol.toString() 里截取描述文本，写法脆弱且不直观。",
       "适合使用：调试、日志或开发工具里需要读取 Symbol 的描述。",

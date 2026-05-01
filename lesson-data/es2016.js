@@ -3,7 +3,7 @@ export const es2016Lessons = [
     version: "ES2016",
     title: "指数运算符",
     explanation: [
-      "指数运算符 是 ES2016 中值得掌握的特性。它的核心作用是：ES2016 引入 ** 指数运算符，用于替代 Math.pow，书写更简洁。",
+      "ES2016 引入 ** 指数运算符，用于替代 Math.pow，书写更简洁。",
       "典型使用场景：将 Math.pow(2, 3) 改写为指数运算符。",
       "解决的旧写法问题：Math.pow 写法在表达式里不够直观，嵌套幂运算尤其难读。",
       "适合使用：表达数学上的幂运算，例如 2 ** 3 或 x ** 2。",
@@ -42,7 +42,7 @@ export const es2016Lessons = [
     version: "ES2016",
     title: "Array.includes",
     explanation: [
-      "Array.includes 是 ES2016 中值得掌握的特性。它的核心作用是：ES2016 引入 Array.includes 方法，用于判断数组是否包含某个值，语义更清晰。",
+      "ES2016 引入 Array.includes 方法，用于判断数组是否包含某个值，语义更清晰。",
       "典型使用场景：检查数组 [1, 2, 3] 是否包含数字 2。",
       "解决的旧写法问题：indexOf(...) !== -1 噪音多，并且对 NaN 的成员判断不友好。",
       "适合使用：只需要判断数组是否包含某个值，尤其是读起来应该像一个布尔条件时。",

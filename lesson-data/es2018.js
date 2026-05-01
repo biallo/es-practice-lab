@@ -3,7 +3,7 @@ export const es2018Lessons = [
     version: "ES2018",
     title: "对象展开/剩余属性",
     explanation: [
-      "对象展开/剩余属性 是 ES2018 中值得掌握的特性。它的核心作用是：ES2018 支持对象展开和剩余属性，方便复制对象和提取部分字段。",
+      "ES2018 支持对象展开和剩余属性，方便复制对象和提取部分字段。",
       "典型使用场景：从 user 中提取 name，并使用剩余属性获取其他字段。",
       "解决的旧写法问题：复制对象、合并字段、排除部分属性时，Object.assign 和手动赋值样板较多。",
       "适合使用：需要浅复制对象、合并配置，或从对象中取出部分字段再保留 rest。",
@@ -42,7 +42,7 @@ export const es2018Lessons = [
     version: "ES2018",
     title: "Async Iteration",
     explanation: [
-      "Async Iteration 是 ES2018 中值得掌握的特性。它的核心作用是：异步迭代用 for await...of 逐步读取异步产生的数据，适合流式数据和分页接口。",
+      "异步迭代用 for await...of 逐步读取异步产生的数据，适合流式数据和分页接口。",
       "典型使用场景：使用 for await...of 读取异步数字序列。",
       "解决的旧写法问题：异步数据流用普通 for/of 或 forEach 无法正确等待每一项，分页和流式读取会变得零散。",
       "适合使用：遍历异步可迭代对象，例如流、分页接口、异步生成器。",
@@ -81,7 +81,7 @@ export const es2018Lessons = [
     version: "ES2018",
     title: "Promise.finally",
     explanation: [
-      "Promise.finally 是 ES2018 中值得掌握的特性。它的核心作用是：Promise.finally 用于在异步操作结束后执行清理逻辑，无论成功还是失败都会运行。",
+      "Promise.finally 用于在异步操作结束后执行清理逻辑，无论成功还是失败都会运行。",
       "典型使用场景：将重复的清理逻辑改成 finally。",
       "解决的旧写法问题：then 和 catch 中重复写清理逻辑会造成分支重复，也容易漏掉失败路径。",
       "适合使用：无论成功失败都要关闭 loading、释放资源、记录结束状态。",
@@ -120,7 +120,7 @@ export const es2018Lessons = [
     version: "ES2018",
     title: "RegExp 命名捕获组",
     explanation: [
-      "RegExp 命名捕获组 是 ES2018 中值得掌握的特性。它的核心作用是：命名捕获组允许用名字读取正则匹配结果，比依赖数字下标更清晰。",
+      "命名捕获组允许用名字读取正则匹配结果，比依赖数字下标更清晰。",
       "典型使用场景：使用命名捕获组提取日期中的年、月、日。",
       "解决的旧写法问题：依赖 match[1]、match[2] 这类数字下标时，正则稍微调整就容易读错字段。",
       "适合使用：正则中有多个有含义的捕获结果，例如日期、URL、日志字段。",
@@ -159,7 +159,7 @@ export const es2018Lessons = [
     version: "ES2018",
     title: "RegExp 增强：dotAll / lookbehind / Unicode properties",
     explanation: [
-      "RegExp 增强：dotAll / lookbehind / Unicode properties 是 ES2018 中值得掌握的特性。它的核心作用是：ES2018 为正则表达式加入 dotAll、lookbehind 和 Unicode property escapes，让跨行、后行断言和 Unicode 分类匹配更强。",
+      "ES2018 为正则表达式加入 dotAll、lookbehind 和 Unicode property escapes，让跨行、后行断言和 Unicode 分类匹配更强。",
       "典型使用场景：使用 lookbehind 提取价格中的数字。",
       "解决的旧写法问题：过去跨行匹配、前后文限定和 Unicode 分类常要写复杂替代模式。",
       "适合使用：需要跨行点号匹配、基于前文/后文提取，或按 Unicode 属性匹配字符。",

@@ -368,7 +368,7 @@ export const es6Lessons = [
     version: "ES6",
     title: "Map",
     explanation: [
-      "Map 是 ES6 中值得掌握的特性。它的核心作用是：Map 是专门存储键值对的集合，键可以是任意类型，并且提供清晰的 set、get、has API。",
+      "Map 是专门存储键值对的集合，键可以是任意类型，并且提供清晰的 set、get、has API。",
       "典型使用场景：将普通对象计数表改写为 Map。",
       "解决的旧写法问题：普通对象当映射表时，key 会被转成字符串，还可能碰到原型属性和 hasOwnProperty 之类的边界。",
       "适合使用：需要任意类型作为 key、频繁 set/get/has/delete，或需要保留插入顺序的键值集合。",
@@ -407,7 +407,7 @@ export const es6Lessons = [
     version: "ES6",
     title: "Set",
     explanation: [
-      "Set 是 ES6 中值得掌握的特性。它的核心作用是：Set 用来保存不重复的值，常用于数组去重、成员判断和集合运算的基础场景。",
+      "Set 用来保存不重复的值，常用于数组去重、成员判断和集合运算的基础场景。",
       "典型使用场景：使用 Set 去除数组中的重复数字。",
       "解决的旧写法问题：用数组去重或判断成员时，经常要写 indexOf/includes/filter 组合，代码容易重复且语义不够直接。",
       "适合使用：需要表达“不重复集合”、做去重、成员判断，或后续要进行集合运算。",
@@ -446,7 +446,7 @@ export const es6Lessons = [
     version: "ES6",
     title: "Symbol",
     explanation: [
-      "Symbol 是 ES6 中值得掌握的特性。它的核心作用是：Symbol 创建唯一标识，适合定义不会和普通字符串属性冲突的对象键。",
+      "Symbol 创建唯一标识，适合定义不会和普通字符串属性冲突的对象键。",
       "典型使用场景：使用 Symbol 创建唯一属性，并读取它的值。",
       "解决的旧写法问题：用普通字符串给对象加内部属性时，容易和已有业务字段重名冲突，也会被常规遍历和 JSON 序列化带出去。",
       "适合使用：需要唯一标识、避免属性名冲突，或接入 Symbol.iterator 等语言内置协议。",
@@ -485,7 +485,7 @@ export const es6Lessons = [
     version: "ES6",
     title: "for...of",
     explanation: [
-      "for...of 是 ES6 中值得掌握的特性。它的核心作用是：for...of 用于遍历可迭代对象的值，比传统索引循环更适合数组、字符串、Set 和 Map。",
+      "for...of 用于遍历可迭代对象的值，比传统索引循环更适合数组、字符串、Set 和 Map。",
       "典型使用场景：将索引循环改写为 for...of。",
       "解决的旧写法问题：传统索引循环会暴露下标和 length 细节，for...in 遍历数组容易拿到属性名而不是值。",
       "适合使用：只关心可迭代对象的值，例如数组、字符串、Set、Map 或自定义迭代器。",
@@ -524,7 +524,7 @@ export const es6Lessons = [
     version: "ES6",
     title: "Generators",
     explanation: [
-      "Generators 是 ES6 中值得掌握的特性。它的核心作用是：Generator 函数可以暂停和继续执行，使用 yield 逐步产出值，是迭代器和异步流程控制的重要基础。",
+      "Generator 函数可以暂停和继续执行，使用 yield 逐步产出值，是迭代器和异步流程控制的重要基础。",
       "典型使用场景：创建一个 generator，依次产出 1 和 2。",
       "解决的旧写法问题：一次性返回完整数组会提前计算所有值，也不方便表达“按需产生、可暂停继续”的序列。",
       "适合使用：需要惰性生成数据、编写自定义迭代流程，或把复杂遍历拆成逐步 yield。",
@@ -563,7 +563,7 @@ export const es6Lessons = [
     version: "ES6",
     title: "自定义迭代器",
     explanation: [
-      "自定义迭代器 是 ES6 中值得掌握的特性。它的核心作用是：通过实现 Symbol.iterator，对象就能接入 for...of、展开语法等统一的迭代协议。",
+      "通过实现 Symbol.iterator，对象就能接入 for...of、展开语法等统一的迭代协议。",
       "典型使用场景：让 range 对象可以被 for...of 遍历。",
       "解决的旧写法问题：普通对象默认不能直接用于 for...of、展开语法等统一迭代写法，只能写专门的访问方法。",
       "适合使用：对象本身代表一个序列或集合，希望它能自然接入 for...of、... 和 Array.from。",
@@ -602,7 +602,7 @@ export const es6Lessons = [
     version: "ES6",
     title: "Array.from / Array.of",
     explanation: [
-      "Array.from / Array.of 是 ES6 中值得掌握的特性。它的核心作用是：Array.from 可以把类数组和可迭代对象转为数组，Array.of 则用参数创建数组，避免 Array 构造器的歧义。",
+      "Array.from 可以把类数组和可迭代对象转为数组，Array.of 则用参数创建数组，避免 Array 构造器的歧义。",
       "Array.from 常用于把字符串、Set、NodeList、arguments 等类数组或可迭代对象转成真正数组，也可以在转换时传入 map 函数。",
       "Array.of 用来按传入参数创建数组，尤其能避免 Array(3) 表示创建长度为 3 的空槽数组，而不是 [3] 的歧义。",
       "解决的旧写法问题：类数组转数组常要借用 slice，Array 构造器在单个数字参数时又容易产生长度歧义。",
@@ -642,7 +642,7 @@ export const es6Lessons = [
     version: "ES6",
     title: "Object.assign",
     explanation: [
-      "Object.assign 是 ES6 中值得掌握的特性。它的核心作用是：Object.assign 用于把多个对象的可枚举属性复制到目标对象，是 ES6 中常见的浅拷贝和合并工具。",
+      "Object.assign 用于把多个对象的可枚举属性复制到目标对象，是 ES6 中常见的浅拷贝和合并工具。",
       "典型使用场景：使用 Object.assign 合并 defaults 和 options。",
       "解决的旧写法问题：手动逐个复制属性样板多，合并默认配置和用户配置时容易漏字段。",
       "适合使用：需要浅合并对象、补默认配置，且只关心可枚举自有属性。",
@@ -681,7 +681,7 @@ export const es6Lessons = [
     version: "ES6",
     title: "字符串新增方法",
     explanation: [
-      "字符串新增方法 是 ES6 中值得掌握的特性。它的核心作用是：ES6 为字符串增加 startsWith、endsWith、includes 等方法，让常见匹配判断更语义化。",
+      "ES6 为字符串增加 startsWith、endsWith、includes 等方法，让常见匹配判断更语义化。",
       "典型使用场景：使用 startsWith 判断字符串是否以 ES 开头。",
       "解决的旧写法问题：用 indexOf 判断前缀、后缀或包含关系时，可读性差，还容易把 0 当成假值误判。",
       "适合使用：表达 startsWith、endsWith、includes 这类明确字符串判断。",
@@ -720,7 +720,7 @@ export const es6Lessons = [
     version: "ES6",
     title: "Number 新增方法",
     explanation: [
-      "Number 新增方法 是 ES6 中值得掌握的特性。它的核心作用是：ES6 增加了 Number.isNaN、Number.isFinite、Number.isInteger 等更严格的数字判断方法。",
+      "ES6 增加了 Number.isNaN、Number.isFinite、Number.isInteger 等更严格的数字判断方法。",
       "典型使用场景：使用 Number.isInteger 判断 value 是否为整数。",
       "解决的旧写法问题：全局 isNaN/isFinite 会先做类型转换，字符串等值可能被误判成数字场景。",
       "适合使用：需要严格判断真正的 number 值，例如 Number.isNaN、Number.isFinite、Number.isInteger。",
@@ -759,7 +759,7 @@ export const es6Lessons = [
     version: "ES6",
     title: "ES Modules",
     explanation: [
-      "ES Modules 是 ES6 中值得掌握的特性。它的核心作用是：ES Modules 提供标准化的模块系统，用 import 和 export 管理文件之间的依赖关系。",
+      "ES Modules 提供标准化的模块系统，用 import 和 export 管理文件之间的依赖关系。",
       "典型使用场景：将全局变量式代码改成模块导出和导入的写法。",
       "解决的旧写法问题：全局变量和脚本拼接会造成依赖顺序隐式、命名冲突和难以静态分析的问题。",
       "适合使用：需要清晰声明文件依赖、导出公共 API，并让打包工具做静态分析和拆包。",
@@ -798,7 +798,7 @@ export const es6Lessons = [
     version: "ES6",
     title: "WeakMap / WeakSet",
     explanation: [
-      "WeakMap / WeakSet 是 ES6 中值得掌握的特性。它的核心作用是：WeakMap 和 WeakSet 使用弱引用保存对象，适合存储私有数据或与对象生命周期绑定的元信息。",
+      "WeakMap 和 WeakSet 使用弱引用保存对象，适合存储私有数据或与对象生命周期绑定的元信息。",
       "典型使用场景：使用 WeakMap 为对象保存私有积分。",
       "解决的旧写法问题：Map 持有对象 key 的强引用，缓存和私有元数据容易阻止对象被垃圾回收。",
       "适合使用：需要把元信息绑定到对象生命周期上，例如 DOM 节点状态、实例私有数据、对象缓存。",
@@ -837,7 +837,7 @@ export const es6Lessons = [
     version: "ES6",
     title: "Array.find / findIndex",
     explanation: [
-      "Array.find / findIndex 是 ES6 中值得掌握的特性。它的核心作用是：find 和 findIndex 用于按条件查找数组元素或位置，比手写循环更直接。",
+      "find 和 findIndex 用于按条件查找数组元素或位置，比手写循环更直接。",
       "典型使用场景：使用 find 找到第一个年龄大于 18 的用户。",
       "解决的旧写法问题：手写循环找第一项会混入临时变量和 break，意图不如“查找第一个匹配项”清楚。",
       "适合使用：需要按条件找到第一个元素或它的位置。",
@@ -876,7 +876,7 @@ export const es6Lessons = [
     version: "ES6",
     title: "Proxy / Reflect",
     explanation: [
-      "Proxy / Reflect 是 ES6 中值得掌握的特性。它的核心作用是：Proxy 可以拦截对象读取、赋值等操作，Reflect 提供与这些底层操作对应的标准方法。",
+      "Proxy 可以拦截对象读取、赋值等操作，Reflect 提供与这些底层操作对应的标准方法。",
       "典型使用场景：用 Proxy 拦截 user.name 的读取，并在控制台输出提示。",
       "解决的旧写法问题：用 getter/setter 或手写包装对象只能拦截有限操作，难以统一代理读取、赋值、删除等底层行为。",
       "适合使用：需要实现响应式数据、校验层、访问日志、虚拟对象或元编程封装。",

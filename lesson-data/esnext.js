@@ -3,7 +3,7 @@ export const esnextLessons = [
     version: "ESNext",
     title: "Array.fromAsync",
     explanation: [
-      "Array.fromAsync 是 ESNext 中值得掌握的特性。它的核心作用是：Array.fromAsync 可以从异步可迭代对象或 Promise 集合创建数组，是 Array.from 的异步版本。",
+      "Array.fromAsync 可以从异步可迭代对象或 Promise 集合创建数组，是 Array.from 的异步版本。",
       "典型使用场景：使用 Array.fromAsync 收集异步迭代结果。",
       "解决的旧写法问题：异步可迭代对象转数组过去要手写 for await...of 收集结果。",
       "适合使用：需要把异步迭代结果完整收集成数组，再进行后续数组处理。",
@@ -42,7 +42,7 @@ export const esnextLessons = [
     version: "ESNext",
     title: "Error.isError",
     explanation: [
-      "Error.isError 是 ESNext 中值得掌握的特性。它的核心作用是：Error.isError 提供标准方式判断一个值是否为 Error 对象，比 instanceof Error 更适合跨 realm 场景。",
+      "Error.isError 提供标准方式判断一个值是否为 Error 对象，比 instanceof Error 更适合跨 realm 场景。",
       "典型使用场景：使用 Error.isError 判断捕获到的值。",
       "解决的旧写法问题：instanceof Error 在跨 realm 场景可能失效，自定义判断又不统一。",
       "适合使用：需要可靠判断一个值是不是 Error 对象，尤其是库代码或跨 iframe/worker 数据。",
@@ -81,7 +81,7 @@ export const esnextLessons = [
     version: "ESNext",
     title: "Uint8Array Base64 / Hex",
     explanation: [
-      "Uint8Array Base64 / Hex 是 ESNext 中值得掌握的特性。它的核心作用是：Uint8Array toBase64、fromBase64、toHex、fromHex 等方法让二进制和文本编码转换标准化。",
+      "Uint8Array toBase64、fromBase64、toHex、fromHex 等方法让二进制和文本编码转换标准化。",
       "典型使用场景：使用 Uint8Array.fromBase64 解码 Base64 字符串。",
       "解决的旧写法问题：二进制数据和 Base64/Hex 互转过去常依赖 btoa/atob、Buffer 或手写循环。",
       "适合使用：需要在浏览器标准 API 中处理字节数组编码和解码。",
@@ -120,7 +120,7 @@ export const esnextLessons = [
     version: "ESNext",
     title: "Map upsert",
     explanation: [
-      "Map upsert 是 ESNext 中值得掌握的特性。它的核心作用是：Map upsert 方法用于读取或插入默认值，避免手写 has、get、set 组合逻辑。",
+      "Map upsert 方法用于读取或插入默认值，避免手写 has、get、set 组合逻辑。",
       "典型使用场景：使用 getOrInsert 为 Map 中不存在的键设置默认数组。",
       "解决的旧写法问题：Map 中“有则更新、无则创建”过去要写 has/get/set 三步，容易重复查找。",
       "适合使用：计数、分组、缓存初始化等需要按 key 原子地插入或更新值的场景。",
@@ -159,7 +159,7 @@ export const esnextLessons = [
     version: "ESNext",
     title: "JSON.parse source text access",
     explanation: [
-      "JSON.parse source text access 是 ESNext 中值得掌握的特性。它的核心作用是：JSON.parse source text access 让 reviver 能读取原始 JSON 片段，适合处理大整数等会丢失精度的值。",
+      "JSON.parse source text access 让 reviver 能读取原始 JSON 片段，适合处理大整数等会丢失精度的值。",
       "典型使用场景：在 reviver 中读取原始 source 文本。",
       "解决的旧写法问题：JSON.parse 后只得到值，无法知道某个值在原始文本里的写法，精度和审计场景受限。",
       "适合使用：需要保留大数字原文、做解析审计，或根据原始 JSON 片段做更精细处理。",
@@ -198,7 +198,7 @@ export const esnextLessons = [
     version: "ESNext",
     title: "Math.sumPrecise",
     explanation: [
-      "Math.sumPrecise 是 ESNext 中值得掌握的特性。它的核心作用是：Math.sumPrecise 用更稳定的方式求和，减少浮点数累加误差对结果的影响。",
+      "Math.sumPrecise 用更稳定的方式求和，减少浮点数累加误差对结果的影响。",
       "典型使用场景：使用 Math.sumPrecise 计算浮点数组总和。",
       "解决的旧写法问题：浮点数直接累加会遇到 0.1 + 0.2 这类精度误差，手写补偿算法又复杂。",
       "适合使用：需要对浮点数组求和并尽量减少累积误差。",
@@ -237,7 +237,7 @@ export const esnextLessons = [
     version: "ESNext",
     title: "Temporal",
     explanation: [
-      "Temporal 是 ESNext 中值得掌握的特性。它的核心作用是：Temporal 是新的日期时间 API，用于替代 Date 在时区、日历和不可变数据方面的长期痛点。",
+      "Temporal 是新的日期时间 API，用于替代 Date 在时区、日历和不可变数据方面的长期痛点。",
       "典型使用场景：使用 Temporal.PlainDate 表示一个不包含时区的日期。",
       "解决的旧写法问题：Date 同时混合时间点、时区和本地日期，解析和时区行为长期容易出错。",
       "适合使用：需要明确区分日期、时间、时区、持续时间，或构建可靠的日历/时区逻辑。",

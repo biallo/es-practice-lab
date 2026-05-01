@@ -3,7 +3,7 @@ export const es2024Lessons = [
     version: "ES2024",
     title: "Object.groupBy / Map.groupBy",
     explanation: [
-      "Object.groupBy / Map.groupBy 是 ES2024 中值得掌握的特性。它的核心作用是：ES2024 引入 Object.groupBy 和 Map.groupBy，能根据回调函数将可迭代数据分组，适合处理分类数据。",
+      "ES2024 引入 Object.groupBy 和 Map.groupBy，能根据回调函数将可迭代数据分组，适合处理分类数据。",
       "典型使用场景：将人员数组按性别分组。",
       "解决的旧写法问题：数组分组过去常写 reduce 手动初始化桶，样板代码多且容易写错。",
       "适合使用：需要按某个计算结果把列表分组；字符串 key 用 Object.groupBy，任意 key 用 Map.groupBy。",
@@ -42,7 +42,7 @@ export const es2024Lessons = [
     version: "ES2024",
     title: "Promise.withResolvers",
     explanation: [
-      "Promise.withResolvers 是 ES2024 中值得掌握的特性。它的核心作用是：Promise.withResolvers 返回 promise、resolve 和 reject，适合需要把控制权交给外部事件的场景。",
+      "Promise.withResolvers 返回 promise、resolve 和 reject，适合需要把控制权交给外部事件的场景。",
       "典型使用场景：使用 Promise.withResolvers 创建可外部 resolve 的 Promise。",
       "解决的旧写法问题：创建外部 resolve/reject 句柄时，以前要在 Promise 构造器外声明变量，样板且不优雅。",
       "适合使用：需要把 Promise 的完成控制权交给事件回调、队列或外部流程。",
@@ -81,7 +81,7 @@ export const es2024Lessons = [
     version: "ES2024",
     title: "ArrayBuffer transfer",
     explanation: [
-      "ArrayBuffer transfer 是 ES2024 中值得掌握的特性。它的核心作用是：ArrayBuffer transfer 可以把缓冲区内容转移到新缓冲区，并让旧缓冲区失效，适合二进制数据所有权转移。",
+      "ArrayBuffer transfer 可以把缓冲区内容转移到新缓冲区，并让旧缓冲区失效，适合二进制数据所有权转移。",
       "典型使用场景：使用 transfer 转移 ArrayBuffer。",
       "解决的旧写法问题：转移二进制缓冲区所有权过去常依赖 postMessage 等特定 API，普通代码里不够直接。",
       "适合使用：需要把大型 ArrayBuffer 的所有权移动给新缓冲区，避免复制成本。",
@@ -120,7 +120,7 @@ export const es2024Lessons = [
     version: "ES2024",
     title: "Resizable ArrayBuffer",
     explanation: [
-      "Resizable ArrayBuffer 是 ES2024 中值得掌握的特性。它的核心作用是：Resizable ArrayBuffer 允许创建带 maxByteLength 的可调整缓冲区，并用 resize 改变当前长度。",
+      "Resizable ArrayBuffer 允许创建带 maxByteLength 的可调整缓冲区，并用 resize 改变当前长度。",
       "典型使用场景：创建一个可增长的 ArrayBuffer 并调整大小。",
       "解决的旧写法问题：固定长度 ArrayBuffer 在数据增长时只能重新分配并复制。",
       "适合使用：处理可增长二进制数据、流式协议或需要预留最大容量的底层场景。",
@@ -159,7 +159,7 @@ export const es2024Lessons = [
     version: "ES2024",
     title: "RegExp v flag",
     explanation: [
-      "RegExp v flag 是 ES2024 中值得掌握的特性。它的核心作用是：RegExp v 标志增强 Unicode 匹配能力，支持字符串属性和更强的字符集合表达。",
+      "RegExp v 标志增强 Unicode 匹配能力，支持字符串属性和更强的字符集合表达。",
       "典型使用场景：使用 v 标志匹配 emoji 字符串属性。",
       "解决的旧写法问题：复杂 Unicode 字符集合和集合运算过去需要冗长或不准确的正则表达。",
       "适合使用：需要 Unicode 字符集交集、差集或更严格的字符串属性匹配。",
@@ -198,7 +198,7 @@ export const es2024Lessons = [
     version: "ES2024",
     title: "String isWellFormed / toWellFormed",
     explanation: [
-      "String isWellFormed / toWellFormed 是 ES2024 中值得掌握的特性。它的核心作用是：isWellFormed 和 toWellFormed 用于检测和修复字符串中的孤立代理项，避免 Unicode 编码问题。",
+      "isWellFormed 和 toWellFormed 用于检测和修复字符串中的孤立代理项，避免 Unicode 编码问题。",
       "典型使用场景：使用 toWellFormed 修复不合法字符串。",
       "解决的旧写法问题：字符串中孤立代理项会让 Unicode 处理、编码和传输出现难排查的问题。",
       "适合使用：处理外部输入、网络传输、编码前校验，或需要修复不合法 Unicode 字符串。",

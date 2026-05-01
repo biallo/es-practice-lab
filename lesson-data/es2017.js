@@ -3,7 +3,7 @@ export const es2017Lessons = [
     version: "ES2017",
     title: "Async / Await",
     explanation: [
-      "Async / Await 是 ES2017 中值得掌握的特性。它的核心作用是：ES2017 引入 async/await，使异步代码写法更像同步代码，更易读。",
+      "ES2017 引入 async/await，使异步代码写法更像同步代码，更易读。",
       "典型使用场景：将 Promise.then 语法改写成 async/await。",
       "解决的旧写法问题：多层 then 链会把异步流程拆散，错误处理和顺序逻辑不如同步风格好读。",
       "适合使用：需要按顺序等待异步结果，并用 try/catch 管理错误。",
@@ -42,7 +42,7 @@ export const es2017Lessons = [
     version: "ES2017",
     title: "Object.values / Object.entries",
     explanation: [
-      "Object.values / Object.entries 是 ES2017 中值得掌握的特性。它的核心作用是：Object.values 和 Object.entries 让对象值列表、键值对列表的遍历更方便。",
+      "Object.values 和 Object.entries 让对象值列表、键值对列表的遍历更方便。",
       "典型使用场景：使用 Object.entries 输出对象中的键和值。",
       "解决的旧写法问题：遍历对象时常要 Object.keys(obj).map(key => obj[key])，重复取值且语义绕。",
       "适合使用：需要对象的值列表，或需要以 [key, value] 形式遍历普通对象。",
@@ -81,7 +81,7 @@ export const es2017Lessons = [
     version: "ES2017",
     title: "String padding",
     explanation: [
-      "String padding 是 ES2017 中值得掌握的特性。它的核心作用是：padStart 和 padEnd 可以把字符串补齐到指定长度，常用于格式化编号、日期和对齐文本。",
+      "padStart 和 padEnd 可以把字符串补齐到指定长度，常用于格式化编号、日期和对齐文本。",
       "典型使用场景：使用 padStart 将数字 7 格式化为 007。",
       "解决的旧写法问题：手动拼接 0 或空格补齐字符串时，长度计算和截断逻辑容易散落在代码里。",
       "适合使用：格式化编号、日期、表格文本等固定宽度字符串。",
@@ -120,7 +120,7 @@ export const es2017Lessons = [
     version: "ES2017",
     title: "Object.getOwnPropertyDescriptors",
     explanation: [
-      "Object.getOwnPropertyDescriptors 是 ES2017 中值得掌握的特性。它的核心作用是：Object.getOwnPropertyDescriptors 可以一次获取对象所有自有属性描述符，适合复制 getter、setter 等特殊属性。",
+      "Object.getOwnPropertyDescriptors 可以一次获取对象所有自有属性描述符，适合复制 getter、setter 等特殊属性。",
       "典型使用场景：使用属性描述符复制带 getter 的对象。",
       "解决的旧写法问题：Object.assign 会触发 getter 并复制值，无法保留 getter、setter、writable 等描述符信息。",
       "适合使用：需要完整复制对象属性描述符，尤其是访问器属性或库级对象克隆。",
