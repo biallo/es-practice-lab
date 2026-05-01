@@ -3,32 +3,40 @@ export const es2025Lessons = [
     version: "ES2025",
     title: "Set methods",
     explanation: [
-      "ES2025 为 Set 增加 union、intersection、difference 等集合操作方法，让集合运算更直观。",
-      "典型使用场景：使用 intersection 求两个集合的交集。",
-      "解决的旧写法问题：交集、并集、差集过去要手写循环或把 Set 转数组再过滤，语义分散。",
-      "适合使用：需要表达集合运算，例如 union、intersection、difference、isSubsetOf。",
+      "ES2025 为 Set 增加 union、intersection、difference、symmetricDifference 等集合操作方法，让集合运算更直观。",
+      "union 返回并集，intersection 返回交集，difference 返回只在左侧集合中的元素。",
+      "symmetricDifference 返回只出现在其中一个集合里的元素，也就是去掉交集后的差异部分。",
+      "isSubsetOf、isSupersetOf 和 isDisjointFrom 用于判断集合之间的包含或不相交关系。",
+      "典型使用场景：对权限、标签、筛选条件等集合做合并、取交集、求差异和关系判断。",
+      "解决的旧写法问题：集合运算过去要手写循环或把 Set 转数组再过滤，语义分散。",
+      "适合使用：需要直接表达集合运算，例如 union、intersection、difference、isSubsetOf。",
       "继续用传统写法：需要保留重复项或顺序相关计算时，数组方法更符合数据模型。"
     ],
-    exercise: "使用 intersection 求两个集合的交集。",
-    starterCode: "const a = new Set([1, 2, 3]);\nconst b = new Set([2, 3, 4]);\nconst both = new Set([...a].filter(item => b.has(item)));\nconsole.log([...both]);",
-    errorCode: "new Set([...a].filter(item => b.has(item)));",
-    correctCode: "const a = new Set([1, 2, 3]);\nconst b = new Set([2, 3, 4]);\nconst both = a.intersection(b);\nconsole.log([...both]);",
+    exercise: "使用 Set methods 完成并集、交集、差集和关系判断。",
+    starterCode: "const a = new Set([1, 2, 3]);\nconst b = new Set([2, 3, 4]);\nconst required = new Set([2, 3]);\n\nconst all = new Set([...a, ...b]);\nconst both = new Set([...a].filter(item => b.has(item)));\nconst onlyA = new Set([...a].filter(item => !b.has(item)));\nconst eitherOnly = new Set([...all].filter(item => !both.has(item)));\nconst hasRequired = [...required].every(item => a.has(item));\nconst separate = [...a].every(item => !new Set([5, 6]).has(item));\n\nconsole.log([...all], [...both], [...onlyA], [...eitherOnly], hasRequired, separate);",
+    errorCode: "new Set([...a, ...b]);\nnew Set([...a].filter(item => b.has(item)));\nnew Set([...a].filter(item => !b.has(item)));\n[...required].every(item => a.has(item));",
+    correctCode: "const a = new Set([1, 2, 3]);\nconst b = new Set([2, 3, 4]);\nconst required = new Set([2, 3]);\n\nconst all = a.union(b);\nconst both = a.intersection(b);\nconst onlyA = a.difference(b);\nconst eitherOnly = a.symmetricDifference(b);\nconst hasRequired = required.isSubsetOf(a);\nconst separate = a.isDisjointFrom(new Set([5, 6]));\n\nconsole.log([...all], [...both], [...onlyA], [...eitherOnly], hasRequired, separate);",
     practice: {
-      prompt: "独立完成：使用 intersection 求两个集合的交集。",
-      starter: "// 使用 Set methods 完成本课练习。\n// 目标：使用 intersection 求两个集合的交集。\n\n",
-      answer: "const a = new Set([1, 2, 3]);\nconst b = new Set([2, 3, 4]);\nconst both = a.intersection(b);\nconsole.log([...both]);",
+      prompt: "独立完成：使用 Set methods 完成并集、交集、差集和关系判断。",
+      starter: "// 使用 Set methods 完成本课练习。\n// 目标：使用 Set methods 完成并集、交集、差集和关系判断。\n\n",
+      answer: "const a = new Set([1, 2, 3]);\nconst b = new Set([2, 3, 4]);\nconst required = new Set([2, 3]);\n\nconst all = a.union(b);\nconst both = a.intersection(b);\nconst onlyA = a.difference(b);\nconst eitherOnly = a.symmetricDifference(b);\nconst hasRequired = required.isSubsetOf(a);\nconst separate = a.isDisjointFrom(new Set([5, 6]));\n\nconsole.log([...all], [...both], [...onlyA], [...eitherOnly], hasRequired, separate);",
       explanation: [
         "这道练习要求你从空白实现开始，主动选择 Set methods 的写法完成目标。",
+        "a.union(b) 对应并集：合并两个集合里的所有元素。",
+        "a.intersection(b) 对应交集：只保留两个集合都有的元素。",
+        "a.difference(b) 对应差集：只保留 a 中有、b 中没有的元素。",
+        "a.symmetricDifference(b) 对应对称差集：只保留不重叠的元素。",
+        "required.isSubsetOf(a) 和 a.isDisjointFrom(...) 对应关系判断：判断是否为子集、是否不相交。",
         "参考答案展示的是本课推荐写法；对照时重点看它解决了旧写法里的哪类重复、歧义或安全问题。"
       ]
     },
     debugCase: {
       title: "修复 Set methods 的旧写法或误用",
-      broken: "const a = new Set([1, 2, 3]);\nconst b = new Set([2, 3, 4]);\nconst both = new Set([...a].filter(item => b.has(item)));\nconsole.log([...both]);",
-      fixed: "const a = new Set([1, 2, 3]);\nconst b = new Set([2, 3, 4]);\nconst both = a.intersection(b);\nconsole.log([...both]);",
+      broken: "const a = new Set([1, 2, 3]);\nconst b = new Set([2, 3, 4]);\nconst required = new Set([2, 3]);\n\nconst all = new Set([...a, ...b]);\nconst both = new Set([...a].filter(item => b.has(item)));\nconst onlyA = new Set([...a].filter(item => !b.has(item)));\nconst eitherOnly = new Set([...all].filter(item => !both.has(item)));\nconst hasRequired = [...required].every(item => a.has(item));\nconst separate = [...a].every(item => !new Set([5, 6]).has(item));\n\nconsole.log([...all], [...both], [...onlyA], [...eitherOnly], hasRequired, separate);",
+      fixed: "const a = new Set([1, 2, 3]);\nconst b = new Set([2, 3, 4]);\nconst required = new Set([2, 3]);\n\nconst all = a.union(b);\nconst both = a.intersection(b);\nconst onlyA = a.difference(b);\nconst eitherOnly = a.symmetricDifference(b);\nconst hasRequired = required.isSubsetOf(a);\nconst separate = a.isDisjointFrom(new Set([5, 6]));\n\nconsole.log([...all], [...both], [...onlyA], [...eitherOnly], hasRequired, separate);",
       reason: [
-        "解决的旧写法问题：交集、并集、差集过去要手写循环或把 Set 转数组再过滤，语义分散。",
-        "这道改错要重点替换这段旧写法：new Set([...a].filter(item => b.has(item)));"
+        "解决的旧写法问题：集合运算过去要手写循环或把 Set 转数组再过滤，语义分散。",
+        "这道改错要重点替换多处数组过滤和 every 判断：用 union、intersection、difference、symmetricDifference 和集合关系判断方法表达真实意图。"
       ]
     },
     review: [
@@ -127,22 +135,24 @@ export const es2025Lessons = [
       "继续用传统写法：普通 async 函数已经能表达的流程，不必为了形式统一再包一层。"
     ],
     exercise: "使用 Promise.try 包装可能同步抛错的函数。",
-    starterCode: "try {\n  const value = JSON.parse('{');\n  Promise.resolve(value).then(console.log);\n} catch (error) {\n  Promise.reject(error).catch(console.log);\n}",
+    starterCode: "try {\n  const value = JSON.parse('{');\n  Promise.resolve(value).then(console.log);\n} catch (error) {\n  Promise.reject(error).catch((reason) => console.log(reason.name));\n}",
     errorCode: "try { ... } catch (error) { ... }",
-    correctCode: "Promise.try(() => JSON.parse('{'))\n  .then(console.log)\n  .catch(console.log);",
+    correctCode: "Promise.try(() => JSON.parse('{'))\n  .then(console.log)\n  .catch((error) => console.log(error.name));",
     practice: {
       prompt: "独立完成：使用 Promise.try 包装可能同步抛错的函数。",
       starter: "// 使用 Promise.try 完成本课练习。\n// 目标：使用 Promise.try 包装可能同步抛错的函数。\n\n",
-      answer: "Promise.try(() => JSON.parse('{'))\n  .then(console.log)\n  .catch(console.log);",
+      answer: "Promise.try(() => JSON.parse('{'))\n  .then(console.log)\n  .catch((error) => console.log(error.name));",
       explanation: [
         "这道练习要求你从空白实现开始，主动选择 Promise.try 的写法完成目标。",
+        "JSON.parse('{') 会同步抛出 SyntaxError；Promise.try 会把这个同步异常变成 rejected Promise。",
+        "这里只输出 error.name，是为了避免不同浏览器对 JSON.parse 的错误信息文案不同。",
         "参考答案展示的是本课推荐写法；对照时重点看它解决了旧写法里的哪类重复、歧义或安全问题。"
       ]
     },
     debugCase: {
       title: "修复 Promise.try 的旧写法或误用",
-      broken: "try {\n  const value = JSON.parse('{');\n  Promise.resolve(value).then(console.log);\n} catch (error) {\n  Promise.reject(error).catch(console.log);\n}",
-      fixed: "Promise.try(() => JSON.parse('{'))\n  .then(console.log)\n  .catch(console.log);",
+      broken: "try {\n  const value = JSON.parse('{');\n  Promise.resolve(value).then(console.log);\n} catch (error) {\n  Promise.reject(error).catch((reason) => console.log(reason.name));\n}",
+      fixed: "Promise.try(() => JSON.parse('{'))\n  .then(console.log)\n  .catch((error) => console.log(error.name));",
       reason: [
         "解决的旧写法问题：同时兼容同步抛错和异步返回 Promise 时，过去要手写 try/catch 再 Promise.resolve。",
         "这道改错要重点替换这段旧写法：try { ... } catch (error) { ... }"
