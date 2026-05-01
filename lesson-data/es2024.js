@@ -44,7 +44,7 @@ export const es2024Lessons = [
     explanation: [
       "Promise.withResolvers 返回 promise、resolve 和 reject，适合需要把控制权交给外部事件的场景。",
       "典型使用场景：使用 Promise.withResolvers 创建可外部 resolve 的 Promise。",
-      "解决的旧写法问题：创建外部 resolve/reject 句柄时，以前要在 Promise 构造器外声明变量，样板且不优雅。",
+      "解决的旧写法问题：创建外部 resolve/reject 句柄时，以前要先声明变量，再在 Promise 构造器里把 resolve 赋出来，固定写法多且容易绕。",
       "适合使用：需要把 Promise 的完成控制权交给事件回调、队列或外部流程。",
       "继续用传统写法：普通异步操作能直接 return new Promise 或 async 函数时，不要额外暴露 resolver。"
     ],
@@ -58,6 +58,8 @@ export const es2024Lessons = [
       answer: "const { promise, resolve } = Promise.withResolvers();\nresolve('ok');\npromise.then(console.log);",
       explanation: [
         "这道练习要求你从空白实现开始，主动选择 Promise.withResolvers 的写法完成目标。",
+        "旧写法里的 let resolve 是先占一个变量位置，等 new Promise 执行时再把真正的 resolve 函数赋给它。",
+        "Promise.withResolvers() 会直接返回 promise、resolve 和 reject，省掉这段中转写法。",
         "参考答案展示的是本课推荐写法；对照时重点看它解决了旧写法里的哪类重复、歧义或安全问题。"
       ]
     },
@@ -66,7 +68,7 @@ export const es2024Lessons = [
       broken: "let resolve;\nconst promise = new Promise((done) => {\n  resolve = done;\n});\nresolve('ok');\npromise.then(console.log);",
       fixed: "const { promise, resolve } = Promise.withResolvers();\nresolve('ok');\npromise.then(console.log);",
       reason: [
-        "解决的旧写法问题：创建外部 resolve/reject 句柄时，以前要在 Promise 构造器外声明变量，样板且不优雅。",
+        "解决的旧写法问题：创建外部 resolve/reject 句柄时，以前要先声明变量，再在 Promise 构造器里把 resolve 赋出来，固定写法多且容易绕。",
         "这道改错要重点替换这段旧写法：let resolve; const promise = new Promise((done) => { resolve = done; });"
       ]
     },
