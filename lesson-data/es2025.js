@@ -27,8 +27,8 @@ export const es2025Lessons = [
       broken: "const a = new Set([1, 2, 3]);\nconst b = new Set([2, 3, 4]);\nconst both = new Set([...a].filter(item => b.has(item)));\nconsole.log([...both]);",
       fixed: "const a = new Set([1, 2, 3]);\nconst b = new Set([2, 3, 4]);\nconst both = a.intersection(b);\nconsole.log([...both]);",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Set methods 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：交集、并集、差集过去要手写循环或把 Set 转数组再过滤，语义分散。",
+        "这道改错要重点替换这段旧写法：new Set([...a].filter(item => b.has(item)));"
       ]
     },
     review: [
@@ -66,8 +66,8 @@ export const es2025Lessons = [
       broken: "const result = [1, 2, 3, 4]\n  .filter(n => n % 2 === 0)\n  .map(n => n * 10);\nconsole.log(result);",
       fixed: "const result = [1, 2, 3, 4]\n  .values()\n  .filter(n => n % 2 === 0)\n  .map(n => n * 10)\n  .toArray();\nconsole.log(result);",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Iterator helpers 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：迭代器想 map/filter/take 时，过去常要先转数组，失去惰性并增加内存。",
+        "这道改错要重点替换这段旧写法：.filter(n => n % 2 === 0).map(n => n * 10);"
       ]
     },
     review: [
@@ -105,8 +105,8 @@ export const es2025Lessons = [
       broken: "const input = 'a+b';\nconst regex = new RegExp(input);\nconsole.log(regex.test('a+b'));",
       fixed: "const input = 'a+b';\nconst regex = new RegExp(RegExp.escape(input));\nconsole.log(regex.test('a+b'));",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 RegExp.escape 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：把用户输入拼进正则时，手写转义容易漏掉特殊字符，造成错误匹配甚至安全问题。",
+        "这道改错要重点替换这段旧写法：new RegExp(input);"
       ]
     },
     review: [
@@ -144,8 +144,8 @@ export const es2025Lessons = [
       broken: "try {\n  const value = JSON.parse('{');\n  Promise.resolve(value).then(console.log);\n} catch (error) {\n  Promise.reject(error).catch(console.log);\n}",
       fixed: "Promise.try(() => JSON.parse('{'))\n  .then(console.log)\n  .catch(console.log);",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Promise.try 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：同时兼容同步抛错和异步返回 Promise 时，过去要手写 try/catch 再 Promise.resolve。",
+        "这道改错要重点替换这段旧写法：try { ... } catch (error) { ... }"
       ]
     },
     review: [
@@ -183,8 +183,8 @@ export const es2025Lessons = [
       broken: "const response = await fetch('./config.json');\nconst config = await response.json();\nconsole.log(config.name);",
       fixed: "import config from './config.json' with { type: 'json' };\nconsole.log(config.name);",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Import Attributes / JSON Modules 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：导入 JSON 等非 JS 资源时，过去缺少标准化的模块类型声明，容易依赖打包器约定。",
+        "这道改错要重点替换这段旧写法：await fetch('./config.json');"
       ]
     },
     review: [
@@ -222,8 +222,8 @@ export const es2025Lessons = [
       broken: "const regex = /hello world/i;\nconsole.log(regex.test('HELLO world'));",
       fixed: "const regex = /(?i:hello) world/;\nconsole.log(regex.test('HELLO world'));",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 RegExp modifiers 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：正则某一小段需要不同标志时，以前只能拆多个正则或扩大标志影响范围。",
+        "这道改错要重点替换这段旧写法：/hello world/i"
       ]
     },
     review: [

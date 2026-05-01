@@ -27,8 +27,8 @@ export const esnextLessons = [
       broken: "async function collect(source) {\n  const result = [];\n  for await (const item of source) {\n    result.push(item);\n  }\n  return result;\n}",
       fixed: "async function collect(source) {\n  return Array.fromAsync(source);\n}",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Array.fromAsync 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：异步可迭代对象转数组过去要手写 for await...of 收集结果。",
+        "这道改错要重点替换这段旧写法：const result = []; for await (const item of source) { result.push(item); }"
       ]
     },
     review: [
@@ -66,8 +66,8 @@ export const esnextLessons = [
       broken: "try {\n  JSON.parse('{');\n} catch (value) {\n  console.log(value instanceof Error);\n}",
       fixed: "try {\n  JSON.parse('{');\n} catch (value) {\n  console.log(Error.isError(value));\n}",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Error.isError 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：instanceof Error 在跨 realm 场景可能失效，自定义判断又不统一。",
+        "这道改错要重点替换这段旧写法：value instanceof Error"
       ]
     },
     review: [
@@ -105,8 +105,8 @@ export const esnextLessons = [
       broken: "const text = atob('SGVsbG8=');\nconst bytes = Uint8Array.from(text, ch => ch.charCodeAt(0));\nconsole.log(bytes);",
       fixed: "const bytes = Uint8Array.fromBase64('SGVsbG8=');\nconsole.log(bytes.toBase64());",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Uint8Array Base64 / Hex 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：二进制数据和 Base64/Hex 互转过去常依赖 btoa/atob、Buffer 或手写循环。",
+        "这道改错要重点替换这段旧写法：atob('SGVsbG8=')"
       ]
     },
     review: [
@@ -144,8 +144,8 @@ export const esnextLessons = [
       broken: "const groups = new Map();\nconst key = 'js';\nif (!groups.has(key)) {\n  groups.set(key, []);\n}\ngroups.get(key).push('ES');",
       fixed: "const groups = new Map();\nconst key = 'js';\ngroups.getOrInsert(key, []).push('ES');",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Map upsert 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：Map 中“有则更新、无则创建”过去要写 has/get/set 三步，容易重复查找。",
+        "这道改错要重点替换这段旧写法：if (!groups.has(key)) { groups.set(key, []); }"
       ]
     },
     review: [
@@ -183,8 +183,8 @@ export const esnextLessons = [
       broken: "const data = JSON.parse('{\"big\":9007199254740993}');\nconsole.log(data.big);",
       fixed: "const data = JSON.parse('{\"big\":9007199254740993}', (key, value, context) => {\n  return key === 'big' ? BigInt(context.source) : value;\n});\nconsole.log(data.big);",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 JSON.parse source text access 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：JSON.parse 后只得到值，无法知道某个值在原始文本里的写法，精度和审计场景受限。",
+        "这道改错要重点替换这段旧写法：JSON.parse('{\"big\":9007199254740993}')"
       ]
     },
     review: [
@@ -222,8 +222,8 @@ export const esnextLessons = [
       broken: "const values = [0.1, 0.2, 0.3];\nconst total = values.reduce((sum, value) => sum + value, 0);\nconsole.log(total);",
       fixed: "const values = [0.1, 0.2, 0.3];\nconst total = Math.sumPrecise(values);\nconsole.log(total);",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Math.sumPrecise 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：浮点数直接累加会遇到 0.1 + 0.2 这类精度误差，手写补偿算法又复杂。",
+        "这道改错要重点替换这段旧写法：values.reduce((sum, value) => sum + value, 0);"
       ]
     },
     review: [
@@ -261,8 +261,8 @@ export const esnextLessons = [
       broken: "const date = new Date('2026-04-29T00:00:00Z');\nconsole.log(date.toISOString().slice(0, 10));",
       fixed: "const date = Temporal.PlainDate.from('2026-04-29');\nconsole.log(date.toString());",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Temporal 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：Date 同时混合时间点、时区和本地日期，解析和时区行为长期容易出错。",
+        "这道改错要重点替换这段旧写法：new Date('2026-04-29T00:00:00Z');"
       ]
     },
     review: [

@@ -27,8 +27,8 @@ export const es2020Lessons = [
       broken: "const user = { profile: { name: 'Cindy' } };\nconst name = user.profile.name;",
       fixed: "const name = user?.profile?.name;",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Optional Chaining 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：深层属性访问过去要写多层 && 防止 Cannot read properties of undefined。",
+        "这道改错要重点替换这段旧写法：const name = user.profile.name;"
       ]
     },
     review: [
@@ -66,8 +66,8 @@ export const es2020Lessons = [
       broken: "const big = 9007199254740993;\nconst next = big + 1;",
       fixed: "const big = 9007199254740993n;\nconst next = big + 1n;",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 BigInt 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：Number 超过 MAX_SAFE_INTEGER 后会丢失整数精度，ID、计数和大整数计算会出错。",
+        "这道改错要重点替换这段旧写法：const big = 9007199254740993; const next = big + 1;"
       ]
     },
     review: [
@@ -105,8 +105,8 @@ export const es2020Lessons = [
       broken: "window.appName = 'ES Practice Lab';\nconsole.log(window.appName);",
       fixed: "globalThis.appName = 'ES Practice Lab';\nconsole.log(globalThis.appName);",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 globalThis 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：不同环境访问全局对象要写 window、global、self 等分支判断。",
+        "这道改错要重点替换这段旧写法：window.appName = 'ES Practice Lab';"
       ]
     },
     review: [
@@ -144,8 +144,8 @@ export const es2020Lessons = [
       broken: "const tasks = [Promise.resolve(1), Promise.reject(new Error('fail'))];\nPromise.all(tasks).then(console.log).catch(console.log);",
       fixed: "const tasks = [Promise.resolve(1), Promise.reject(new Error('fail'))];\nPromise.allSettled(tasks).then(console.log);",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Promise.allSettled 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：Promise.all 遇到第一个失败就 reject，无法自然收集其他任务的成功/失败结果。",
+        "这道改错要重点替换这段旧写法：Promise.all(tasks)"
       ]
     },
     review: [
@@ -183,8 +183,8 @@ export const es2020Lessons = [
       broken: "import { format } from './format.js';\nconsole.log(format('hello'));",
       fixed: "const { format } = await import('./format.js');\nconsole.log(format('hello'));\nconsole.log(import.meta.url);",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Dynamic import / import.meta 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：静态 import 会把模块提前纳入依赖，按需加载和读取当前模块元信息不方便。",
+        "这道改错要重点替换这段旧写法：import { format } from './format.js';"
       ]
     },
     review: [
@@ -222,8 +222,8 @@ export const es2020Lessons = [
       broken: "const text = 'a1 b22 c333';\nconst matches = text.match(/\\d+/g);\nconsole.log(matches);",
       fixed: "const text = 'a1 b22 c333';\nconst matches = [...text.matchAll(/\\d+/g)].map(match => match[0]);\nconsole.log(matches);",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 String.matchAll 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：用 RegExp.exec 循环收集多次匹配容易忘记 global 标志，也会混入状态推进细节。",
+        "这道改错要重点替换这段旧写法：text.match(/\\d+/g);"
       ]
     },
     review: [

@@ -27,8 +27,8 @@ export const es2021Lessons = [
       broken: "let name = '';\nlet age;\nif (!name) name = 'Alice';\nif (age === undefined || age === null) age = 30;",
       fixed: "let name = '';\nlet age;\nname ||= 'Alice';\nage ??= 30;",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Nullish Coalescing 与 逻辑赋值 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：用 || 设置默认值会把 0、空字符串、false 当成缺失值误替换。",
+        "这道改错要重点替换这段旧写法：if (!name) name = 'Alice'; if (age === undefined || age === null) age = 30;"
       ]
     },
     review: [
@@ -66,8 +66,8 @@ export const es2021Lessons = [
       broken: "const text = 'aba';\nconst result = text.replace(/a/g, 'b');",
       fixed: "const text = 'aba';\nconst result = text.replaceAll('a', 'b');",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 String.replaceAll 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：replace 只替换第一个字符串匹配，替换全部时常要写全局正则并处理转义。",
+        "这道改错要重点替换这段旧写法：const result = text.replace(/a/g, 'b');"
       ]
     },
     review: [
@@ -105,8 +105,8 @@ export const es2021Lessons = [
       broken: "const requests = [Promise.reject('bad'), Promise.resolve('ok')];\nPromise.race(requests).then(console.log).catch(console.log);",
       fixed: "const requests = [Promise.reject('bad'), Promise.resolve('ok')];\nPromise.any(requests).then(console.log).catch(console.log);",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Promise.any 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：Promise.race 会被最快失败打断，无法表达“等第一个成功结果”。",
+        "这道改错要重点替换这段旧写法：Promise.race(requests)"
       ]
     },
     review: [
@@ -144,8 +144,8 @@ export const es2021Lessons = [
       broken: "const amount = 1000000;\nconsole.log(amount);",
       fixed: "const amount = 1_000_000;\nconsole.log(amount);",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Numeric separators 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：长数字字面量难读，位数和分组容易数错。",
+        "这道改错要重点替换这段旧写法：1000000"
       ]
     },
     review: [
@@ -183,8 +183,8 @@ export const es2021Lessons = [
       broken: "let user = { name: 'Alice' };\nconst cache = user;\nuser = null;\nconsole.log(cache.name);",
       fixed: "let user = { name: 'Alice' };\nconst ref = new WeakRef(user);\nuser = null;\nconsole.log(ref.deref()?.name);",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 WeakRef / FinalizationRegistry 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：某些缓存想引用对象又不想阻止垃圾回收，强引用 Map 会造成内存保留。",
+        "这道改错要重点替换这段旧写法：const cache = user;"
       ]
     },
     review: [

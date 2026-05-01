@@ -27,8 +27,8 @@ export const es2018Lessons = [
       broken: "const user = { name: 'Alice', age: 30, city: 'Shanghai' };\nconst name = user.name;\nconst age = user.age;\nconst city = user.city;\nconst rest = {};",
       fixed: "const user = { name: 'Alice', age: 30, city: 'Shanghai' };\nconst { name, ...rest } = user;",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 对象展开/剩余属性 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：复制对象、合并字段、排除部分属性时，Object.assign 和手动赋值样板较多。",
+        "这道改错要重点替换这段旧写法：const name = user.name; const age = user.age; const city = user.city; const rest = {};"
       ]
     },
     review: [
@@ -66,8 +66,8 @@ export const es2018Lessons = [
       broken: "async function readAll(source) {\n  source.forEach((item) => console.log(item));\n}",
       fixed: "async function readAll(source) {\n  for await (const item of source) {\n    console.log(item);\n  }\n}",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Async Iteration 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：异步数据流用普通 for/of 或 forEach 无法正确等待每一项，分页和流式读取会变得零散。",
+        "这道改错要重点替换这段旧写法：source.forEach((item) => console.log(item));"
       ]
     },
     review: [
@@ -105,8 +105,8 @@ export const es2018Lessons = [
       broken: "fetch('/api').then(() => {\n  console.log('done');\n}).catch(() => {\n  console.log('done');\n});",
       fixed: "fetch('/api')\n  .then(() => console.log('success'))\n  .catch(() => console.log('error'))\n  .finally(() => console.log('done'));",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Promise.finally 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：then 和 catch 中重复写清理逻辑会造成分支重复，也容易漏掉失败路径。",
+        "这道改错要重点替换这段旧写法：.then(() => { console.log('done'); }).catch(() => { console.log('done'); });"
       ]
     },
     review: [
@@ -144,8 +144,8 @@ export const es2018Lessons = [
       broken: "const match = '2026-04-29'.match(/(\\d{4})-(\\d{2})-(\\d{2})/);\nconsole.log(match[1], match[2], match[3]);",
       fixed: "const match = '2026-04-29'.match(/(?<year>\\d{4})-(?<month>\\d{2})-(?<day>\\d{2})/);\nconsole.log(match.groups.year, match.groups.month, match.groups.day);",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 RegExp 命名捕获组 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：依赖 match[1]、match[2] 这类数字下标时，正则稍微调整就容易读错字段。",
+        "这道改错要重点替换这段旧写法：match[1], match[2], match[3]"
       ]
     },
     review: [
@@ -183,8 +183,8 @@ export const es2018Lessons = [
       broken: "const text = '$42';\nconst match = text.match(/\\d+/);\nconsole.log(match[0]);",
       fixed: "const text = '$42';\nconst match = text.match(/(?<=\\$)\\d+/);\nconsole.log(match[0]);",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 RegExp 增强：dotAll / lookbehind / Unicode properties 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：过去跨行匹配、前后文限定和 Unicode 分类常要写复杂替代模式。",
+        "这道改错要重点替换这段旧写法：text.match(/\\d+/);"
       ]
     },
     review: [

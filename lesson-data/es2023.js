@@ -27,8 +27,8 @@ export const es2023Lessons = [
       broken: "const numbers = [3, 1, 2];\nconst sorted = numbers.sort();\nconsole.log(numbers, sorted);",
       fixed: "const numbers = [3, 1, 2];\nconst sorted = numbers.toSorted();\nconsole.log(numbers, sorted);",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Change Array by Copy 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：sort、reverse、splice 会原地修改数组，容易在状态管理和 UI 更新里产生副作用。",
+        "这道改错要重点替换这段旧写法：numbers.sort();"
       ]
     },
     review: [
@@ -66,8 +66,8 @@ export const es2023Lessons = [
       broken: "const numbers = [5, 12, 8, 20];\nconst result = numbers.filter(n => n > 10).pop();\nconsole.log(result);",
       fixed: "const numbers = [5, 12, 8, 20];\nconst result = numbers.findLast(n => n > 10);\nconsole.log(result);",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Array.findLast / findLastIndex 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：从后往前找元素过去要先 reverse 或手写反向循环，容易改变数组或写出样板代码。",
+        "这道改错要重点替换这段旧写法：numbers.filter(n => n > 10).pop();"
       ]
     },
     review: [
@@ -105,8 +105,8 @@ export const es2023Lessons = [
       broken: "const token = {};\nconst map = new WeakMap();\nmap.set(token, 'secret');\nconsole.log(map.get(token));",
       fixed: "const token = Symbol('token');\nconst map = new WeakMap();\nmap.set(token, 'secret');\nconsole.log(map.get(token));",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Symbols as WeakMap keys 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：WeakMap 过去只能用对象做 key，想用唯一 token 关联弱引用元数据时选择有限。",
+        "这道改错要重点替换这段旧写法：const token = {};"
       ]
     },
     review: [

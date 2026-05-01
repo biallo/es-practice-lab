@@ -27,8 +27,8 @@ export const es2024Lessons = [
       broken: "const people = [\n  { name: 'Alice', gender: 'female' },\n  { name: 'Bob', gender: 'male' }\n];\nconst groups = {};\nfor (const person of people) {\n  const key = person.gender;\n  if (!groups[key]) groups[key] = [];\n  groups[key].push(person);\n}",
       fixed: "const people = [\n  { name: 'Alice', gender: 'female' },\n  { name: 'Bob', gender: 'male' }\n];\nconst groups = Object.groupBy(people, person => person.gender);",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Object.groupBy / Map.groupBy 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：数组分组过去常写 reduce 手动初始化桶，样板代码多且容易写错。",
+        "这道改错要重点替换这段旧写法：for (const person of people) { const key = person.gender; if (!groups[key]) groups[key] = [];..."
       ]
     },
     review: [
@@ -66,8 +66,8 @@ export const es2024Lessons = [
       broken: "let resolve;\nconst promise = new Promise((done) => {\n  resolve = done;\n});\nresolve('ok');\npromise.then(console.log);",
       fixed: "const { promise, resolve } = Promise.withResolvers();\nresolve('ok');\npromise.then(console.log);",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Promise.withResolvers 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：创建外部 resolve/reject 句柄时，以前要在 Promise 构造器外声明变量，样板且不优雅。",
+        "这道改错要重点替换这段旧写法：let resolve; const promise = new Promise((done) => { resolve = done; });"
       ]
     },
     review: [
@@ -105,8 +105,8 @@ export const es2024Lessons = [
       broken: "const buffer = new ArrayBuffer(8);\nconst copy = buffer.slice(0);\nconsole.log(copy.byteLength);",
       fixed: "const buffer = new ArrayBuffer(8);\nconst moved = buffer.transfer();\nconsole.log(moved.byteLength);\nconsole.log(buffer.detached);",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 ArrayBuffer transfer 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：转移二进制缓冲区所有权过去常依赖 postMessage 等特定 API，普通代码里不够直接。",
+        "这道改错要重点替换这段旧写法：buffer.slice(0);"
       ]
     },
     review: [
@@ -144,8 +144,8 @@ export const es2024Lessons = [
       broken: "let buffer = new ArrayBuffer(8);\nconst bigger = new ArrayBuffer(16);\nnew Uint8Array(bigger).set(new Uint8Array(buffer));\nbuffer = bigger;\nconsole.log(buffer.byteLength);",
       fixed: "const buffer = new ArrayBuffer(8, { maxByteLength: 16 });\nbuffer.resize(16);\nconsole.log(buffer.resizable, buffer.byteLength);",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Resizable ArrayBuffer 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：固定长度 ArrayBuffer 在数据增长时只能重新分配并复制。",
+        "这道改错要重点替换这段旧写法：const bigger = new ArrayBuffer(16);"
       ]
     },
     review: [
@@ -183,8 +183,8 @@ export const es2024Lessons = [
       broken: "const regex = /\\p{Emoji}/u;\nconsole.log(regex.test('👨‍👩‍👧‍👦'));",
       fixed: "const regex = /\\p{RGI_Emoji}/v;\nconsole.log(regex.test('👨‍👩‍👧‍👦'));",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 RegExp v flag 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：复杂 Unicode 字符集合和集合运算过去需要冗长或不准确的正则表达。",
+        "这道改错要重点替换这段旧写法：/\\p{Emoji}/u"
       ]
     },
     review: [
@@ -222,8 +222,8 @@ export const es2024Lessons = [
       broken: "const text = '�';\nconsole.log(encodeURIComponent(text));",
       fixed: "const text = '�';\nconsole.log(text.isWellFormed());\nconsole.log(text.toWellFormed());",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 String isWellFormed / toWellFormed 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：字符串中孤立代理项会让 Unicode 处理、编码和传输出现难排查的问题。",
+        "这道改错要重点替换这段旧写法：encodeURIComponent(text);"
       ]
     },
     review: [

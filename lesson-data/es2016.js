@@ -27,8 +27,8 @@ export const es2016Lessons = [
       broken: "const value = Math.pow(2, 3);",
       fixed: "const value = 2 ** 3;",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 指数运算符 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：Math.pow 写法在表达式里不够直观，嵌套幂运算尤其难读。",
+        "这道改错要重点替换这段旧写法：const value = Math.pow(2, 3);"
       ]
     },
     review: [
@@ -66,8 +66,8 @@ export const es2016Lessons = [
       broken: "const numbers = [1, 2, 3];\nconst hasTwo = numbers.indexOf(2) !== -1;",
       fixed: "const hasTwo = numbers.includes(2);",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Array.includes 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：indexOf(...) !== -1 噪音多，并且对 NaN 的成员判断不友好。",
+        "这道改错要重点替换这段旧写法：const hasTwo = numbers.indexOf(2) !== -1;"
       ]
     },
     review: [

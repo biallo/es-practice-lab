@@ -27,8 +27,8 @@ export const es2019Lessons = [
       broken: "const entries = [['name', 'Alice'], ['age', 30]];\nconst obj = {};\nfor (const [key, value] of entries) {\n  obj[key] = value;\n}",
       fixed: "const entries = [['name', 'Alice'], ['age', 30]];\nconst obj = Object.fromEntries(entries);",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Object.fromEntries 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：把键值对列表转回对象时，以前要手写 reduce 或 for 循环累加。",
+        "这道改错要重点替换这段旧写法：for (const [key, value] of entries) { obj[key] = value; }"
       ]
     },
     review: [
@@ -66,8 +66,8 @@ export const es2019Lessons = [
       broken: "const list = [[1, 2], [3, 4]];\nconst result = [].concat(...list);\nconsole.log(result);",
       fixed: "const list = [[1, 2], [3, 4]];\nconst result = list.flat();\nconsole.log(result);",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Array.flat / flatMap 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：展开嵌套数组常要 concat(...list) 或 reduce，map 后再 flat 也会分成两步。",
+        "这道改错要重点替换这段旧写法：[].concat(...list);"
       ]
     },
     review: [
@@ -105,8 +105,8 @@ export const es2019Lessons = [
       broken: "try {\n  JSON.parse('{');\n} catch (error) {\n  console.log('invalid json');\n}",
       fixed: "try {\n  JSON.parse('{');\n} catch {\n  console.log('invalid json');\n}",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Optional catch binding 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：catch 块不使用错误对象时，仍要写一个 error 参数，容易制造未使用变量噪音。",
+        "这道改错要重点替换这段旧写法：catch (error) {"
       ]
     },
     review: [
@@ -144,8 +144,8 @@ export const es2019Lessons = [
       broken: "const id = Symbol('userId');\nconst desc = id.toString().slice(7, -1);\nconsole.log(desc);",
       fixed: "const id = Symbol('userId');\nconst desc = id.description;\nconsole.log(desc);",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Symbol.description 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：以前要从 symbol.toString() 里截取描述文本，写法脆弱且不直观。",
+        "这道改错要重点替换这段旧写法：id.toString().slice(7, -1);"
       ]
     },
     review: [

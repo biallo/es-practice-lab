@@ -27,8 +27,8 @@ export const es2022Lessons = [
       broken: "class Counter {\n  constructor() {\n    this.count = 0;\n  }\n  increment() {\n    this.count += 1;\n  }\n}\nconst c = new Counter();\nc.increment();\nconsole.log(c.count);",
       fixed: "class Counter {\n  #count = 0;\n  increment() {\n    this.#count += 1;\n  }\n  get value() {\n    return this.#count;\n  }\n}\nconst c = new Counter();\nc.increment();\nconsole.log(c.value);",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 类字段与私有属性 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：构造函数里反复声明实例字段，或用下划线约定私有字段，都不够直观或不够严格。",
+        "这道改错要重点替换这段旧写法：this.count = 0; this.count += 1; console.log(c.count);"
       ]
     },
     review: [
@@ -66,8 +66,8 @@ export const es2022Lessons = [
       broken: "const items = ['a', 'b', 'c'];\nconst last = items[items.length - 1];",
       fixed: "const items = ['a', 'b', 'c'];\nconst last = items.at(-1);",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Array.prototype.at 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：访问倒数元素过去要写 arr[arr.length - 1]，字符串和数组写法也不统一。",
+        "这道改错要重点替换这段旧写法：const last = items[items.length - 1];"
       ]
     },
     review: [
@@ -105,8 +105,8 @@ export const es2022Lessons = [
       broken: "class Config {}\nConfig.value = 'ready';\nconsole.log(Config.value);",
       fixed: "class Config {\n  static value;\n  static {\n    this.value = 'ready';\n  }\n}\nconsole.log(Config.value);",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Class static block 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：类的静态初始化如果需要多步逻辑，以前只能写在类外，容易打散封装。",
+        "这道改错要重点替换这段旧写法：Config.value = 'ready';"
       ]
     },
     review: [
@@ -144,8 +144,8 @@ export const es2022Lessons = [
       broken: "class Box {\n  #value = 1;\n  static isBox(object) {\n    try {\n      object.#value;\n      return true;\n    } catch {\n      return false;\n    }\n  }\n}",
       fixed: "class Box {\n  #value = 1;\n  static isBox(object) {\n    return #value in object;\n  }\n}",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Private brand checks 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：判断对象是否拥有某个私有字段以前没有直接语法，只能间接 try/catch 或暴露标记。",
+        "这道改错要重点替换这段旧写法：try { object.#value; return true; } catch { return false; }"
       ]
     },
     review: [
@@ -183,8 +183,8 @@ export const es2022Lessons = [
       broken: "const match = /name:(\\w+)/.exec('name:Alice');\nconst start = match.index;\nconst end = start + match[0].length;\nconsole.log(start, end);",
       fixed: "const match = /name:(\\w+)/d.exec('name:Alice');\nconsole.log(match.indices[0]);\nconsole.log(match.indices[1]);",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 RegExp match indices 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：拿到捕获文本后还要手动计算起止位置，尤其多个捕获组时容易出错。",
+        "这道改错要重点替换这段旧写法：const end = start + match[0].length;"
       ]
     },
     review: [
@@ -222,8 +222,8 @@ export const es2022Lessons = [
       broken: "const user = { name: 'Alice' };\nconst result = user.hasOwnProperty('name');\nconsole.log(result);",
       fixed: "const user = { name: 'Alice' };\nconst result = Object.hasOwn(user, 'name');\nconsole.log(result);",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Object.hasOwn 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：obj.hasOwnProperty 可能被对象自身属性覆盖，Object.prototype.hasOwnProperty.call 又太冗长。",
+        "这道改错要重点替换这段旧写法：user.hasOwnProperty('name');"
       ]
     },
     review: [
@@ -261,8 +261,8 @@ export const es2022Lessons = [
       broken: "async function main() {\n  const data = await Promise.resolve('ready');\n  console.log(data);\n}\nmain();",
       fixed: "const data = await Promise.resolve('ready');\nconsole.log(data);",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Top-level await 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：模块顶层需要异步初始化时，以前要包一层 async 函数或导出 Promise。",
+        "这道改错要重点替换这段旧写法：async function main() { ... } main();"
       ]
     },
     review: [
@@ -300,8 +300,8 @@ export const es2022Lessons = [
       broken: "try {\n  JSON.parse('{');\n} catch (error) {\n  throw new Error('配置解析失败: ' + error.message);\n}",
       fixed: "try {\n  JSON.parse('{');\n} catch (error) {\n  throw new Error('配置解析失败', { cause: error });\n}",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Error cause 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：包装错误时容易丢失原始错误，只能手动拼接 message 或加自定义字段。",
+        "这道改错要重点替换这段旧写法：new Error('配置解析失败: ' + error.message);"
       ]
     },
     review: [

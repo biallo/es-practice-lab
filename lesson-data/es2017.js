@@ -27,8 +27,8 @@ export const es2017Lessons = [
       broken: "function fetchName() {\n  return Promise.resolve('Alice');\n}\nfetchName().then((name) => {\n  console.log(name);\n});",
       fixed: "async function showName() {\n  const name = await fetchName();\n  console.log(name);\n}\nshowName();",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Async / Await 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：多层 then 链会把异步流程拆散，错误处理和顺序逻辑不如同步风格好读。",
+        "这道改错要重点替换这段旧写法：fetchName().then((name) => { console.log(name); });"
       ]
     },
     review: [
@@ -66,8 +66,8 @@ export const es2017Lessons = [
       broken: "const user = { name: 'Alice', age: 30 };\nfor (const key of Object.keys(user)) {\n  console.log(key, user[key]);\n}",
       fixed: "const user = { name: 'Alice', age: 30 };\nfor (const [key, value] of Object.entries(user)) {\n  console.log(key, value);\n}",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Object.values / Object.entries 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：遍历对象时常要 Object.keys(obj).map(key => obj[key])，重复取值且语义绕。",
+        "这道改错要重点替换这段旧写法：for (const key of Object.keys(user)) { console.log(key, user[key]); }"
       ]
     },
     review: [
@@ -105,8 +105,8 @@ export const es2017Lessons = [
       broken: "const id = String(7);\nconst padded = '00' + id;\nconsole.log(padded);",
       fixed: "const id = String(7);\nconst padded = id.padStart(3, '0');\nconsole.log(padded);",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 String padding 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：手动拼接 0 或空格补齐字符串时，长度计算和截断逻辑容易散落在代码里。",
+        "这道改错要重点替换这段旧写法：'00' + id;"
       ]
     },
     review: [
@@ -144,8 +144,8 @@ export const es2017Lessons = [
       broken: "const source = {\n  get name() {\n    return 'Alice';\n  }\n};\nconst copy = Object.assign({}, source);\nconsole.log(copy.name);",
       fixed: "const source = {\n  get name() {\n    return 'Alice';\n  }\n};\nconst copy = Object.defineProperties({}, Object.getOwnPropertyDescriptors(source));\nconsole.log(copy.name);",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Object.getOwnPropertyDescriptors 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：Object.assign 会触发 getter 并复制值，无法保留 getter、setter、writable 等描述符信息。",
+        "这道改错要重点替换这段旧写法：const copy = Object.assign({}, source);"
       ]
     },
     review: [

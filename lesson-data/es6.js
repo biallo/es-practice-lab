@@ -168,8 +168,8 @@ export const es6Lessons = [
       broken: "const person = { name: 'Bob', age: 25 };\nconst name = person.name;\nconst age = person.age;",
       fixed: "const { name, age } = person;",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Destructuring 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "旧写法分别通过 person.name 和 person.age 取值，字段一多就会产生重复访问。",
+        "这道改错要重点替换这段旧写法：const name = person.name; const age = person.age;"
       ]
     },
     review: [
@@ -205,8 +205,8 @@ export const es6Lessons = [
       broken: "const a = [1, 2];\nconst b = [3, 4];\nconst all = a.concat(b);",
       fixed: "const all = [...a, ...b];",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Spread / Rest 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "concat 可以合并数组，但展开语法能把“把两个数组展开到一个新数组里”的意图表达得更直接。",
+        "这道改错要重点替换这段旧写法：const all = a.concat(b);"
       ]
     },
     review: [
@@ -242,8 +242,8 @@ export const es6Lessons = [
       broken: "const name = 'Alice';\nconst age = 30;\nconst user = {\n  name: name,\n  age: age,\n  sayHi: function() {\n    console.log(this.name);\n  }\n};",
       fixed: "const name = 'Alice';\nconst age = 30;\nconst user = {\n  name,\n  age,\n  sayHi() {\n    console.log(this.name);\n  }\n};",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 增强对象字面量 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "name: name、age: age 和 sayHi: function() 都是在重复描述对象成员，增强对象字面量可以让对象结构更干净。",
+        "这道改错要重点替换这段旧写法：name: name, age: age, sayHi: function() { console.log(this.name); }"
       ]
     },
     review: [
@@ -279,8 +279,8 @@ export const es6Lessons = [
       broken: "const role = 'admin';\nconst permissions = {};\npermissions['role_' + role] = true;\nconsole.log(permissions);",
       fixed: "const role = 'admin';\nconst permissions = {\n  ['role_' + role]: true\n};\nconsole.log(permissions);",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 计算属性名 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "旧写法先创建空对象再追加动态属性，对象的最终形状不够集中。",
+        "这道改错要重点替换这段旧写法：permissions['role_' + role] = true;"
       ]
     },
     review: [
@@ -316,8 +316,8 @@ export const es6Lessons = [
       broken: "function Person(name) {\n  this.name = name;\n}\nPerson.prototype.sayHi = function() {\n  console.log(this.name);\n};\nconst p = new Person('Alice');\np.sayHi();",
       fixed: "class Person {\n  constructor(name) {\n    this.name = name;\n  }\n  sayHi() {\n    console.log(this.name);\n  }\n}\nconst p = new Person('Alice');\np.sayHi();",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Classes 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "构造函数和 prototype 分散在两处定义实例行为，class 可以把构造逻辑和方法集中在同一个声明里。",
+        "这道改错要重点替换这段旧写法：function Person(name) { this.name = name; } Person.prototype.sayHi = function() { console.log..."
       ]
     },
     review: [
@@ -353,8 +353,8 @@ export const es6Lessons = [
       broken: "function loadName(callback) {\n  callback('Alice');\n}\nloadName(function(name) {\n  console.log(name);\n});",
       fixed: "Promise.resolve('Alice').then((name) => {\n  console.log(name);\n});",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Promise 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "回调写法把异步结果交给调用方传入的函数，流程一多就容易形成嵌套。",
+        "这道改错要重点替换这段旧写法：loadName(function(name) { console.log(name); });"
       ]
     },
     review: [
@@ -392,8 +392,8 @@ export const es6Lessons = [
       broken: "const counts = {};\ncounts.apple = 2;\ncounts.orange = 3;\nconsole.log(counts.apple);",
       fixed: "const counts = new Map();\ncounts.set('apple', 2);\ncounts.set('orange', 3);\nconsole.log(counts.get('apple'));",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Map 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：普通对象当映射表时，key 会被转成字符串，还可能碰到原型属性和 hasOwnProperty 之类的边界。",
+        "这道改错要重点替换这段旧写法：const counts = {}; counts.apple = 2; console.log(counts.apple);"
       ]
     },
     review: [
@@ -431,8 +431,8 @@ export const es6Lessons = [
       broken: "const numbers = [1, 2, 2, 3, 3];\nconst unique = numbers.filter((item, index) => numbers.indexOf(item) === index);\nconsole.log(unique);",
       fixed: "const numbers = [1, 2, 2, 3, 3];\nconst unique = [...new Set(numbers)];\nconsole.log(unique);",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Set 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：用数组去重或判断成员时，经常要写 indexOf/includes/filter 组合，代码容易重复且语义不够直接。",
+        "这道改错要重点替换这段旧写法：numbers.filter((item, index) => numbers.indexOf(item) === index);"
       ]
     },
     review: [
@@ -470,8 +470,8 @@ export const es6Lessons = [
       broken: "const id = 'id';\nconst user = {};\nuser[id] = 1;\nconsole.log(user[id]);",
       fixed: "const id = Symbol('id');\nconst user = {};\nuser[id] = 1;\nconsole.log(user[id]);",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Symbol 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：用普通字符串给对象加内部属性时，容易和已有业务字段重名冲突，也会被常规遍历和 JSON 序列化带出去。",
+        "这道改错要重点替换这段旧写法：const id = 'id';"
       ]
     },
     review: [
@@ -509,8 +509,8 @@ export const es6Lessons = [
       broken: "const items = ['a', 'b', 'c'];\nfor (let i = 0; i < items.length; i += 1) {\n  console.log(items[i]);\n}",
       fixed: "const items = ['a', 'b', 'c'];\nfor (const item of items) {\n  console.log(item);\n}",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 for...of 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：传统索引循环会暴露下标和 length 细节，for...in 遍历数组容易拿到属性名而不是值。",
+        "这道改错要重点替换这段旧写法：for (let i = 0; i < items.length; i += 1) { console.log(items[i]); }"
       ]
     },
     review: [
@@ -548,8 +548,8 @@ export const es6Lessons = [
       broken: "function createNumbers() {\n  return [1, 2];\n}\nconst numbers = createNumbers();\nconsole.log(numbers[0]);\nconsole.log(numbers[1]);",
       fixed: "function* createNumbers() {\n  yield 1;\n  yield 2;\n}\nconst numbers = createNumbers();\nconsole.log(numbers.next().value);\nconsole.log(numbers.next().value);",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Generators 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：一次性返回完整数组会提前计算所有值，也不方便表达“按需产生、可暂停继续”的序列。",
+        "这道改错要重点替换这段旧写法：function createNumbers() { return [1, 2]; }"
       ]
     },
     review: [
@@ -587,8 +587,8 @@ export const es6Lessons = [
       broken: "const range = { from: 1, to: 3 };\nfor (let value = range.from; value <= range.to; value += 1) {\n  console.log(value);\n}",
       fixed: "const range = {\n  from: 1,\n  to: 3,\n  *[Symbol.iterator]() {\n    for (let value = this.from; value <= this.to; value += 1) {\n      yield value;\n    }\n  }\n};\nfor (const value of range) {\n  console.log(value);\n}",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 自定义迭代器 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：普通对象默认不能直接用于 for...of、展开语法等统一迭代写法，只能写专门的访问方法。",
+        "这道改错要重点替换这段旧写法：const range = { from: 1, to: 3 };"
       ]
     },
     review: [
@@ -666,8 +666,8 @@ export const es6Lessons = [
       broken: "const defaults = { theme: 'light', size: 'md' };\nconst options = { size: 'lg' };\nconst config = { theme: defaults.theme, size: options.size };\nconsole.log(config);",
       fixed: "const defaults = { theme: 'light', size: 'md' };\nconst options = { size: 'lg' };\nconst config = Object.assign({}, defaults, options);\nconsole.log(config);",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Object.assign 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：手动逐个复制属性样板多，合并默认配置和用户配置时容易漏字段。",
+        "这道改错要重点替换这段旧写法：const config = { theme: defaults.theme, size: options.size };"
       ]
     },
     review: [
@@ -705,8 +705,8 @@ export const es6Lessons = [
       broken: "const text = 'ES6 features';\nconst result = text.indexOf('ES') === 0;\nconsole.log(result);",
       fixed: "const text = 'ES6 features';\nconst result = text.startsWith('ES');\nconsole.log(result);",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 字符串新增方法 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：用 indexOf 判断前缀、后缀或包含关系时，可读性差，还容易把 0 当成假值误判。",
+        "这道改错要重点替换这段旧写法：text.indexOf('ES') === 0;"
       ]
     },
     review: [
@@ -744,8 +744,8 @@ export const es6Lessons = [
       broken: "const value = 42;\nconst result = typeof value === 'number' && isFinite(value) && Math.floor(value) === value;\nconsole.log(result);",
       fixed: "const value = 42;\nconst result = Number.isInteger(value);\nconsole.log(result);",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Number 新增方法 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：全局 isNaN/isFinite 会先做类型转换，字符串等值可能被误判成数字场景。",
+        "这道改错要重点替换这段旧写法：Math.floor(value) === value;"
       ]
     },
     review: [
@@ -783,8 +783,8 @@ export const es6Lessons = [
       broken: "// math.js\nconst add = (a, b) => a + b;\n\n// app.js\nconsole.log(add(1, 2));",
       fixed: "// math.js\nexport const add = (a, b) => a + b;\n\n// app.js\nimport { add } from './math.js';\nconsole.log(add(1, 2));",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 ES Modules 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：全局变量和脚本拼接会造成依赖顺序隐式、命名冲突和难以静态分析的问题。",
+        "这道改错要重点替换这段旧写法：const add = (a, b) => a + b;"
       ]
     },
     review: [
@@ -861,8 +861,8 @@ export const es6Lessons = [
       broken: "const users = [{ age: 16 }, { age: 20 }];\nlet adult;\nfor (const user of users) {\n  if (user.age > 18) adult = user;\n}\nconsole.log(adult);",
       fixed: "const users = [{ age: 16 }, { age: 20 }];\nconst adult = users.find(user => user.age > 18);\nconsole.log(adult);",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Array.find / findIndex 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：手写循环找第一项会混入临时变量和 break，意图不如“查找第一个匹配项”清楚。",
+        "这道改错要重点替换这段旧写法：for (const user of users) { if (user.age > 18) adult = user; }"
       ]
     },
     review: [
@@ -900,8 +900,8 @@ export const es6Lessons = [
       broken: "const user = { name: 'Alice' };\nconsole.log(user.name);",
       fixed: "const user = { name: 'Alice' };\nconst proxy = new Proxy(user, {\n  get(target, key) {\n    console.log('reading ' + String(key));\n    return Reflect.get(target, key);\n  }\n});\nconsole.log(proxy.name);",
       reason: [
-        "改错题从一段已经存在的旧写法开始，目标不是从零实现，而是识别哪里没有用好本课知识点。",
-        "修正版本使用 Proxy / Reflect 表达同一意图，注意比较改动前后的语义是否保持一致。"
+        "解决的旧写法问题：用 getter/setter 或手写包装对象只能拦截有限操作，难以统一代理读取、赋值、删除等底层行为。",
+        "这道改错要重点替换这段旧写法：console.log(user.name);"
       ]
     },
     review: [
