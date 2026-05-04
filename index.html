@@ -61,7 +61,14 @@
               <p id="practicePrompt"></p>
             </div>
           </div>
-          <textarea id="practiceEditor" spellcheck="false"></textarea>
+          <pre
+            id="practiceEditor"
+            class="code-editor"
+            contenteditable="true"
+            spellcheck="false"
+            role="textbox"
+            aria-label="练习代码"
+          ></pre>
           <div class="button-row">
             <button id="runPracticeBtn" class="primary-btn" type="button">运行代码</button>
             <button id="toggleAnswerBtn" class="secondary-btn" type="button">查看答案</button>
@@ -86,7 +93,14 @@
           <article class="panel editor-panel">
             <h2>改错练习</h2>
             <p>直接修改下面的代码，试着把它改成更正确、更符合本课知识点的写法。</p>
-            <textarea id="debugEditor" spellcheck="false"></textarea>
+            <pre
+              id="debugEditor"
+              class="code-editor"
+              contenteditable="true"
+              spellcheck="false"
+              role="textbox"
+              aria-label="改错代码"
+            ></pre>
             <div class="button-row">
               <button id="runDebugBtn" class="primary-btn" type="button">运行代码</button>
               <button id="resetDebugBtn" class="secondary-btn" type="button">重置</button>

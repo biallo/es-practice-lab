@@ -6,6 +6,7 @@ import { getDebugCase, getPractice, getSelectedLesson } from './modules/lesson-c
 import { render, renderTabs } from './modules/render.js';
 import { runCode } from './modules/runner.js';
 import { loadStoredState, saveActiveTab, saveSelectedLesson, saveStudyState } from './modules/storage.js';
+import { getEditorCode, setEditorCode, setupHighlightedEditor } from './modules/syntax-highlight.js';
 import { scrollLessonContentToTop } from './modules/ui.js';
 
 const state = loadStoredState(lessons, tabs);
@@ -31,12 +32,12 @@ function selectLesson(lessonId) {
 }
 
 function savePracticeDraft() {
-  state.practiceDrafts[state.selectedLessonId] = elements.practiceEditor.value;
+  state.practiceDrafts[state.selectedLessonId] = getEditorCode(elements.practiceEditor);
   saveStudyState(state);
 }
 
 function saveDebugDraft() {
-  state.debugDrafts[state.selectedLessonId] = elements.debugEditor.value;
+  state.debugDrafts[state.selectedLessonId] = getEditorCode(elements.debugEditor);
   saveStudyState(state);
 }
 
@@ -52,7 +53,7 @@ elements.tabButtons.forEach((button) => {
 
 elements.runPracticeBtn.addEventListener('click', () => {
   savePracticeDraft();
-  runCode(elements.practiceEditor.value, elements.practiceOutput);
+  runCode(getEditorCode(elements.practiceEditor), elements.practiceOutput);
 });
 
 elements.toggleAnswerBtn.addEventListener('click', () => {
@@ -63,20 +64,20 @@ elements.toggleAnswerBtn.addEventListener('click', () => {
 elements.resetPracticeBtn.addEventListener('click', () => {
   const lesson = getSelectedLesson(lessons, state.selectedLessonId);
   const practice = getPractice(lesson);
-  elements.practiceEditor.value = practice.starter;
+  setEditorCode(elements.practiceEditor, practice.starter);
   state.practiceDrafts[lesson.id] = practice.starter;
   saveStudyState(state);
 });
 
 elements.runDebugBtn.addEventListener('click', () => {
   saveDebugDraft();
-  runCode(elements.debugEditor.value, elements.debugOutput);
+  runCode(getEditorCode(elements.debugEditor), elements.debugOutput);
 });
 
 elements.resetDebugBtn.addEventListener('click', () => {
   const lesson = getSelectedLesson(lessons, state.selectedLessonId);
   const debugCase = getDebugCase(lesson);
-  elements.debugEditor.value = debugCase.broken;
+  setEditorCode(elements.debugEditor, debugCase.broken);
   state.debugDrafts[lesson.id] = debugCase.broken;
   saveStudyState(state);
 });
@@ -108,4 +109,6 @@ elements.mobileLessonSelect.addEventListener('change', (event) => {
   selectLesson(event.target.value);
 });
 
+setupHighlightedEditor(elements.practiceEditor);
+setupHighlightedEditor(elements.debugEditor);
 renderApp();

@@ -1,7 +1,39 @@
+import { getEditorCode, setEditorCode } from './syntax-highlight.js';
+
+function getSelectionOffsets(editor) {
+  const selection = window.getSelection();
+  if (
+    !selection ||
+    selection.rangeCount === 0 ||
+    !editor.contains(selection.anchorNode) ||
+    !editor.contains(selection.focusNode)
+  ) {
+    const length = getEditorCode(editor).length;
+    return { start: length, end: length };
+  }
+
+  const range = selection.getRangeAt(0);
+  const startRange = range.cloneRange();
+  startRange.selectNodeContents(editor);
+  startRange.setEnd(range.startContainer, range.startOffset);
+
+  const endRange = range.cloneRange();
+  endRange.selectNodeContents(editor);
+  endRange.setEnd(range.endContainer, range.endOffset);
+
+  return {
+    start: startRange.toString().length,
+    end: endRange.toString().length,
+  };
+}
+
 function updateEditorValue(editor, value, selectionStart, selectionEnd, saveDraft) {
-  editor.value = value;
-  editor.selectionStart = selectionStart;
-  editor.selectionEnd = selectionEnd;
+  setEditorCode(editor, value, {
+    selection: {
+      start: selectionStart,
+      end: selectionEnd,
+    },
+  });
   saveDraft();
 }
 
@@ -14,9 +46,8 @@ export function indentCodeSelection(event, saveDraft) {
 
   const editor = event.currentTarget;
   const indent = '  ';
-  const value = editor.value;
-  const start = editor.selectionStart;
-  const end = editor.selectionEnd;
+  const value = getEditorCode(editor);
+  const { start, end } = getSelectionOffsets(editor);
   const selectedText = value.slice(start, end);
 
   if (!selectedText.includes('\n')) {

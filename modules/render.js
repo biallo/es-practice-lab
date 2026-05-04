@@ -7,6 +7,7 @@ import {
   getReviewItems,
   getSelectedLesson,
 } from './lesson-content.js';
+import { renderHighlightedCode, setEditorCode } from './syntax-highlight.js';
 import { scrollActiveLessonIntoListView } from './ui.js';
 
 export function render({ lessons, state, elements, onLessonSelect }) {
@@ -94,19 +95,19 @@ function renderLesson(lessons, state, elements) {
 
   elements.lessonTitle.textContent = `${lesson.id}. ${lesson.title} (${lesson.version})`;
   renderExplanation(lesson, elements);
-  elements.explainCode.textContent = lesson.exampleCode ?? lesson.correctCode;
+  renderHighlightedCode(elements.explainCode, lesson.exampleCode ?? lesson.correctCode);
 
   elements.practicePrompt.textContent = practice.prompt;
-  elements.practiceEditor.value = getPracticeDraft(lesson, state);
+  setEditorCode(elements.practiceEditor, getPracticeDraft(lesson, state));
   elements.practiceOutput.textContent = '运行后结果会显示在这里';
-  elements.answerCode.textContent = practice.answer;
+  renderHighlightedCode(elements.answerCode, practice.answer);
   renderTextBlock(elements.answerExplanation, practice.explanation);
   elements.answerPanel.hidden = !state.showAnswer;
   elements.toggleAnswerBtn.textContent = state.showAnswer ? '隐藏答案' : '查看答案';
 
-  elements.debugEditor.value = getDebugDraft(lesson, state);
+  setEditorCode(elements.debugEditor, getDebugDraft(lesson, state));
   elements.debugOutput.textContent = '运行后结果会显示在这里';
-  elements.fixCode.textContent = debugCase.fixed;
+  renderHighlightedCode(elements.fixCode, debugCase.fixed);
   renderTextBlock(elements.fixExplanation, debugCase.reason);
   elements.fixPanel.hidden = !state.showFix;
   elements.toggleFixBtn.textContent = state.showFix ? '隐藏修正' : '显示修正';

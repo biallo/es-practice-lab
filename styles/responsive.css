@@ -108,7 +108,7 @@
     grid-template-columns: 1fr;
   }
 
-  textarea {
+  .code-editor {
     min-height: 220px;
     border-radius: 12px;
     padding: 12px;
